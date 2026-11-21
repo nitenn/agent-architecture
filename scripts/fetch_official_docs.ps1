@@ -23,7 +23,6 @@ $repos = @(
   @{name='Smolagents';url='https://github.com/huggingface/smolagents.git'},
   @{name='Pydantic-AI';url='https://github.com/pydantic/pydantic-ai.git'},
   @{name='LlamaIndex';url='https://github.com/run-llama/llama_index.git'},
-  @{name='dsh-superagent';url='https://github.com/deepseek-ai/dsh-superagent-prototype.git'},
   @{name='MCP';url='https://github.com/modelcontextprotocol/modelcontextprotocol.git'},
   @{name='A2A';url='https://github.com/a2aproject/A2A.git'}
 )
@@ -39,7 +38,6 @@ foreach($r in $repos){
   git clone --depth 1 --filter=blob:none --sparse $r.url $dest 2>&1 | Out-String | Write-Output
   if(Test-Path (Join-Path $dest '.git')){
     $patterns = @('docs/','/*.md')
-    if($r.name -eq 'dsh-superagent'){ $patterns = @('docs/','prompts/','skills/','/*.md') }
     git -C $dest sparse-checkout set --no-cone @($patterns) 2>&1 | Out-String | Write-Output
     $count = (Get-ChildItem -Recurse -File $dest -ErrorAction SilentlyContinue | Measure-Object).Count
     Write-Output ('files checked out: ' + $count)

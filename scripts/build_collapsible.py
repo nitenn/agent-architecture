@@ -160,7 +160,7 @@ def convert(md_path, out_path):
     close_chapter()
     body = '\n'.join(out)
     # 相对 md 链接改为折叠版 html 链接
-    body = body.replace('href="主流Agent架构·任务适配与搭建指南.md"', 'href="主流Agent架构·任务适配与搭建指南·折叠版.html"')
+    body = body.replace('href="../how-to/task-fit-and-build.md"', 'href="task-fit-and-build.html"')
     page = HEAD.replace('__TITLE__', title) + body + TAIL
     open(out_path, 'w', encoding='utf-8').write(page)
     return page

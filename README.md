@@ -1,6 +1,8 @@
-# AI Agent / Harness 架构知识库
+# AI Agent 架构知识库
 
-本仓库是「主流 Agent 架构 + Harness 相关知识」的版本化知识项目（仓库根 = 本目录）。
+本仓库是「主流 Agent 架构」的版本化知识项目（仓库根 = 本目录）。
+
+> Harness 专题已拆分为独立仓库：<https://github.com/nitenn/harness-architecture>
 
 ## 目录结构
 
@@ -15,12 +17,12 @@
 │  │  └─ handover.md
 │  └─ tutorials/            # 入门型（预留）
 ├─ research/
-│  ├─ official-readmes/     # 官方 README/规范存档（47 份）
+│  ├─ official-readmes/     # 官方 README/规范存档（23 份）
 │  └─ notes/                # 调研笔记（预留）
 ├─ assets/                  # 图片/图表
 ├─ scripts/                 # 构建脚本
 ├─ exports/                 # 生成物（html/pdf/docx）
-├─ official-docs/           # 955MB 官方文档库（git 忽略，清单见 docs/reference/official-sources.md）
+├─ official-docs/           # 大体积官方文档库（git 忽略，清单见 docs/reference/official-sources.md）
 └─ README.md / AGENTS.md
 ```
 

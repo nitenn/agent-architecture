@@ -21,7 +21,6 @@
 | 长时运行、断点恢复、人工检查点 | LangGraph | 官方 durable execution / interrupts |
 | 极简多智能体工作流 | OpenAI Agents SDK | 官方 lightweight 定位 |
 | 图工作流 + Agent 委托 + Google 生态 | Google ADK | 官方 Workflow Runtime + Task API |
-| 常驻仓库/群聊、自主接单干活 | dsh-superagent | 官方常驻式主动 Coding Agent |
 | 个人/团队日常自动化（云电脑、审批、例程） | Grok Bot | 官方主动式 AI 队友（docs.x.ai/grok-bot） |
 | 类型契约/结构化输出要求高 | Pydantic AI | 官方 typed end to end |
 | 代码生成型轻量 Agent | Smolagents（CodeAgent） | 官方：行动即代码，省 30% 步骤 |
@@ -29,7 +28,7 @@
 | 接外部工具 | MCP | 官方规范 |
 | Agent 间跨框架协作 | A2A | 官方协议 |
 
-**表 B：官方数据速览**（GitHub API，2026-11-03）：LangGraph 44.4K / AutoGen 61.7K（已归档）/ AG2 5.0K / CrewAI 60.4K / LlamaIndex 52.8K / Agents SDK 30.5K / ADK 22.1K / Smolagents 30.2K / Pydantic AI 21.0K / dsh-superagent 14.1K / A2A 26.4K / MCP 9.6K。
+**表 B：官方数据速览**（GitHub API，2026-11-03）：LangGraph 44.4K / AutoGen 61.7K（已归档）/ AG2 5.0K / CrewAI 60.4K / LlamaIndex 52.8K / Agents SDK 30.5K / ADK 22.1K / Smolagents 30.2K / Pydantic AI 21.0K / A2A 26.4K / MCP 9.6K。
 
 ---
 
@@ -215,23 +214,7 @@
 
 **关键节点**：① Workflow 图节点与 fan-out/fan-in；② retry 与状态管理；③ Tool Confirmation 的人工确认点；④ Task API 的委托边界（多轮任务模式/单轮受控输出）。
 
-### 3.8 DeepSeek dsh-superagent（常驻事件驱动）
-
-**适合**：驻守一个 GitHub 仓库（可选飞书群）的常驻主动 Coding Agent——有人 @ 或规则允许时自主开工、以 PR 交付（官方定位）。适合团队希望"Agent 像成员一样随叫随到、但只在必要时打扰人"的协作模式。
-
-**不适合**：正式生产（官方明确：研究原型、非官方产品）；GitHub Enterprise Server（官方不支持）；需要强隔离的环境（官方注明 worker 进程不隔离、需专用 OS 账号）。
-
-**搭建细节**（官方 SETUP.md + docs/006，要点）：
-- 前置：Node 22.19+/24+、pnpm、git 2.32+、tmux、Python 3.8+、gh 2.48+、DSH 与模型供应商；飞书另需 lark-cli。
-- 账号：为 Agent 建**专用 GitHub 账号**（官方强调绝不用操作者本人账号），配独立凭据的 gh-agent 包装脚本（GH_CONFIG_DIR 隔离）；飞书用 lark-bot 包装 + 独立配置目录。
-- 安装五命令：npm install -g @deepseek-ai/dsh@0.2.1-rc.3 → clone 仓库 → pnpm install && pnpm build → dsh superagent --from-default-profile web --dump-config → dsh plugin --profile superagent add "link:$PWD"。
-- 配置：examples/profile.cordis.patch.yml 复制到 ~/.dsh/profiles/superagent/，必填 stateDir（数据库/锁/工作目录），可选 promptMaxChars 等。
-- 启停：scripts/dsh-superagent start / status / stop / restart（tmux 会话 dsh-superagent）；status 退出码 0 正常 / 1 运行错误 / 2 部件错误 / 3 等待配置；官方提供"每小时巡检"的完整提示词模板（放在个人 profile 而非 superagent profile）。
-- 起步策略（官方）：默认 accept 模式 observe（只记录不执行），验证 Agent"会做什么"后再逐步放开；面板只显示需要人的事项。
-
-**关键节点**：① Trigger 幂等入库（每个事件只处理一次）；② Gate 确定性准入 + Assessment 模型研判；③ Mandate 签发（策略版本/范围/强度）与人的 stop 撤回；④ 订阅扇出（后续讨论/CI 直达工单，绕过重复评估）；⑤ worker 槽位与 +1 应急槽；⑥ PR 交付规则点（<200 行 + 审批 + 指定合并账号）；⑦ 工单结束与恢复（结束工单保留订阅，人的消息可恢复）。
-
-### 3.9 xAI Grok Bot（常驻式个人 Bot 团队）
+### 3.8 xAI Grok Bot（常驻式个人 Bot 团队）
 
 **适合**：个人/小团队的日常自动化——晨间简报、收件箱管理、日程与账单、跨应用草稿、网页操作（购票、报销、预订）、客户风险巡检等；需要"后台持续运行 + 审批边界"的场景（官方定位：主动式 AI 队友 + 云电脑）。
 
@@ -268,7 +251,7 @@
 
 **不适合**：快速原型且不在乎类型的场景（类型体系是显性成本）。
 
-**搭建细节**（官方 README）：uv add pydantic-ai（Harness 编码 Agent 加 "pydantic-ai-harness[coder]"；Temporal 加 [temporal]）；Agent('openai:gpt-…', output_type=Sentiment) 声明输出类型；@agent.tool 定义工具（签名+docstring 自动成 schema）；capability 打包复用（MCP/WebSearch/Coder/Researcher）；durable：TemporalDurability() + PydanticAIWorkflow（DBOS/Prefect/Restate/Lambda/Airflow/Absurd/pgtask 同样接法）；CLI：uvx clai -a 导出 agent；观测：logfire.configure() + instrument_pydantic_ai()（OTel）。
+**搭建细节**（官方 README）：uv add pydantic-ai（Temporal 加 [temporal]）；Agent('openai:gpt-…', output_type=Sentiment) 声明输出类型；@agent.tool 定义工具（签名+docstring 自动成 schema）；capability 打包复用（MCP/WebSearch）；durable：TemporalDurability() + PydanticAIWorkflow（DBOS/Prefect/Restate/Lambda/Airflow/Absurd/pgtask 同样接法）；CLI：uvx clai -a 导出 agent；观测：logfire.configure() + instrument_pydantic_ai()（OTel）。
 
 **关键节点**：① output_type 验证与失败重试；② 工具入参的类型校验点；③ capability 的加载（defer_loading 按需载入）；④ durable 活动边界（每个模型/工具调用一个持久活动）。
 
@@ -323,7 +306,7 @@
 
 1. **路径能预定义吗？** 能 → Anthropic Workflow（链/路由/并行/OW/EO），用 LangGraph/ADK Workflow 或 CrewAI Flows 落地；不能 → 下一步。
 2. **是单智能体认知问题吗？** 步骤可预测且省成本 → ReWOO/LLMCompiler；需边做边修 → ReAct / Plan-and-Execute；同类任务反复失败 → +Reflexion；推理瓶颈值得花 token → ToT/GoT；输出需打磨 → Self-Refine。
-3. **需要多角色/多会话吗？** 软件 SOP → MetaGPT/ChatDev；角色团队 → CrewAI；委托极简 → Agents SDK；常驻主动接单 → dsh-superagent 模式；研究型群聊 → MAF/AG2（勿用已归档 AutoGen）。
+3. **需要多角色/多会话吗？** 软件 SOP → MetaGPT/ChatDev；角色团队 → CrewAI；委托极简 → Agents SDK；研究型群聊 → MAF/AG2（勿用已归档 AutoGen）。
 4. **工程底座**：长时+断点恢复+HITL → LangGraph；类型契约 → Pydantic AI；代码行动 → Smolagents（沙箱）；检索主体 → LlamaIndex。
 5. **互操作**：接工具统一 MCP；Agent 间协作走 A2A。
 6. **贯穿始终（官方）**：简单性优先、显式规划透明化、ACI 精心设计、预算上限与护栏、可观测（LangSmith/Logfire/tracing）、每加一层复杂度都要有可测收益。
@@ -332,7 +315,7 @@
 
 ## 7. 附录：官方文档库（本地完整归档）
 
-自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **official-docs/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），共 28 个文件夹：
+自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **official-docs/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），当前共 27 个文件夹：
 
 | 文件夹 | 归档内容 |
 | --- | --- |
@@ -344,7 +327,6 @@
 | CrewAI | README + docs 树（官方完整文档站） |
 | LangGraph | 官方仓库 + docs-site（langchain-ai/docs 的 LangGraph 官方文档与示例） |
 | OpenAI-Agents-SDK / Google-ADK / Smolagents / Pydantic-AI / LlamaIndex | README + docs 树 |
-| dsh-superagent | README + docs/000–008 + prompts/ + skills/ + SETUP.md（全套） |
 | Grok-Bot | 28 页官方文档（docs.x.ai/grok-bot 全套 + 订阅页，Markdown 原文） |
 | MCP / A2A | README + docs 树（官方协议规范） |
 

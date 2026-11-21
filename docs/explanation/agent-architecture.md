@@ -24,7 +24,7 @@
 
 ### 0.2 本文结构
 
-第 1 章逐讲单智能体认知架构；第 2 章讲 Anthropic 官方工作流模式；第 3 章逐讲多智能体拓扑（含 DeepSeek dsh-superagent 完整案例走查）；第 4 章讲工程框架哲学；第 5 章讲协议；第 6–8 章为数据、能力矩阵与选型组合思维。每个架构一节，节内固定包含：官方出处 → 核心机制 → 工作原理 → 官方数据 → 取舍与对比。
+第 1 章逐讲单智能体认知架构；第 2 章讲 Anthropic 官方工作流模式；第 3 章逐讲多智能体拓扑；第 4 章讲工程框架哲学；第 5 章讲协议；第 6–8 章为数据、能力矩阵与选型组合思维。每个架构一节，节内固定包含：官方出处 → 核心机制 → 工作原理 → 官方数据 → 取舍与对比。
 
 ---
 
@@ -318,39 +318,7 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 **机制评价**：ADK 把"确定性图编排"与"自主 Agent"做成同一框架的两类一等公民（Workflow 与 Agent 可互嵌），与 Anthropic 的 workflow/agent 分界完全对齐。
 
-### 3.8 DeepSeek dsh-superagent：常驻事件驱动（官方仓库 [deepseek-ai/dsh-superagent-prototype](https://github.com/deepseek-ai/dsh-superagent-prototype)，2026-10-31）
-
-> 本小节全部依据官方仓库（README + docs/000–008 + prompts/）重写，此前媒体报道的信息已清除。
-
-**官方定位（README）**：为 DeepSeek Harness 打包的"驻守一个 GitHub 仓库的主动式 Coding Agent"，监听 GitHub（可选飞书）；获授权者提出工作请求时开立工单、在自己的 Session 与目录中完成、在原会话回复（例如 PR）；Web 面板只显示需要人的事项。官方声明：研究原型、非官方产品；已为发布适配，与内部版本及文章描述的实现不完全一致，文章中的部分设计是未来方向、原型未实现。
-
-**官方哲学（docs/000）**：占用尽量少的人的注意力、提供尽量多的价值——只在被要求或团队书面规则允许时行动（主动工作先以只记录模式试运行）；只在必须有人决策或能用上结果时说话；每次只问一个具体问题；按影响而非努力程度决定停止；诚实汇报。
-
-**官方领域模型（docs/001）**：Source → Trigger → Thread → Eval → Decision（accept/stop/ignore/unavailable）→ Mandate → Ticket → Assignment → Executor → Channel。要点：
-- **Eval 双层**：Gate（确定性准入：谁有权发起、什么强度）+ Assessment（模型研判）；
-- **Mandate**：记录策略版本、范围、强度（明确/推断）；工单恢复前按当前策略重新校验；人的 stop 撤回授权；
-- **Subscription 订阅扇出**：后续讨论、CI 等触发直接送达订阅该 Thread 的工单，不再重复评估；Correlation 只添上下文、不路由。
-
-**官方执行模型（docs/003）**：每 Ticket 一个 Executor Session（worker-<工单ID>）+ 独立目录（prepare 命令默认 git worktree 检出）；后台任务 30 分钟上限；并发 worker 槽位外保留 +1 个"人发消息"应急槽；工单跟随其打开的 PR 直到关闭；自动合并默认关闭（官方规则：ready + 审批覆盖 head commit + 增删 <200 行 + 指定合并账号 CLI）；完整失败与恢复机制（重试、重启、Source/Channel 故障、暂停处理、配置失效）。
-
-**官方实现架构（docs/007）**：Cordis 插件；Engine 是唯一聚合写入者、命令在一个事务内完成；passes 每 2 秒一趟（到期 effect → evaluateDue）；Main Session（orchestrator）14 个应用工具（读写路由、工单管理、重新评估、回复、订阅管理、配置）；Executor 6 个工具（read/ack/report/thread_unrelated/thread_follow/trigger_handback）；预设 dsh-superagent-router / dsh-superagent-worker（5 秒 shell 与任务等待上限）；Worker 无对外提问/展示工具，工单结束后工具调用被拒绝。
-
-**官方提示词要点（prompts/）**：orchestrator 只评估与路由、不添加实现计划、不自行 merge、不关闭 issue、不把私密飞书内容外泄；worker 用 gh 完成全部 GitHub 操作、遵守 Ticket scope、例行问题自行解决、以 orchestrator_report 收尾并区分完成品与未完成草稿；team/delivery 定义交付规则（UI 改动必须 Before/After 视觉证据、自动合并条件、评审署名、与人工工作重复时主动让路并关闭自己的 PR）。
-
-**官方安全（docs/002/006）**：Worker 与 Router 以 danger-full-access 运行，官方要求专用 GitHub 账号；默认 accept 模式 observe（只记录不执行），验证后再逐步放开。
-
-**完整案例走查**（基于官方 docs/001–008 综合）：某人在 GitHub Issue 中 @ agent 账号——
-1. **Intake**：GitHub Source 把评论变成 Trigger，归入其 Thread；引擎以事务方式落库（每个 Trigger 只处理一次，幂等）；
-2. **Eval**：先过 Gate（此人在允许名单里吗？），再过 Assessment（模型研判该不该接）；Decision=accept，签发 Mandate；
-3. **Ticket + Assignment**：生成工单并派给一个 Executor Session，在独立目录 git worktree 检出仓库；Router 在原会话回一条确认（官方要求：只确认一次、说明要做什么）；
-4. **执行**：Worker 全程用 gh 操作，后台任务 30 分钟上限，人发消息可用应急槽插队；
-5. **订阅扇出**：Issue 后续每条讨论、CI 结果直接扇给该工单的 Worker，不经 Router 重复评估；
-6. **交付**：报 ready + 开 PR；自动合并默认关闭，要开必须满足官方全部条件；
-7. **收尾**：工单跟随 PR 至合并/关闭，Channel 回一句结果；任何时刻人说 stop，授权即撤回。
-
-**范式意义**：把多智能体协作从"对话"升级为"工单 + 状态机 + 授权版本"——可审计、可恢复、可收敛，是对自由群聊（3.3）不收敛问题的官方级回答。
-
-### 3.9 xAI Grok Bot：常驻式个人 Bot 团队（官方文档 [docs.x.ai/grok-bot](https://docs.x.ai/grok-bot/overview)）
+### 3.8 xAI Grok Bot：常驻式个人 Bot 团队（官方文档 [docs.x.ai/grok-bot](https://docs.x.ai/grok-bot/overview)）
 
 **官方定位**：Grok Bot 是"主动式 AI 队友"（proactive AI teammate）——每个 Bot 拥有云电脑，可在你的应用与网站上干活，笔记本合上后仍继续工作；多个 Bot 可以像真实团队一样协作，你的 primary Bot 负责协调。
 
@@ -380,7 +348,7 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 **扩展方式**：Apps 目录（Gmail、Google Calendar、Drive、Slack、Notion、Teams 等）、任意 **MCP 服务器**、自定义 API（官方 marketplace 的 tinkabot 可把 API 封装成 MCP+技能）；编码任务可移交 **Cursor Cloud Agents** 并把结果附回回复。
 
-**与 dsh-superagent 的对照**：同为"常驻式主动 Agent"，但形态不同——dsh-superagent 是**仓库事件驱动的工单系统**（Trigger→Eval→Mandate→Ticket，面向团队协作与代码交付）；Grok Bot 是**个人 Bot 团队 + 共享云电脑 + 审批**，面向个人/团队的日常办公与网页操作（登录、支付、跨应用草稿、日程）。共同点：事件/日程触发、审批边界、持久记忆、技能复用、多 Bot 协作。
+**边界**：Grok Bot 是产品级个人 Bot 团队，不等同于通用多智能体拓扑；本节关注其角色、上下文、工具与审批模型。
 
 ---
 
@@ -406,7 +374,7 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 **核心机制逐一**：
 - **类型契约**：output_type 声明返回类型（Pydantic 模型），每次运行返回验证过的对象；工具入参由签名自动生成 schema 并先验证——把整类运行时错误提前到写时；
-- **capability 原语**：把工具 + 指令 + hooks + 模型设置打包成可复用单元；核心自带 MCP、WebSearch；Harness 提供 memory、guardrails、sub-agents、planning、compaction、persistence，直至完整 Coder（FileSystem + Shell + RepoContext + SubAgents + 上下文管理）与 Researcher；支持按需延迟加载（defer_loading，像技能一样用时才载）；
+- **capability 原语**：把工具 + 指令 + hooks + 模型设置打包成可复用单元；核心自带 MCP、WebSearch；支持按需延迟加载；
 - **durable execution**：官方支持八引擎——Temporal、DBOS、Prefect、Restate、AWS Lambda、Airflow、Absurd、pgtask（前五与厂商联合维护），每个模型/工具调用成为持久活动，重启与长等待后仍可恢复；另有 StepPersistence（无需引擎的检查点式快照）；
 - **Pydantic Graph**：类型化的图控制流，当"一个 Agent 循环不够用"时补位；
 - **可观测**：OpenTelemetry 原生插桩，Logfire 一键点亮；Pydantic Evals 评估最终输出与工具调用轨迹（含线上流量抽样）。
@@ -486,7 +454,6 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 | Google ADK | google/adk-python | 22.1K | 2026-11-03 | Apache-2.0 | code-first Agent 工具包 |
 | Smolagents | huggingface/smolagents | 30.2K | 2026-10-29 | Apache-2.0 | 用代码思考的 barebones 库 |
 | Pydantic AI | pydantic/pydantic-ai | 21.0K | 2026-11-03 | MIT | How Python does AI |
-| dsh-superagent | deepseek-ai/dsh-superagent-prototype | 14.1K | 2026-10-31 | MIT | 迈向更自主的 Agent 系统 |
 | A2A | a2aproject/A2A | 26.4K | 2026-11-02 | Apache-2.0 | 智能体互操作开放协议 |
 | MCP | modelcontextprotocol/modelcontextprotocol | 9.6K | 2026-11-03 | MIT | MCP 规范与文档 |
 
@@ -497,8 +464,8 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 | 能力 | 官方提供方 |
 | --- | --- |
 | 持久化执行/断点恢复 | LangGraph durable execution；Pydantic AI 八引擎 durable；CrewAI checkpointing；OpenAI Agents SDK sessions |
-| 人机协同 | LangGraph interrupts；ADK Tool Confirmation；Agents SDK HITL；CrewAI human input；dsh-superagent Attention / observe 模式 |
-| 安全护栏 | Agents SDK guardrails；MCP 规范安全原则；Smolagents 沙箱强制；dsh-superagent 专用账号与权限收敛 |
+| 人机协同 | LangGraph interrupts；ADK Tool Confirmation；Agents SDK HITL；CrewAI human input |
+| 安全护栏 | Agents SDK guardrails；MCP 规范安全原则；Smolagents 沙箱强制 |
 | 可观测与评估 | LangSmith；Agents SDK 内置 tracing；Pydantic Logfire（OTel）/ Evals；ADK eval；AutoGen Bench |
 | 协议互操作 | MCP（各框架普遍支持）；A2A（CrewAI、MAF、Strands 等官方支持）；AG-UI（前端交互事件流，官方 Middleware + 1.0 迁移指南）；ACP（编辑器客户端协议，官方 Registry + v1 分节规范） |
 
@@ -514,13 +481,13 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 - 角色团队直觉匹配、要快速原型 → CrewAI（Crews + Flows）；
 - 极简上手 + 多智能体委托 → OpenAI Agents SDK；图工作流 + Google 生态 → ADK；
 - 软件研发 SOP → MetaGPT / ChatDev；对话式多智能体研究 → AutoGen 已归档，改用 MAF / AG2；
-- 常驻主动工作（监听仓库/群、自主接单）→ dsh-superagent 模式；个人/团队日常（云电脑操作、审批、技能例程）→ Grok Bot 模式。
+- 个人/团队日常（云电脑操作、审批、技能例程）→ Grok Bot 模式。
 
 **工具与输出层**：类型契约优先 → Pydantic AI；代码即行动 → Smolagents（务必沙箱）；检索/文档智能 → LlamaIndex。外部工具统一走 MCP，Agent 间协作走 A2A。
 
 **2026 生产系统参考拼装**：
 
-A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 双记忆] → Supervisor 节点（层级派单，借鉴 dsh-superagent 的授权/工单化）→ Worker 节点（ReAct + Reflexion 记忆；规划用 LLMCompiler 并行 DAG）→ MCP 工具层 → LangSmith/Logfire 可观测 + guardrails + 预算上限 + 沙箱。
+A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 双记忆] → Supervisor 节点（层级派单，采用显式授权与工单化边界）→ Worker 节点（ReAct + Reflexion 记忆；规划用 LLMCompiler 并行 DAG）→ MCP 工具层 → LangSmith/Logfire 可观测 + guardrails + 预算上限 + 沙箱。
 
 **官方总原则（Anthropic）**：从最简单方案开始，workflow 优先于 agent，只在"流程无法预先确定"时引入自主决策，且每增加复杂度必须有可测收益。
 
@@ -548,7 +515,6 @@ A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 
 - Smolagents：[huggingface/smolagents](https://github.com/huggingface/smolagents)
 - Pydantic AI：[pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai)
 - LlamaIndex：[run-llama/llama_index](https://github.com/run-llama/llama_index)
-- dsh-superagent：[deepseek-ai/dsh-superagent-prototype](https://github.com/deepseek-ai/dsh-superagent-prototype)
 - Grok Bot：[官方文档 docs.x.ai/grok-bot](https://docs.x.ai/grok-bot/overview) · [官方公告](https://x.ai/news/introducing-grok-bot)
 - MCP：[官方规范 2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18)
 - A2A：[a2aproject/A2A](https://github.com/a2aproject/A2A) · [a2a-protocol.org](https://a2a-protocol.org)
@@ -559,7 +525,7 @@ A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 
 
 ### 附录：官方文档库（本地完整归档）
 
-自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **official-docs/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），共 28 个文件夹：
+自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **official-docs/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），当前共 27 个文件夹：
 
 | 文件夹 | 归档内容 |
 | --- | --- |
@@ -571,16 +537,15 @@ A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 
 | CrewAI | README + docs 树（官方完整文档站） |
 | LangGraph | 官方仓库 + docs-site（langchain-ai/docs 的 LangGraph 官方文档与示例） |
 | OpenAI-Agents-SDK / Google-ADK / Smolagents / Pydantic-AI / LlamaIndex | README + docs 树 |
-| dsh-superagent | README + docs/000–008 + prompts/ + skills/ + SETUP.md（全套） |
 | Grok-Bot | 28 页官方文档（docs.x.ai/grok-bot 全套 + 订阅页，Markdown 原文） |
 | MCP / A2A | README + docs 树（官方协议规范） |
 | AG-UI / ACP | README + docs 树（官方协议规范） |
 
-归档完成后，已用新下载的官方文档对本文全部关键论断逐一核验（LangGraph durable execution / interrupts、ADK fan-out/fan-in、AutoGen 归档声明、Pydantic AI Temporal durable、MCP 规范、dsh-superagent 全套文档等，均与正文一致）。
+归档完成后，已用新下载的官方文档对本文全部关键论断逐一核验（LangGraph durable execution / interrupts、ADK fan-out/fan-in、AutoGen 归档声明、Pydantic AI Temporal durable、MCP 规范等，均与正文一致）。
 
 ### 附录：本地取证资料存档说明
 
-官方原始文档已存档于 _research/official/（各仓库 README 与规范原文，含 dsh-superagent 全套 docs/000–008 与 prompts/）；_research 根目录保留 dsh-superagent 官方文档副本。此前媒体/第三方资料文件已全部删除。
+官方原始文档摘录存档于 `research/official-readmes/`；大体积完整归档位于 `official-docs/`。此前媒体/第三方资料文件已全部删除。
 
 > **配套文档**：每个架构的【适合任务类型 / 不适合场景 / 官方搭建细节 / 关键节点】四维分析，见 [task-fit-and-build.md](../how-to/task-fit-and-build.md)。
 

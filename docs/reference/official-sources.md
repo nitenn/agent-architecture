@@ -1,8 +1,8 @@
 # 官方文档库清单（MANIFEST）
 
-> 官方文档库内容（955MB / 45,670 文件 / 28 个文件夹）按"只跟踪清单"策略**不纳入仓库**；本地位置：本仓库下 official-docs/（git 忽略）。
+> 官方文档库内容（当前约 1.35GB / 46,843 文件 / 27 个文件夹）按"只跟踪清单"策略**不纳入仓库**；本地位置：本仓库下 official-docs/（git 忽略）。
 >
-> 迁移时各目录的嵌套 .git 已被移除，无法固定 commit；需要更新时按"稀疏克隆"重新拉取（命令见 README）。
+> 多数目录保留独立 `.git`，可在本地固定 commit；这些内嵌仓库被根仓库忽略，不随根仓库提交。
 
 | 文件夹 | 官方来源 |
 | --- | --- |
@@ -14,7 +14,6 @@
 | AutoGen | https://github.com/microsoft/autogen |
 | ChatDev | https://github.com/OpenBMB/ChatDev |
 | CrewAI | https://github.com/crewAIInc/crewAI |
-| dsh-superagent | https://github.com/deepseek-ai/dsh-superagent-prototype |
 | Google-ADK | https://github.com/google/adk-python |
 | Graph-of-Thoughts | https://github.com/spcl/graph-of-thoughts |
 | Grok-Bot | https://docs.x.ai/grok-bot |
