@@ -1,5 +1,5 @@
 # 官方文档库内容不入库（只跟踪 docs-manifest.md 清单）
-官方文档库/
+official-docs/
 
 # 临时/系统文件
 *.tmp

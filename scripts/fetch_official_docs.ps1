@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Continue'
-$root = 'D:\AI\agent架构\官方文档库'
+$root = 'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\official-docs'
 New-Item -ItemType Directory -Force -Path $root | Out-Null
 Write-Output ('git version: ' + (git --version))
 

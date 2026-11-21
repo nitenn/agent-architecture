@@ -559,7 +559,7 @@ A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 
 
 ### 附录：官方文档库（本地完整归档）
 
-自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **官方文档库/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），共 28 个文件夹：
+自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **official-docs/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），共 28 个文件夹：
 
 | 文件夹 | 归档内容 |
 | --- | --- |
@@ -582,6 +582,6 @@ A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 
 
 官方原始文档已存档于 _research/official/（各仓库 README 与规范原文，含 dsh-superagent 全套 docs/000–008 与 prompts/）；_research 根目录保留 dsh-superagent 官方文档副本。此前媒体/第三方资料文件已全部删除。
 
-> **配套文档**：每个架构的【适合任务类型 / 不适合场景 / 官方搭建细节 / 关键节点】四维分析，见 [主流Agent架构·任务适配与搭建指南.md](主流Agent架构·任务适配与搭建指南.md)。
+> **配套文档**：每个架构的【适合任务类型 / 不适合场景 / 官方搭建细节 / 关键节点】四维分析，见 [task-fit-and-build.md](../how-to/task-fit-and-build.md)。
 
 

@@ -4,8 +4,8 @@ from docx import Document
 from docx.shared import Pt, Cm, RGBColor
 from docx.oxml.ns import qn
 
-SRC = r"D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\主流Agent架构整理.md"
-OUT = r"D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\主流Agent架构整理.docx"
+SRC = r"D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\explanation\agent-architecture.md"
+OUT = r"D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\docx\agent-architecture.docx"
 CJK = "Microsoft YaHei"
 MONO = "Consolas"
 GRAY = (0x60, 0x60, 0x60)

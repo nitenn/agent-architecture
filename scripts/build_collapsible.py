@@ -166,8 +166,8 @@ def convert(md_path, out_path):
     return page
 
 jobs = [
-    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\主流Agent架构整理.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\主流Agent架构整理·折叠版.html'),
-    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\主流Agent架构·任务适配与搭建指南.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\主流Agent架构·任务适配与搭建指南·折叠版.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\explanation\agent-architecture.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\agent-architecture.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\how-to\task-fit-and-build.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\task-fit-and-build.html'),
 ]
 for src, dst in jobs:
     page = convert(src, dst)
