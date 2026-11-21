@@ -1,0 +1,352 @@
+# 主流 Agent 架构 · 任务适配与搭建指南（官方来源版）
+
+> **说明**：本文与《主流Agent架构整理.md》（深度讲解版）配套。针对每一个架构，依据官方仓库/官方文档/论文原文，整理四件事：**① 适合的任务类型 ② 不适合/慎用的场景 ③ 搭建细节（官方命令与配置）④ 关键节点（机制中的关键环节）**。所有命令与配置均摘自官方 README/docs，未加媒体或第三方信息。GitHub 数据为 2026-11-03 经官方 API 抓取。
+
+## 0. 速查总表
+
+**表 A：按任务类型找架构**
+
+| 任务类型 | 首选架构 | 依据（官方） |
+| --- | --- | --- |
+| 需要查外部信息/调工具的多步任务 | ReAct | ICLR 2023 论文：推理+行动交织 |
+| 输出质量可反复打磨（写作/翻译/文案） | Self-Refine 或 Evaluator-optimizer | 官方仓库 7 类任务；Anthropic 官方模式 |
+| 同类任务反复失败、需要跨尝试学习 | Reflexion | 官方：口头强化学习 + 情景记忆 |
+| 步骤多、可先规划（多路检索/数据聚合） | ReWOO / LLMCompiler | 官方：省 token / 并行函数调用 |
+| 计划可能失效、需边做边修正 | Plan-and-Execute | LangGraph 官方文档模式 |
+| 推理是瓶颈（谜题/规划/创作） | ToT / GoT | 官方：Game24 74% vs CoT 4% |
+| 路径可预定义的确定性流程 | Anthropic 五模式（Workflow） | 官方：workflow 优先于 agent |
+| 软件研发全流程（需求→代码） | MetaGPT / ChatDev | 官方：Code=SOP(Team) |
+| 对话式多智能体研究原型 | AutoGen（已归档）→ MAF / AG2 | 微软官方归档声明 |
+| 角色团队自动化 + 精确控制 | CrewAI（Crews + Flows） | 官方双原语 |
+| 长时运行、断点恢复、人工检查点 | LangGraph | 官方 durable execution / interrupts |
+| 极简多智能体工作流 | OpenAI Agents SDK | 官方 lightweight 定位 |
+| 图工作流 + Agent 委托 + Google 生态 | Google ADK | 官方 Workflow Runtime + Task API |
+| 常驻仓库/群聊、自主接单干活 | dsh-superagent | 官方常驻式主动 Coding Agent |
+| 个人/团队日常自动化（云电脑、审批、例程） | Grok Bot | 官方主动式 AI 队友（docs.x.ai/grok-bot） |
+| 类型契约/结构化输出要求高 | Pydantic AI | 官方 typed end to end |
+| 代码生成型轻量 Agent | Smolagents（CodeAgent） | 官方：行动即代码，省 30% 步骤 |
+| 文档/数据检索为主体 | LlamaIndex | 官方 data framework |
+| 接外部工具 | MCP | 官方规范 |
+| Agent 间跨框架协作 | A2A | 官方协议 |
+
+**表 B：官方数据速览**（GitHub API，2026-11-03）：LangGraph 44.4K / AutoGen 61.7K（已归档）/ AG2 5.0K / CrewAI 60.4K / LlamaIndex 52.8K / Agents SDK 30.5K / ADK 22.1K / Smolagents 30.2K / Pydantic AI 21.0K / dsh-superagent 14.1K / A2A 26.4K / MCP 9.6K。
+
+---
+
+## 1. 单智能体认知架构
+
+### 1.1 ReAct
+
+**适合**：需要"边推理边取数边行动"的多步任务——官方实验的四类任务即最佳样本：多跳问答（HotpotQA）、事实核查（FEVER）、具身决策（AlfWorld）、交互购物（WebShop）；工程上所有"模型自主决定下一步调用什么工具"的场景。
+
+**不适合**：步骤可完全预知的固定流程（用 Workflow 更便宜）；对延迟/token 敏感的大批量流水线（全量轨迹回放代价高）。
+
+**搭建细节**（官方仓库）：clone 仓库、设置 OPENAI_API_KEY、按 [alfworld](https://github.com/alfworld/alfworld) 指引安装 AlfWorld、运行 hotpotqa/fever/alfworld/webshop 四个 notebook；生产工程化可直接用 [LangChain zero-shot ReAct Agent](https://python.langchain.com/docs/modules/agents/agent_types/react.html)。
+
+**关键节点**：① Thought 与 Action 的衔接（每次行动必须出自显式推理）；② Observation 回填上下文（环境事实锚定推理）；③ 终止判定（模型自行判断何时给出最终答案）；④ 轨迹累积（每轮全量回放——既是优点也是成本源）。
+
+### 1.2 Self-Refine
+
+**适合**：输出"能被明确评价且评价反馈能转化为改进指令"的任务——官方覆盖缩写生成、对话回复、代码可读性、Commongen、GSM-8k、情感迁移、程序修复（PIE）。
+
+**不适合**：反馈本身难以表达的任务（没有清晰质量标准的开放性创作）；对延迟敏感的实时场景（每轮迭代都是一次完整 LLM 调用）。
+
+**搭建细节**（官方仓库）：安装依赖 [prompt-lib](https://github.com/reasoning-machines/prompt-lib)；按任务运行 src/<task>/run.py（如缩写生成：python -u src/acronym/run.py "标题"）；GSM-8k 用 src/gsm/gsm_selfref_eval.py 评估并生成含错误例子的报告。
+
+**关键节点**：① 反馈生成点（同一模型切换为批评者角色）；② 精炼循环的终止条件（官方任务各有停止标准）；③ "初稿+反馈"拼接进下一轮提示词的方式。
+
+### 1.3 Reflexion
+
+**适合**：同类任务会**反复出现**、失败模式可以文字化总结的长期场景——官方实验：HotpotQA 推理、AlfWorld 决策、编程题（LeetcodeHardGym）；工程上对应"测试失败→反思→重试"的自动修码循环。
+
+**不适合**：一次性任务（无下一轮尝试，记忆无处使用）；失败原因难以用文字诊断的任务。
+
+**搭建细节**（官方仓库）：clone 后按任务进 hotpotqa_runs / alfworld_runs / programming_runs；AlfWorld 用 run_reflexion.sh，关键参数：num_trials（迭代轮数）、num_envs（每轮环境数）、use_memory（记忆开关）、is_resume/resume_dir（断点续跑）。
+
+**关键节点**：① 失败判定（环境信号：答案错误/任务失败）；② 反思生成（verbal self-reflection 文本）；③ 记忆写入与加载（episodic memory 跨尝试注入）；④ num_trials 边界（迭代上限）。
+
+### 1.4 Plan-and-Execute
+
+**适合**：步骤较多、可"先规划后执行"的任务；执行阶段相对确定、只需周期性检查计划是否仍有效的场景（LangGraph 官方以该模式示范长链任务的可靠执行）。
+
+**不适合**：每一步都依赖上一步观察、必须即时决策的任务（此时 ReAct 更自然）；步骤极少的简单任务（规划本身是开销）。
+
+**搭建细节**（官方文档）：按 LangGraph 官方教程（docs.langchain.com，原 langchain-ai.github.io/langgraph/tutorials/plan-and-execute）以状态机实现；核心状态为计划、上一步结果与重规划次数，Planner/Executor/Replanner 三节点成环。
+
+**关键节点**：① 计划生成；② 每步执行结果的记录点；③ 重规划触发条件（计划失效的判定）；④ 重规划次数上限（防无限循环）。
+
+### 1.5 ReWOO
+
+**适合**：步骤可预测、工具结果可以"先占位后回填"的多步检索任务——官方实验：HotpotQA 等六基准 + 私有文档问答（SOTU2023）；token 预算敏感的场景（官方 5× token 效率）。
+
+**不适合**：执行中可能出现意外、需要即时调整计划的开放式任务（计划是一次性定死的）；对中间结果有强依赖的交互任务。
+
+**搭建细节**（官方仓库）：pip install -r requirements.txt；配置 OpenAI/WolframAlpha/SerpApi 三把 key；单次运行 python run.py --method rewoo --toolset Google LLM --base_lm gpt-3.5-turbo（planner_lm 与 solver_lm 可分开指定）；批量评测 run_eval.py --dataset hotpot_qa --sample_size 10；官方开源 planner_7B（HF: rewoo/planner_7B）可直接当规划器。
+
+**关键节点**：① Planner 产出计划与占位符分配（#E1、#E2…）；② Worker 顺序执行；③ Solver 的占位符回填点（唯一一次把真实结果还给模型的时刻）；④ 工具失败时的降级路径（官方称其对工具故障更鲁棒）。
+
+### 1.6 LLMCompiler
+
+**适合**：多路检索/多数据源聚合等**可并行**的函数调用任务——官方基准 HotpotQA、Movie Recommendation、ParallelQA；对延迟与成本都敏感的生产流水线。
+
+**不适合**：任务间依赖复杂到难以标注 DAG 的场景（标注错误会被 TFU 放大）；模型结构化输出能力不足的环境。
+
+**搭建细节**（官方仓库）：conda 建 Python 3.10 环境 + pip install -r requirements.txt；运行 python run_llm_compiler.py --benchmark {hotpotqa,movie,parallelqa} --store <路径> [--stream]；自定义任务只需提供 configs 下的 gpt_prompts.py（示例）与 tools.py（工具定义）；支持 --react 切换 ReAct 基线、--model_type vllm/azure/friendli；官方已提供 LangGraph 与 LlamaIndex 集成版。
+
+**关键节点**：① Planner 的 DAG 依赖标注（每个任务声明参数来源）；② TFU 的依赖就绪判定与即时下发；③ Executor 的并行执行边界；④ stream 模式下"边生成边执行"的下发节奏。
+
+### 1.7 Tree of Thoughts
+
+**适合**：**推理瓶颈型**任务——官方实验：Game of 24（74% vs CoT 约 4%）、创意写作、迷你填字；需要"多想几条路再定"的规划/谜题类问题。
+
+**不适合**：工具密集型任务（评估环节的 token 成本无对应收益）；延迟敏感场景（树宽 × 评估次数的平方级开销）。
+
+**搭建细节**（官方仓库）：pip install tree-of-thoughts-llm；Quick Start 用 tot.methods.bfs 解 Game24；复现实验 scripts/{game24,text,crosswords}/{standard_sampling,cot_sampling,bfs}.sh；关键参数：--method_generate（sample/propose）、--method_evaluate（value/vote）、--n_generate_sample、--n_evaluate_sample、--n_select_sample（保留 b 个状态）。
+
+**关键节点**：① propose/sample（候选思路生成）；② evaluate 的打分或投票；③ select 的剪枝点（保留 b 个）；④ BFS/DFS 的回溯策略（Game24 用 BFS，填字用 DFS）。
+
+### 1.8 Graph of Thoughts
+
+**适合**：问题结构可显式建模为"生成-打分-合并-校验"图的任务——官方示例：数字排序、关键词计数；需要对多条思路做**合并（Aggregate）**的场景。
+
+**不适合**：无法预先设计操作图的任务（拓扑设计本身是负担）；简单问答（图执行开销无意义）。
+
+**搭建细节**（官方仓库）：pip install graph_of_thoughts；构造 GraphOfOperations（Generate → Score → GroundTruth 等操作）+ Controller(lm, gop, Prompter, Parser, 初始状态)；示例：python -m examples.sorting.sorting_032、python -m examples.keyword_counting.keyword_counting；LLM 配置见 Controller README。
+
+**关键节点**：① 操作图设计（节点类型与边依赖）；② Controller 的调度执行；③ Aggregate 合并点（多路思想汇成一路——树做不到的能力）；④ GroundTruth 校验与最终状态评分。
+
+### 1.9 LATS
+
+**适合**：需要"搜索 + 反思 + 环境反馈"三重结合的困难决策/推理任务（论文以 WebShop、HotpotQA、编程等验证）。
+
+**不适合**：论文未提供公开官方实现仓库——落地需自行复现；成本高（MCTS 的搜索预算）。
+
+**搭建细节**：论文原文 [arXiv:2310.04406](https://arxiv.org/abs/2310.04406)（官方实现仓库未公开，本指南不作搭建展开）。
+
+**关键节点**：① MCTS 的选择策略（UCB 决定扩展分支）；② 环境反馈注入；③ 自我反思对节点价值的修正；④ 搜索预算（迭代上限）。
+
+---
+
+## 2. Anthropic 官方工作流五模式
+
+来源：[Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)（官方，2024-12-19）。官方对每个模式都给出了"适用条件"与"示例"，本表为官方原文要点。**官方总原则：能预定义路径就用 workflow；从最简单方案开始；增加复杂度必须有可测收益。**
+
+| 模式 | 适合（官方适用条件） | 官方示例 | 关键节点 | 搭建 |
+| --- | --- | --- | --- | --- |
+| Prompt chaining | 任务可干净拆成固定子步骤 | 营销文案→翻译；先大纲后正文 | 每步的 gate 程序化检查点 | 官方建议直接 API 串行调用；参考官方 cookbook |
+| Routing | 输入有清晰类别、分类准确 | 客服分类；易/难题路由到不同成本模型 | 分类点（LLM 或传统分类器） | 分类器 + 分派字典 |
+| Parallelization | 子任务可并行，或需多视角投票 | 并行护栏；代码漏洞多视角评审 | 聚合点（sectioning 汇总 / voting 计票） | 多路并发调用 + 程序化聚合 |
+| Orchestrator-workers | **子任务不可预知**（官方与并行化的关键区别） | 多文件代码修改；多源搜索 | 中心 LLM 的拆解与派发点、结果综合点 | 中心循环 + worker 池 |
+| Evaluator-optimizer | 有明确评估标准且迭代可测收益 | 文学翻译；多轮搜索 | 评估器的反馈生成点、迭代终止条件 | 生成/评估两 LLM 成环 |
+
+**自主 Agent（官方）**：适合开放性问题、步数不可预测、无法硬编码路径；执行中每步从环境获取 ground truth；必须设停止条件（如最大迭代数）；沙箱测试 + 护栏。官方三条核心原则：简单性、透明性（显式展示规划步骤）、精心设计 ACI（工具文档与测试）。
+
+---
+
+## 3. 多智能体协作拓扑
+
+### 3.1 MetaGPT（SOP 流水线）
+
+**适合**：软件研发与文档生产等**流程已知**的领域——一行需求产出用户故事/竞品分析/需求/数据结构/API/文档（官方定位）。
+
+**不适合**：开放探索类任务（SOP 反而僵化）。
+
+**搭建细节**（官方仓库）：Python 3.9–3.11 + Node + pnpm；pip install metagpt（或源码安装）；metagpt --init-config 生成 ~/.metagpt/config2.yaml（配置 llm.api_type/model/base_url/api_key）；CLI：metagpt "Create a 2048 game"；库式：from metagpt.software_company import generate_repo；Data Interpreter：from metagpt.roles.di.data_interpreter import DataInterpreter。
+
+**关键节点**：① SOP 角色序列（PM→架构师→项目经理→工程师）；② 结构化产出交接点（PRD/设计文档/任务清单）；③ 最终代码仓库生成（generate_repo 输出 workspace）。
+
+### 3.2 ChatDev（剧本式 → 零代码平台）
+
+**适合**：软件全生命周期自动化（1.0 的虚拟软件公司）；需要**配置化定制多智能体协作**的场景（2.0 DevAll：数据可视化、3D 生成、深度研究）。
+
+**不适合**：需要精细过程控制的场景（对话式协作天然非确定）。
+
+**搭建细节**（官方仓库）：ChatDev 2.0：Python 3.12+、Node 18+、uv sync、frontend 内 npm install、.env 配 API_KEY/BASE_URL；ChatDev 1.0（chatdev1.0 分支）：python3 run.py --task "想法" --config "Human"（人类评审模式）/ "Art"（设计模式）/ "incremental"（增量开发）+ --path 源码目录。
+
+**关键节点**：① ChatChain 相位推进（设计→编码→测试→文档）；② 角色间对话交接；③ 配置化工作流定义（2.0）；④ 学术变体的拓扑切换（MacNet DAG / Puppeteer 可学习编排）。
+
+### 3.3 AutoGen → MAF / AG2（消息式群聊）
+
+**适合**：对话式多智能体研究与原型（双智能体对话、群聊）；代码执行型 Agent 团队（Magentic-One 式）。
+
+**不适合**：**生产新项目**——微软官方已归档 AutoGen 并明确"不建议生产使用、无安全修复"，官方指定迁移 MAF（企业级编排 + A2A/MCP）或社区 AG2。
+
+**搭建细节**（官方 README）：pip install -U "autogen-agentchat" "autogen-ext[openai]"；AssistantAgent + OpenAIChatCompletionClient；MCP 工具经 McpWorkbench + StdioServerParams（官方警告：只连可信 MCP 服务器）；多智能体经 AgentTool 包装；AutoGen Studio：pip install autogenstudio + autogenstudio ui --port 8080（官方声明非生产用途）。**新项目**：按 [官方迁移指南](https://learn.microsoft.com/en-us/agent-framework/migration-guide/from-autogen/) 迁 MAF。
+
+**关键节点**：① 消息传递（Core 层事件驱动，跨 Python/.NET）；② GroupChat 的发言者选择（群管理器决定下一个发言者）；③ 对话终止条件（群聊收敛的痛点所在）。
+
+### 3.4 CrewAI（Crews + Flows）
+
+**适合**：角色团队式多智能体自动化（研究→分析→写作类内容流水线）；需要"自主协作 + 精确控制"混合的场景（官方明说两原语嵌套才是完整形态）。
+
+**不适合**：仅需简单单步调用的场景（团队抽象是开销）；精细到节点级的控制流（Flows 可补，但图式框架更彻底）。
+
+**搭建细节**（官方 README）：Python 3.10–3.13；uv tool install crewai；crewai create crew <项目名>（JSON-first：agents/*.jsonc + crew.jsonc；老式 YAML 用 --classic）；crewai install && crewai run；进程 process: "sequential" 或 "hierarchical"（自动 manager）；任务 context 声明依赖；tools/ 目录自定义工具（"custom:<name>" 引用）；商业 AMP Suite 提供托管/可观测/治理。
+
+**关键节点**：① 任务依赖（task.context 链）；② 进程切换点（sequential vs hierarchical 的 manager 委派）；③ human input 检查点；④ MCP/A2A 接入点。
+
+### 3.5 LangGraph（状态图）
+
+**适合**：长时运行、有状态、需要断点恢复与人工检查点的复杂工作流/多智能体系统（官方 durable execution + interrupts + 双记忆）。
+
+**不适合**：一次性简单调用（图样板代码无必要）。
+
+**搭建细节**（官方 README）：pip install -U langgraph；快速起手 create_react_agent(model, tools)；自定义 StateGraph（节点/边/条件边 + 状态归并）；官方文档：docs.langchain.com（durable execution、interrupts、memory 专页）；上层 Deep Agents 包；LangSmith 做观测，LangSmith Deployment 部署。
+
+**关键节点**：① 状态定义与归并规则；② checkpoint 持久化点（每步之后可恢复）；③ interrupt 挂起点（人工改状态后放行）；④ 子图/条件边的拓扑点。
+
+### 3.6 OpenAI Agents SDK（委托原语）
+
+**适合**：需要"多智能体 + 最快路径"的 OpenAI 生态项目；含语音/实时/沙箱容器等完整界面（官方 Realtime/Voice/Sandbox agents）。
+
+**不适合**：需要复杂图式控制流的场景（官方 handoff 模型比图式方法弱，复杂拓扑换图框架）。
+
+**搭建细节**（官方 README）：pip install openai-agents（语音加 [voice]，Redis 会话加 [redis]）；Agent + Runner.run_sync；SandboxAgent 配 Manifest 与 UnixLocal/DockerSandboxClient；RealtimeAgent/VoicePipeline 走 WebSocket 语音；guardrails/handoffs/sessions 开箱即用。
+
+**关键节点**：① handoff 交接点（把子 Agent 当工具调用）；② guardrail 校验点（输入/输出两侧）；③ session 历史持久化点；④ tracing 埋点。
+
+### 3.7 Google ADK 2.0（图运行时 + 任务委托）
+
+**适合**：确定性图编排 + Agent 自主性混合的系统；Google Cloud 生态（Cloud Run / Vertex AI Agent Engine）；多语言团队（Python/Java/Kotlin/Go/TS）。
+
+**不适合**：追求极简的场景（ADK 概念面较广）。
+
+**搭建细节**（官方 README）：pip install google-adk（扩展加 [extensions]）；Agent（name/model/instruction）与 Workflow（edges 定义 START→agent 链）；本地跑 adk run path/to/agent；开发 UI：adk web path/to/agents_dir；评估：adk eval <agent> <evalset> --config_file_path <config>；部署：adk deploy docker|cloud_run --with_ui <agent-folder>；无代码：Agent Config。
+
+**关键节点**：① Workflow 图节点与 fan-out/fan-in；② retry 与状态管理；③ Tool Confirmation 的人工确认点；④ Task API 的委托边界（多轮任务模式/单轮受控输出）。
+
+### 3.8 DeepSeek dsh-superagent（常驻事件驱动）
+
+**适合**：驻守一个 GitHub 仓库（可选飞书群）的常驻主动 Coding Agent——有人 @ 或规则允许时自主开工、以 PR 交付（官方定位）。适合团队希望"Agent 像成员一样随叫随到、但只在必要时打扰人"的协作模式。
+
+**不适合**：正式生产（官方明确：研究原型、非官方产品）；GitHub Enterprise Server（官方不支持）；需要强隔离的环境（官方注明 worker 进程不隔离、需专用 OS 账号）。
+
+**搭建细节**（官方 SETUP.md + docs/006，要点）：
+- 前置：Node 22.19+/24+、pnpm、git 2.32+、tmux、Python 3.8+、gh 2.48+、DSH 与模型供应商；飞书另需 lark-cli。
+- 账号：为 Agent 建**专用 GitHub 账号**（官方强调绝不用操作者本人账号），配独立凭据的 gh-agent 包装脚本（GH_CONFIG_DIR 隔离）；飞书用 lark-bot 包装 + 独立配置目录。
+- 安装五命令：npm install -g @deepseek-ai/dsh@0.2.1-rc.3 → clone 仓库 → pnpm install && pnpm build → dsh superagent --from-default-profile web --dump-config → dsh plugin --profile superagent add "link:$PWD"。
+- 配置：examples/profile.cordis.patch.yml 复制到 ~/.dsh/profiles/superagent/，必填 stateDir（数据库/锁/工作目录），可选 promptMaxChars 等。
+- 启停：scripts/dsh-superagent start / status / stop / restart（tmux 会话 dsh-superagent）；status 退出码 0 正常 / 1 运行错误 / 2 部件错误 / 3 等待配置；官方提供"每小时巡检"的完整提示词模板（放在个人 profile 而非 superagent profile）。
+- 起步策略（官方）：默认 accept 模式 observe（只记录不执行），验证 Agent"会做什么"后再逐步放开；面板只显示需要人的事项。
+
+**关键节点**：① Trigger 幂等入库（每个事件只处理一次）；② Gate 确定性准入 + Assessment 模型研判；③ Mandate 签发（策略版本/范围/强度）与人的 stop 撤回；④ 订阅扇出（后续讨论/CI 直达工单，绕过重复评估）；⑤ worker 槽位与 +1 应急槽；⑥ PR 交付规则点（<200 行 + 审批 + 指定合并账号）；⑦ 工单结束与恢复（结束工单保留订阅，人的消息可恢复）。
+
+### 3.9 xAI Grok Bot（常驻式个人 Bot 团队）
+
+**适合**：个人/小团队的日常自动化——晨间简报、收件箱管理、日程与账单、跨应用草稿、网页操作（购票、报销、预订）、客户风险巡检等；需要"后台持续运行 + 审批边界"的场景（官方定位：主动式 AI 队友 + 云电脑）。
+
+**不适合**：需要严格隔离的多 Bot 共享环境（官方明言同一账号的 Bot 共享云电脑，屏幕不是安全边界）；不可逆操作不能只靠模型自觉（官方要求对发送/发布/支付/删除等设 Ask first）；把凭据直接贴进对话（必须走 Vault / Secure Form）。
+
+**搭建细节**（官方 get-started）：
+- 安装桌面 App（macOS / Windows / Linux；x.ai/bot 下载，团队可走 Cursor dashboard 的安装行）；
+- 登录：使用 Cursor 账号（企业 SSO 沿用）；也可用 X Subscription Premium/Super/Ultra 或 Grok 订阅访问；
+- 首个 Bot 给一个职责并让它记住规则（"一个 Bot 一个职责"）；之后按需 New Bot；
+- 连接 Apps（Gmail、Calendar、Drive、Slack、Notion、Teams…）；无 App 的服务接 **MCP 服务器**（marketplace 的 tinkabot 可从 API 生成 MCP+技能）；
+- 建 **routine**：定时或事件触发（Slack/GitHub/Linear/Sentry/PagerDuty/邮件/webhook）；
+- 团队：部署、身份与访问、私有网络、TLS 代理、电脑管理、推理钩子（官方 teams 页）；
+- 起步先用 **Ask first** 规则覆盖发送、发布、支付、删除等敏感动作；Auto Review 默认开启。
+
+**关键节点**：① Auto Review 逐动作检查点；② 自定义 Ask first 规则点；③ Vault/Secure Form 凭据注入点（Bot 不可见）；④ 电脑接管点（SSO/CAPTCHA/银行验证）；⑤ skill 保存点；⑥ routine 触发点；⑦ primary Bot 协调点。
+
+---
+
+## 4. 单智能体工程框架
+
+### 4.1 Smolagents（CodeAgent）
+
+**适合**：代码生成型轻量 Agent、研究原型、需要极简抽象（官方约 1000 行核心）；多模态输入（文本/视觉/视频/音频）；HuggingFace 生态（Hub 分享、推理供应商）。
+
+**不适合**：生产部署需要自己补观测/护栏/沙箱（官方明确 LocalPythonExecutor 不是安全边界）。
+
+**搭建细节**（官方 README）：pip install "smolagents[toolkit]"；CodeAgent(tools=[WebSearchTool()], model=InferenceClientModel())；模型任选（TransformersModel/LiteLLMModel/OpenAIModel/AzureOpenAIModel/AmazonBedrockModel）；沙箱：E2B/Blaxel/Modal/Docker；分享：agent.push_to_hub / from_hub；CLI：smolagent（交互向导）、webagent（网页浏览）。
+
+**关键节点**：① 代码动作的解析与执行；② 执行日志回填 memory；③ final_answer 终止点；④ 沙箱边界（任意代码执行的安全前提）。
+
+### 4.2 Pydantic AI
+
+**适合**：输出契约严格的工程系统（官方 typed end to end）；同一 Agent 要多界面复用的场景（CLI/Web/语音/后台队列/GH Actions/ACP/AG-UI）；需要 durable execution（官方八引擎）。
+
+**不适合**：快速原型且不在乎类型的场景（类型体系是显性成本）。
+
+**搭建细节**（官方 README）：uv add pydantic-ai（Harness 编码 Agent 加 "pydantic-ai-harness[coder]"；Temporal 加 [temporal]）；Agent('openai:gpt-…', output_type=Sentiment) 声明输出类型；@agent.tool 定义工具（签名+docstring 自动成 schema）；capability 打包复用（MCP/WebSearch/Coder/Researcher）；durable：TemporalDurability() + PydanticAIWorkflow（DBOS/Prefect/Restate/Lambda/Airflow/Absurd/pgtask 同样接法）；CLI：uvx clai -a 导出 agent；观测：logfire.configure() + instrument_pydantic_ai()（OTel）。
+
+**关键节点**：① output_type 验证与失败重试；② 工具入参的类型校验点；③ capability 的加载（defer_loading 按需载入）；④ durable 活动边界（每个模型/工具调用一个持久活动）。
+
+### 4.3 LlamaIndex
+
+**适合**：以文档/数据检索为主体的 Agent（官方 data framework：连接器→索引→查询）；文档智能流水线（LlamaParse 的 Parse/Extract/Index/Split/Agents）。
+
+**不适合**：Agent 循环本身要求高的场景（官方自认 Agent 循环非主线，是检索基础设施上的编排层）。
+
+**搭建细节**（官方 README）：pip install llama-index-core + 按需集成包（llama-index-llms-openai / -embeddings-huggingface 等，共 300+）；SimpleDirectoryReader("目录").load_data() → VectorStoreIndex.from_documents(docs) → index.as_query_engine().query("问题")；持久化 storage_context.persist() / load_index_from_storage；LlamaParse 平台独立注册使用。
+
+**关键节点**：① 数据连接器摄取点；② 索引构建点（向量/图等）；③ 查询引擎的检索-增强-生成链路；④ LlamaParse 的 OCR/抽取/入库环节。
+
+---
+
+## 5. 协议层
+
+### 5.1 MCP
+
+**适合**：任何需要**标准化接入外部工具/数据**的 LLM 应用（官方：IDE、聊天界面、自定义工作流）。
+
+**搭建细节**（官方规范 2025-06-18）：按 Hosts/Clients/Servers 三方实现；JSON-RPC 2.0 + 能力协商；Server 实现 Resources/Prompts/Tools 任一特性；Client 实现 Sampling/Roots/Elicitation；权威 schema 在官方仓库 schema/2025-06-18/schema.ts；实现指南见 modelcontextprotocol.io。
+
+**关键节点**：① 连接与能力协商；② 工具调用前的用户同意点（规范安全原则：调用前必须取得明确同意）；③ 采样请求的审批点（用户可见实际提示、控制服务器可见范围）；④ Roots 边界声明。
+
+### 5.2 A2A
+
+**适合**：跨框架、跨组织的 Agent 协作（官方：不同公司、不同框架、不同服务器的 Agent 互通）；长时任务协作（SSE + 推送）。
+
+**搭建细节**（官方 README）：六语言 SDK——Python pip install a2a-sdk、Go go get github.com/a2aproject/a2a-go、JS npm install @a2a-js/sdk、Java、.NET、Rust；按 [a2a-protocol.org/latest/specification](https://a2a-protocol.org/latest/specification/) 实现；samples 仓库起步；DeepLearning.AI 官方课程可把 ADK/LangGraph/BeeAI 的 Agent 包装成 A2A 服务。
+
+**关键节点**：① Agent Card 发现（能力与端点声明）；② 任务创建与 JSON-RPC 交互；③ SSE 流式更新与异步推送；④ 不透明边界（不暴露内部状态/记忆/工具）。
+### 5.3 AG-UI
+
+**适合**：Agent 产品需要接前端界面（聊天 UI/工作台）时的标准化交互层；需要复用既有协议或进程内 Agent 时走官方 Middleware。
+
+**搭建细节**（官方 docs.ag-ui.com）：按官方 Server / Middleware / Clients 三条 quickstart；核心是事件流（concepts/events，消息/工具调用状态/快照）；版本迁移按官方 Migrating to 1.0。
+
+**关键节点**：① 事件流建立；② Middleware 桥接既有协议或进程内 Agent；③ 与 MCP/A2A 的分工边界（官方 agentic-protocols 专页）。
+
+### 5.4 ACP
+
+**适合**：编辑器/IDE 类客户端接本地或远程 Agent；需要 Agent 可插拔（经官方 ACP Registry 查找安装）。
+
+**搭建细节**（官方 agentclientprotocol.com）：按 v1 分节规范实现初始化 / 认证 / 会话建立 / 会话列表 / 会话删除 / 提示词；Agent 与 Client 两侧实现清单见官方 Agents / Clients 页。
+
+**关键节点**：① 初始化与认证握手；② 会话生命周期（创建/列表/删除）；③ 经 ACP Registry 分发与安装 Agent。
+
+---
+
+## 6. 组合决策树（官方依据）
+
+1. **路径能预定义吗？** 能 → Anthropic Workflow（链/路由/并行/OW/EO），用 LangGraph/ADK Workflow 或 CrewAI Flows 落地；不能 → 下一步。
+2. **是单智能体认知问题吗？** 步骤可预测且省成本 → ReWOO/LLMCompiler；需边做边修 → ReAct / Plan-and-Execute；同类任务反复失败 → +Reflexion；推理瓶颈值得花 token → ToT/GoT；输出需打磨 → Self-Refine。
+3. **需要多角色/多会话吗？** 软件 SOP → MetaGPT/ChatDev；角色团队 → CrewAI；委托极简 → Agents SDK；常驻主动接单 → dsh-superagent 模式；研究型群聊 → MAF/AG2（勿用已归档 AutoGen）。
+4. **工程底座**：长时+断点恢复+HITL → LangGraph；类型契约 → Pydantic AI；代码行动 → Smolagents（沙箱）；检索主体 → LlamaIndex。
+5. **互操作**：接工具统一 MCP；Agent 间协作走 A2A。
+6. **贯穿始终（官方）**：简单性优先、显式规划透明化、ACI 精心设计、预算上限与护栏、可观测（LangSmith/Logfire/tracing）、每加一层复杂度都要有可测收益。
+
+---
+
+## 7. 附录：官方文档库（本地完整归档）
+
+自 2026-11-07 起，每个主流架构的官方文档已按独立文件夹完整归档于 **官方文档库/**（git 稀疏克隆：README + docs 树；小型学术仓库为全量），共 28 个文件夹：
+
+| 文件夹 | 归档内容 |
+| --- | --- |
+| ReAct / Self-Refine / Reflexion / ReWOO / LLMCompiler / Tree-of-Thoughts / Graph-of-Thoughts | 官方仓库全量（论文代码与实验） |
+| LATS | 说明文件：论文 arXiv:2310.04406（官方未公开实现仓库） |
+| Plan-and-Execute | 说明文件：LangGraph 官方文档模式（文档见 LangGraph 文件夹） |
+| Anthropic-Building-Effective-Agents | 官方博客全文 Markdown + 说明 |
+| MetaGPT / ChatDev / AutoGen / Microsoft-Agent-Framework / AG2 | README + docs 树（AutoGen 含官方归档声明） |
+| CrewAI | README + docs 树（官方完整文档站） |
+| LangGraph | 官方仓库 + docs-site（langchain-ai/docs 的 LangGraph 官方文档与示例） |
+| OpenAI-Agents-SDK / Google-ADK / Smolagents / Pydantic-AI / LlamaIndex | README + docs 树 |
+| dsh-superagent | README + docs/000–008 + prompts/ + skills/ + SETUP.md（全套） |
+| Grok-Bot | 28 页官方文档（docs.x.ai/grok-bot 全套 + 订阅页，Markdown 原文） |
+| MCP / A2A | README + docs 树（官方协议规范） |
+
+本指南的搭建细节与关键节点均已依据上述归档文档核验。
+

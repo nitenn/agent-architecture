@@ -1,0 +1,15 @@
+# 官方文档库内容不入库（只跟踪 docs-manifest.md 清单）
+官方文档库/
+
+# 临时/系统文件
+*.tmp
+~$*
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# 缓存
+__pycache__/
+*.pyc
+.vscode/
+.idea/
