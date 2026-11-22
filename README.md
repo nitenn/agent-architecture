@@ -2,6 +2,7 @@
 
 本仓库是「主流 Agent 架构」的版本化知识项目（仓库根 = 本目录）。
 
+> GitHub：<https://github.com/nitenn/agent-architecture>
 > Harness 专题已拆分为独立仓库：<https://github.com/nitenn/harness-architecture>
 
 ## 目录结构

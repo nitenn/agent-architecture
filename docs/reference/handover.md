@@ -5,6 +5,7 @@
 ## 关键事实
 
 - 仓库根：D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构（main）
+- GitHub：https://github.com/nitenn/agent-architecture
 - 文档：docs/explanation/agent-architecture.md（主文档）+ docs/how-to/task-fit-and-build.md（指南）
 - 参考：docs/reference/official-sources.md（27 个官方来源）、docs/reference/handover.md（本文）
 - 官方文档库：official-docs/（git 忽略）
