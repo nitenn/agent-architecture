@@ -13,3 +13,6 @@ __pycache__/
 *.pyc
 .vscode/
 .idea/
+
+# 每日监测原始快照（仅保留状态、报告与待审队列）
+knowledge/state/snapshots/

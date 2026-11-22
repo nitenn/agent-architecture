@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>知识主张账本</title>
+<style>
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;max-width:1000px;margin:20px auto;padding:0 20px;color:#1c1c1c;line-height:1.65}
+h1{font-size:1.65em;border-bottom:3px solid #2b6cb0;padding-bottom:8px;margin-bottom:6px}
+.bar{position:sticky;top:0;background:#fff;z-index:5;padding:8px 0;border-bottom:1px solid #dfe6ee;margin-bottom:10px}
+.bar button{background:#2b6cb0;color:#fff;border:none;border-radius:6px;padding:6px 14px;margin-right:8px;cursor:pointer;font-size:.92em}
+.bar button:hover{background:#1a4971}
+details.chap{margin:10px 0;border:1px solid #d7dee8;border-radius:8px;overflow:hidden;background:#fff}
+details.chap>summary{background:#eef4fb;font-weight:700;font-size:1.1em;padding:10px 14px;cursor:pointer;list-style:none}
+details.chap>summary::before{content:'▸ ';color:#2b6cb0}
+details.chap[open]>summary::before{content:'▾ ';color:#2b6cb0}
+details.chap>summary:hover{background:#e2edf8}
+details.sec{margin:6px 12px 6px 16px;border-left:3px solid #c5d5e8;padding-left:10px}
+details.sec>summary{font-weight:600;color:#2b6cb0;padding:6px 4px;cursor:pointer;list-style:none}
+details.sec>summary::before{content:'▸ ';color:#7f9fc4}
+details.sec[open]>summary::before{content:'▾ ';color:#7f9fc4}
+details.sec>summary:hover{color:#1a4971}
+table{border-collapse:collapse;margin:8px 0;font-size:.92em;width:100%}
+th,td{border:1px solid #c9d2dd;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4f9}
+blockquote{border-left:4px solid #9db8d6;margin:8px 0;padding:4px 12px;color:#3d4754;background:#f7fafd}
+code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+a{color:#2b6cb0}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+p{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>知识主张账本</h1>
+<div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
+<blockquote>自动生成。更新时间：2026-11-22。</blockquote>
+<p>本账本是当前可维护的说法集合。<code>status=active</code> 表示当前采用；<code>superseded</code> 只在历史追溯时保留。</p>
+<details class="chap" open><summary>Harness 设计</summary>
+<details class="sec"><summary>工具接口、上下文预算、状态持久化、权限和验证应作为一等设计对象，而不是提示词之外的事后补丁。</summary>
+<ul><li>ID: <code>claim-tool-context-first-class</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic Building Effective Agents</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/concepts/harness" target="_blank">Microsoft Agent Harness</a> · <a href="https://www.anthropic.com/research/effective-harnesses-for-long-running-agents" target="_blank">Effective harnesses for long-running agents</a> · <a href="https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture" target="_blank">Enterprise Agentic Architecture</a></li><li>说明: 来自多厂商文档与工程实践的归纳。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>协议分层</summary>
+<details class="sec"><summary>MCP 主要解决模型/Agent 与工具和上下文之间的接入，A2A 主要解决 Agent 与 Agent 之间的互操作；两者是互补层，不是替代关系。</summary>
+<ul><li>ID: <code>claim-mcp-a2a-layers</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://modelcontextprotocol.io/specification/2025-06-18" target="_blank">Model Context Protocol Specification</a> · <a href="https://a2a-protocol.org/latest/specification/" target="_blank">Agent2Agent Protocol Specification</a> · <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk" target="_blank">Google Agent Development Kit</a></li><li>说明: AG-UI 负责前端交互，ACP 负责编辑器客户端接入。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>架构选择</summary>
+<details class="sec"><summary>当任务路径可以预定义时，应优先使用 workflow；只有步骤不可预测、需要运行中依据环境动态决策时，才引入自主 Agent。</summary>
+<ul><li>ID: <code>claim-workflow-before-agent</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2024-12-19</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic Building Effective Agents</a> · <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI Building Agents</a></li><li>说明: Anthropic 的核心工程原则；OpenAI 的实际指南也强调渐进式复杂度。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>概念边界</summary>
+<details class="sec"><summary>Agent Harness 是模型之外的运行时支架，负责驱动模型与工具循环、维护会话和上下文、施加审批与停止条件，并支持多步任务持续推进。</summary>
+<ul><li>ID: <code>claim-harness-runtime-scaffold</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://learn.microsoft.com/en-us/agent-framework/concepts/harness" target="_blank">Microsoft Agent Harness</a> · <a href="https://developers.openai.com/api/docs/guides/agents-api/architecture" target="_blank">OpenAI Agents API Architecture</a> · <a href="https://www.anthropic.com/research/trustworthy-agents" target="_blank">Trustworthy agents in practice</a></li><li>说明: 跨厂商共同要素；具体能力范围仍因产品而异。</li></ul>
+</details>
+<details class="sec"><summary>“Agent = Model + Harness”适合作为工程分解，但它是行业归纳，不是所有厂商共同发布的正式标准定义。</summary>
+<ul><li>ID: <code>claim-model-plus-harness-synthesis</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://developers.openai.com/api/docs/guides/agents-api/architecture" target="_blank">OpenAI Agents API Architecture</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/concepts/harness" target="_blank">Microsoft Agent Harness</a> · <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic Building Effective Agents</a></li><li>说明: 文档中必须区分官方定义与本文归纳。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>评测</summary>
+<details class="sec"><summary>Agent Harness 与 Evaluation Harness 是两个层次：前者运行生产 Agent，后者负责并发运行评测任务、记录轨迹、评分和聚合结果。</summary>
+<ul><li>ID: <code>claim-eval-harness-distinct</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-01-09</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents" target="_blank">Demystifying evals for AI agents</a></li><li>说明: 用于避免把测试底座与 Agent 运行时混为一谈。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>运行时架构</summary>
+<details class="sec"><summary>生产级 Agent 系统正在把控制面（会话、策略、编排、审计）与执行面（沙箱、文件、网络、工具）分离，以支持托管、自托管和混合部署。</summary>
+<ul><li>ID: <code>claim-control-execution-separation</code></li><li>状态: <code>active</code></li><li>置信度: <code>medium</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://developers.openai.com/api/docs/guides/agents-api/architecture" target="_blank">OpenAI Agents API Architecture</a> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html" target="_blank">What is Amazon Bedrock AgentCore</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/concepts/harness" target="_blank">Microsoft Agent Harness</a></li><li>说明: 跨厂商架构归纳，具体控制/执行分界仍不同。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>项目生命周期</summary>
+<details class="sec"><summary>Microsoft AutoGen 已归档，不再作为新生产项目的主框架；官方迁移路径是 Microsoft Agent Framework，社区替代包括 AG2。</summary>
+<ul><li>ID: <code>claim-autogen-archived</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-10-28</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://github.com/microsoft/autogen" target="_blank">Microsoft AutoGen Repository Status</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank">Microsoft Agent Framework Overview</a></li><li>Supersedes: <code>claim-autogen-active</code></li><li>说明: 官方仓库状态优先于旧教程。</li></ul>
+</details>
+<details class="sec"><summary>Amazon Bedrock Agents Classic 已进入维护模式，官方提供迁移到 AgentCore harness 的路径。</summary>
+<ul><li>ID: <code>claim-bedrock-classic-maintenance</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html" target="_blank">Amazon Bedrock Agents Classic Maintenance Mode</a> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness.html" target="_blank">Amazon Bedrock AgentCore Harness</a></li><li>Supersedes: <code>claim-bedrock-agents-classic-active</code></li><li>说明: 新项目应评估 AgentCore 与 Strands。</li></ul>
+</details>
+<details class="sec"><summary>华为云 ModelArts Studio 的 Agent 开发模块已下线，Agent 开发能力迁移到 AgentArts/Versatile。</summary>
+<ul><li>ID: <code>claim-huawei-agentarts-migration</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-02-15</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://www.huaweicloud.com/notice/2025/20260114164756418.html" target="_blank">华为云 ModelArts Studio Agent 开发模块下线通知</a> · <a href="https://support.huaweicloud.com/managedagents-agentarts/agentarts_13_0001.html" target="_blank">华为云 AgentArts Managed Agents</a></li><li>Supersedes: <code>claim-huawei-modelarts-agent-active</code></li><li>说明: 旧文档不能继续作为当前实现入口。</li></ul>
+</details>
+<details class="sec"><summary>OpenAI Agent Builder 计划于 2026-11-30 关闭；长期实现应迁移到 Agents API / Agents SDK。</summary>
+<ul><li>ID: <code>claim-openai-agent-builder-sunset</code></li><li>状态: <code>active</code></li><li>置信度: <code>high</code></li><li>首次观察: 2026-11-22</li><li>最近核验: 2026-11-22</li><li>来源: <a href="https://developers.openai.com/api/docs/guides/agent-builder" target="_blank">OpenAI Agent Builder and deprecation status</a> · <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI Building Agents</a></li><li>Supersedes: <code>claim-agent-builder-default</code></li><li>说明: 过渡期内旧用户仍可使用。</li></ul>
+</details>
+</details>
+<script>
+function setAll(open){var ds=document.querySelectorAll('details');for(var i=0;i<ds.length;i++){ds[i].open=open;}}
+</script>
+</body>
+</html>

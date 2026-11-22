@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大厂 Agent 架构来源矩阵</title>
+<style>
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;max-width:1000px;margin:20px auto;padding:0 20px;color:#1c1c1c;line-height:1.65}
+h1{font-size:1.65em;border-bottom:3px solid #2b6cb0;padding-bottom:8px;margin-bottom:6px}
+.bar{position:sticky;top:0;background:#fff;z-index:5;padding:8px 0;border-bottom:1px solid #dfe6ee;margin-bottom:10px}
+.bar button{background:#2b6cb0;color:#fff;border:none;border-radius:6px;padding:6px 14px;margin-right:8px;cursor:pointer;font-size:.92em}
+.bar button:hover{background:#1a4971}
+details.chap{margin:10px 0;border:1px solid #d7dee8;border-radius:8px;overflow:hidden;background:#fff}
+details.chap>summary{background:#eef4fb;font-weight:700;font-size:1.1em;padding:10px 14px;cursor:pointer;list-style:none}
+details.chap>summary::before{content:'▸ ';color:#2b6cb0}
+details.chap[open]>summary::before{content:'▾ ';color:#2b6cb0}
+details.chap>summary:hover{background:#e2edf8}
+details.sec{margin:6px 12px 6px 16px;border-left:3px solid #c5d5e8;padding-left:10px}
+details.sec>summary{font-weight:600;color:#2b6cb0;padding:6px 4px;cursor:pointer;list-style:none}
+details.sec>summary::before{content:'▸ ';color:#7f9fc4}
+details.sec[open]>summary::before{content:'▾ ';color:#7f9fc4}
+details.sec>summary:hover{color:#1a4971}
+table{border-collapse:collapse;margin:8px 0;font-size:.92em;width:100%}
+th,td{border:1px solid #c9d2dd;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4f9}
+blockquote{border-left:4px solid #9db8d6;margin:8px 0;padding:4px 12px;color:#3d4754;background:#f7fafd}
+code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+a{color:#2b6cb0}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+p{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>大厂 Agent 架构来源矩阵</h1>
+<div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
+<blockquote>自动生成。更新时间：2026-11-22。</blockquote>
+<p>评级说明：<code>docs_maturity</code> 表示官方文档的覆盖程度；<code>open_source_signal</code> 表示官方开源实现/规范的活跃度；<code>enterprise_signal</code> 表示企业运行时、治理与部署信息密度。它们是信息覆盖度，不是产品质量评分。</p>
+<details class="chap" open><summary>Tier 1 · 架构定义与前沿研究</summary>
+<p>持续定义 Agent 架构范式、协议、评测或大规模工程实践的头部基础模型实验室。</p>
+<table><tr><th>厂商</th><th>地区</th><th>优先级</th><th>Agent 重点</th><th>文档</th><th>开源信号</th><th>企业信号</th><th>来源数</th></tr><tr><td>Anthropic</td><td>US</td><td>P0</td><td>Claude Agent SDK、MCP、长任务 Harness、Agent 评测与可信 Agent</td><td>high</td><td>high</td><td>high</td><td>5</td></tr><tr><td>DeepSeek</td><td>CN</td><td>P0</td><td>DeepSeek API、DeepSeek Harness 与 dsh-superagent 原型</td><td>medium</td><td>high</td><td>medium</td><td>3</td></tr><tr><td>Google / Google DeepMind</td><td>US</td><td>P0</td><td>Agent Development Kit、Gemini Enterprise Agent Platform、A2A 与 Agent Runtime</td><td>high</td><td>high</td><td>high</td><td>3</td></tr><tr><td>Microsoft</td><td>US</td><td>P0</td><td>Microsoft Agent Framework、HarnessAgent、Foundry 与 Agent 365</td><td>high</td><td>high</td><td>high</td><td>6</td></tr><tr><td>OpenAI</td><td>US</td><td>P0</td><td>Agents API、Agents SDK、Codex Harness、AgentKit 与托管执行环境</td><td>high</td><td>high</td><td>high</td><td>6</td></tr><tr><td>Meta AI</td><td>US</td><td>P1</td><td>Muse 个人 Agent、Secure VM、跨应用任务执行与研究模型</td><td>medium</td><td>high</td><td>medium</td><td>2</td></tr><tr><td>Mistral AI</td><td>FR</td><td>P1</td><td>Managed Agents、Agents SDK、Studio、Workflow 与 MCP</td><td>high</td><td>high</td><td>high</td><td>3</td></tr><tr><td>xAI</td><td>US</td><td>P1</td><td>Grok API 工具调用、多 Agent 研究、Grok Build 与 Grok Bot</td><td>medium</td><td>medium</td><td>medium</td><td>4</td></tr><tr><td>Cohere</td><td>CA</td><td>P2</td><td>Command 工具调用、企业 RAG 与 Agent 构建路径</td><td>medium</td><td>medium</td><td>high</td><td>3</td></tr></table>
+</details>
+<details class="chap" open><summary>Tier 1 · 企业与云 Agent 平台</summary>
+<p>提供 Agent Runtime、治理、沙箱、企业集成和规模化部署能力的云或企业软件厂商。</p>
+<table><tr><th>厂商</th><th>地区</th><th>优先级</th><th>Agent 重点</th><th>文档</th><th>开源信号</th><th>企业信号</th><th>来源数</th></tr><tr><td>Amazon AWS</td><td>US</td><td>P0</td><td>Amazon Bedrock AgentCore、Strands Agents、Agent Registry 与 Managed Agents</td><td>high</td><td>high</td><td>high</td><td>5</td></tr><tr><td>IBM</td><td>US</td><td>P1</td><td>IBM watsonx Orchestrate 与 AgentOps</td><td>high</td><td>medium</td><td>high</td><td>3</td></tr><tr><td>NVIDIA</td><td>US</td><td>P1</td><td>NeMo Agent Toolkit、NIM、Blueprints 与企业 Agent 工具链</td><td>medium</td><td>high</td><td>high</td><td>4</td></tr><tr><td>Salesforce</td><td>US</td><td>P1</td><td>Agentforce、Atlas Reasoning Engine 与企业 Agentic Architecture</td><td>high</td><td>medium</td><td>high</td><td>4</td></tr></table>
+</details>
+<details class="chap" open><summary>Tier 1 · 中国 Agent 平台与模型厂商</summary>
+<p>在中国市场提供 Agent 开发、托管、工作流、模型服务和行业落地的核心厂商。</p>
+<table><tr><th>厂商</th><th>地区</th><th>优先级</th><th>Agent 重点</th><th>文档</th><th>开源信号</th><th>企业信号</th><th>来源数</th></tr><tr><td>Alibaba Cloud / Qwen</td><td>CN</td><td>P0</td><td>阿里云百炼 Agent 2.0、Managed Agents、Flow Agent 与 Qwen-Agent</td><td>high</td><td>high</td><td>high</td><td>4</td></tr><tr><td>ByteDance / Volcengine</td><td>CN</td><td>P0</td><td>火山方舟 Managed Agents、Agent Toolkit、Skills、MCP 与多 Agent 协作</td><td>high</td><td>medium</td><td>high</td><td>3</td></tr><tr><td>Huawei Cloud</td><td>CN</td><td>P0</td><td>智果 AgentArts、Managed Agents、工作流与记忆插件</td><td>high</td><td>medium</td><td>high</td><td>4</td></tr><tr><td>Baidu</td><td>CN</td><td>P1</td><td>百度千帆 AppBuilder / Agent 开发平台、RAG、工作流与 Assistants API</td><td>high</td><td>medium</td><td>high</td><td>3</td></tr><tr><td>Tencent Cloud</td><td>CN</td><td>P1</td><td>腾讯云智能体开发平台 ADP、Multi-Agent、工作流与 Claw 模式</td><td>high</td><td>medium</td><td>high</td><td>3</td></tr><tr><td>Zhipu AI / Z.AI</td><td>CN</td><td>P1</td><td>智谱智能体开发平台、GLM Agent 工具与 AutoClaw 桌面 Agent</td><td>medium</td><td>high</td><td>medium</td><td>2</td></tr></table>
+</details>
+<details class="chap" open><summary>Tier 2 · 专项信号</summary>
+<p>在工具调用、多模态 Agent、长任务、桌面 Agent 或企业场景上具有独特信息的厂商。</p>
+<table><tr><th>厂商</th><th>地区</th><th>优先级</th><th>Agent 重点</th><th>文档</th><th>开源信号</th><th>企业信号</th><th>来源数</th></tr><tr><td>MiniMax</td><td>CN</td><td>P2</td><td>MiniMax Agent、全栈开发、多模态 Agent 与 API</td><td>medium</td><td>medium</td><td>medium</td><td>3</td></tr><tr><td>Moonshot AI / Kimi</td><td>CN</td><td>P2</td><td>Kimi 开放平台、长上下文与 Agentic 编程工具链</td><td>medium</td><td>medium</td><td>medium</td><td>1</td></tr><tr><td>iFlytek</td><td>CN</td><td>P2</td><td>讯飞星辰 Agent 开发平台、工作流、MCP Server 发布</td><td>medium</td><td>low</td><td>high</td><td>3</td></tr></table>
+</details>
+<details class="chap" open><summary>官方来源索引</summary>
+<details class="sec"><summary>Anthropic</summary>
+<ul><li><strong>official-research</strong> · <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic Building Effective Agents</a> · <code>P0</code></li><li><strong>official-research</strong> · <a href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents" target="_blank">Demystifying evals for AI agents</a> · <code>P0</code></li><li><strong>official-research</strong> · <a href="https://www.anthropic.com/research/trustworthy-agents" target="_blank">Trustworthy agents in practice</a> · <code>P0</code></li><li><strong>official-research</strong> · <a href="https://www.anthropic.com/research/effective-harnesses-for-long-running-agents" target="_blank">Effective harnesses for long-running agents</a> · <code>P0</code></li><li><strong>official-releases</strong> · <a href="https://github.com/anthropics/claude-code/releases.atom" target="_blank">Claude Code Releases</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>DeepSeek</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://api-docs.deepseek.com/zh-cn/" target="_blank">DeepSeek API Docs</a> · <code>P0</code></li><li><strong>official-changelog</strong> · <a href="https://api-docs.deepseek.com/zh-cn/updates/" target="_blank">DeepSeek API Updates</a> · <code>P0</code></li><li><strong>official-releases</strong> · <a href="https://github.com/deepseek-ai/deepseek-harness/releases.atom" target="_blank">DeepSeek Harness Releases</a> · <code>P0</code></li></ul>
+</details>
+<details class="sec"><summary>Google / Google DeepMind</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk" target="_blank">Google Agent Development Kit</a> · <code>P0</code></li><li><strong>official-blog</strong> · <a href="https://developers.googleblog.com/agent-development-kit-easy-to-build-multi-agent-applications/" target="_blank">Agent Development Kit: multi-agent applications</a> · <code>P1</code></li><li><strong>official-releases</strong> · <a href="https://github.com/google/adk-python/releases.atom" target="_blank">Google ADK Python Releases</a> · <code>P0</code></li><li><strong>protocol</strong> · <a href="https://a2a-protocol.org/latest/specification/" target="_blank">Agent2Agent Protocol Specification</a> · <code>P0</code></li></ul>
+</details>
+<details class="sec"><summary>Microsoft</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank">Microsoft Agent Framework Overview</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://learn.microsoft.com/en-us/agent-framework/concepts/harness" target="_blank">Microsoft Agent Harness</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://learn.microsoft.com/en-us/agent-framework/agents/agent-pipeline" target="_blank">Microsoft Agent Pipeline Architecture</a> · <code>P1</code></li><li><strong>official-blog</strong> · <a href="https://devblogs.microsoft.com/agent-framework/" target="_blank">Microsoft Agent Framework Blog</a> · <code>P0</code></li><li><strong>official-changelog</strong> · <a href="https://learn.microsoft.com/en-us/agent-framework/support/upgrade/" target="_blank">Microsoft Agent Framework Upgrade Guides</a> · <code>P0</code></li></ul>
+</details>
+<details class="sec"><summary>OpenAI</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://developers.openai.com/api/docs/guides/agents-api/architecture" target="_blank">OpenAI Agents API Architecture</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI Building Agents</a> · <code>P0</code></li><li><strong>official-research</strong> · <a href="https://openai.com/index/harness-engineering/" target="_blank">Harness Engineering</a> · <code>P1</code></li><li><strong>official-releases</strong> · <a href="https://github.com/openai/openai-agents-python/releases.atom" target="_blank">OpenAI Agents SDK Releases</a> · <code>P0</code></li></ul>
+</details>
+<details class="sec"><summary>Meta AI</summary>
+<ul><li><strong>official-product</strong> · <a href="https://ai.meta.com/muse/" target="_blank">Meta Muse personal AI agent</a> · <code>P1</code></li><li><strong>official-research</strong> · <a href="https://ai.meta.com/research/" target="_blank">Meta AI Research</a> · <code>P2</code></li></ul>
+</details>
+<details class="sec"><summary>Mistral AI</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.mistral.ai/studio/agents/overview" target="_blank">Mistral Managed Agents Overview</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://docs.mistral.ai/studio/agents/agents-api" target="_blank">Mistral Agents API</a> · <code>P1</code></li><li><strong>official-releases</strong> · <a href="https://github.com/mistralai/client-python/releases.atom" target="_blank">Mistral Python Client Releases</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>xAI</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.x.ai/overview" target="_blank">xAI API Overview</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://docs.x.ai/developers/tools/overview" target="_blank">xAI Tools Overview</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://docs.x.ai/developers/model-capabilities/text/multi-agent" target="_blank">xAI Realtime Multi-Agent Research</a> · <code>P0</code></li><li><strong>official-product</strong> · <a href="https://docs.x.ai/build/overview" target="_blank">Grok Build coding agent</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>Cohere</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.cohere.com/docs/building-an-agent-with-cohere" target="_blank">Building an Agent with Cohere</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://docs.cohere.com/docs/tool-use-quickstart" target="_blank">Cohere Tool Use Quickstart</a> · <code>P1</code></li><li><strong>official-releases</strong> · <a href="https://github.com/cohere-ai/cohere-python/releases.atom" target="_blank">Cohere Python Releases</a> · <code>P2</code></li></ul>
+</details>
+<details class="sec"><summary>Alibaba Cloud / Qwen</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://help.aliyun.com/zh/model-studio/agent-overview" target="_blank">阿里云百炼 Agent 服务概览</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://help.aliyun.com/zh/model-studio/managed-agents-introduction" target="_blank">阿里云百炼 Managed Agents</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://help.aliyun.com/zh/model-studio/agent-api/" target="_blank">阿里云百炼 Agent API</a> · <code>P1</code></li><li><strong>official-releases</strong> · <a href="https://github.com/QwenLM/Qwen-Agent/releases.atom" target="_blank">Qwen-Agent Releases</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>ByteDance / Volcengine</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.volcengine.com/docs/ark/define-agent?lang=zh" target="_blank">火山方舟 Managed Agents</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://docs.volcengine.com/docs/ark/overview?lang=zh" target="_blank">火山方舟 Managed Agents 概述</a> · <code>P0</code></li><li><strong>official-toolkit</strong> · <a href="https://docs.volcengine.com/docs/agent-toolkit/introduction?lang=zh" target="_blank">火山引擎 Agent Toolkit</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>Huawei Cloud</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://support.huaweicloud.com/managedagents-agentarts/agentarts_13_0001.html" target="_blank">华为云 AgentArts Managed Agents</a> · <code>P0</code></li><li><strong>official-changelog</strong> · <a href="https://support.huaweicloud.com/wtsnew-agentarts/index.html" target="_blank">华为云 AgentArts 最新动态</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://support.huaweicloud.com/lowcode-agentarts/agentarts_05_0017.html" target="_blank">华为云 AgentArts 低代码单智能体</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>Baidu</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://cloud.baidu.com/doc/APPBUILDER/index.html" target="_blank">百度千帆 AppBuilder</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://cloud.baidu.com/doc/qianfan/s/Lmh4stuli" target="_blank">百度千帆 Agent 创建方式</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://cloud.baidu.com/doc/Qianfan/index.html" target="_blank">百度千帆 Agent 开发平台</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>Tencent Cloud</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://cloud.tencent.com/document/product/1759/104193" target="_blank">腾讯云智能体开发平台 ADP 产品概述</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://cloud.tencent.com/document/product/1759/104194" target="_blank">腾讯云 ADP 平台架构</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://cloud.tencent.com/document/product/1759/137902" target="_blank">腾讯云 ADP 对话式应用开发与调优</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>Zhipu AI / Z.AI</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent" target="_blank">智谱智能体开发平台</a> · <code>P1</code></li><li><strong>official-product</strong> · <a href="https://autoclaw.zhipuai.cn/about/" target="_blank">智谱 AutoClaw 桌面 Agent</a> · <code>P2</code></li></ul>
+</details>
+<details class="sec"><summary>Amazon AWS</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/" target="_blank">Amazon Bedrock AgentCore Documentation</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness.html" target="_blank">Amazon Bedrock AgentCore Harness</a> · <code>P0</code></li><li><strong>official-docs</strong> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html" target="_blank">What is Amazon Bedrock AgentCore</a> · <code>P0</code></li><li><strong>official-releases</strong> · <a href="https://github.com/strands-agents/sdk-python/releases.atom" target="_blank">Strands Agents Releases</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>IBM</summary>
+<ul><li><strong>official-product</strong> · <a href="https://www.ibm.com/products/watsonx-orchestrate/ai-agents" target="_blank">IBM watsonx Agents</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=agents-introduction" target="_blank">Introduction to AI agents in IBM watsonx Orchestrate</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=agents-getting-started-building" target="_blank">Building agents with IBM watsonx Orchestrate</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>NVIDIA</summary>
+<ul><li><strong>official-product</strong> · <a href="https://www.nvidia.com/en-us/solutions/ai/agentic-ai/" target="_blank">NVIDIA Agentic AI Solutions</a> · <code>P1</code></li><li><strong>official-reference</strong> · <a href="https://build.nvidia.com/blueprints" target="_blank">NVIDIA Agent Blueprints</a> · <code>P2</code></li><li><strong>official-docs</strong> · <a href="https://developer.nvidia.com/nim" target="_blank">NVIDIA NIM for Agents</a> · <code>P2</code></li><li><strong>official-releases</strong> · <a href="https://github.com/NVIDIA/NeMo-Agent-Toolkit/releases.atom" target="_blank">NeMo Agent Toolkit Releases</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>Salesforce</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture" target="_blank">Enterprise Agentic Architecture</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-patterns" target="_blank">Agentic Patterns on Salesforce</a> · <code>P1</code></li><li><strong>official-docs</strong> · <a href="https://architect.salesforce.com/docs/architect/fundamentals/guide/agent-development-lifecycle" target="_blank">Agent Development Lifecycle</a> · <code>P2</code></li><li><strong>official-docs</strong> · <a href="https://help.salesforce.com/s/articleView?id=ai.copilot_building_blocks.htm&amp;language=en_US&amp;type=5" target="_blank">The Building Blocks of Agentforce Agents</a> · <code>P1</code></li></ul>
+</details>
+<details class="sec"><summary>MiniMax</summary>
+<ul><li><strong>official-product</strong> · <a href="https://www.minimaxi.com/models/text" target="_blank">MiniMax M 系列 Agent 模型</a> · <code>P2</code></li><li><strong>official-docs</strong> · <a href="https://platform.minimaxi.com/document/ChatCompletion?key=667bdde33be2027f69b71d4c" target="_blank">MiniMax API 对话文档</a> · <code>P2</code></li><li><strong>official-blog</strong> · <a href="https://www.minimaxi.com/news" target="_blank">MiniMax Agent 新闻</a> · <code>P2</code></li></ul>
+</details>
+<details class="sec"><summary>Moonshot AI / Kimi</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://platform.moonshot.cn/docs" target="_blank">Moonshot / Kimi 开放平台文档</a> · <code>P2</code></li></ul>
+</details>
+<details class="sec"><summary>iFlytek</summary>
+<ul><li><strong>official-docs</strong> · <a href="https://www.xfyun.cn/doc/spark/Agent01-%E5%B9%B3%E5%8F%B0%E4%BB%8B%E7%BB%8D.html" target="_blank">讯飞星辰 Agent 开发平台介绍</a> · <code>P2</code></li><li><strong>official-docs</strong> · <a href="https://www.xfyun.cn/doc/spark/Agent03-%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html" target="_blank">讯飞星辰 Agent 开发指南</a> · <code>P2</code></li><li><strong>official-docs</strong> · <a href="https://www.xfyun.cn/doc/spark/Agent06-FAQ.html" target="_blank">讯飞 Agent 平台 FAQ</a> · <code>P2</code></li></ul>
+</details>
+</details>
+<script>
+function setAll(open){var ds=document.querySelectorAll('details');for(var i=0;i<ds.length;i++){ds[i].open=open;}}
+</script>
+</body>
+</html>

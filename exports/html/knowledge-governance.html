@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>知识治理与每日更新规范</title>
+<style>
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;max-width:1000px;margin:20px auto;padding:0 20px;color:#1c1c1c;line-height:1.65}
+h1{font-size:1.65em;border-bottom:3px solid #2b6cb0;padding-bottom:8px;margin-bottom:6px}
+.bar{position:sticky;top:0;background:#fff;z-index:5;padding:8px 0;border-bottom:1px solid #dfe6ee;margin-bottom:10px}
+.bar button{background:#2b6cb0;color:#fff;border:none;border-radius:6px;padding:6px 14px;margin-right:8px;cursor:pointer;font-size:.92em}
+.bar button:hover{background:#1a4971}
+details.chap{margin:10px 0;border:1px solid #d7dee8;border-radius:8px;overflow:hidden;background:#fff}
+details.chap>summary{background:#eef4fb;font-weight:700;font-size:1.1em;padding:10px 14px;cursor:pointer;list-style:none}
+details.chap>summary::before{content:'▸ ';color:#2b6cb0}
+details.chap[open]>summary::before{content:'▾ ';color:#2b6cb0}
+details.chap>summary:hover{background:#e2edf8}
+details.sec{margin:6px 12px 6px 16px;border-left:3px solid #c5d5e8;padding-left:10px}
+details.sec>summary{font-weight:600;color:#2b6cb0;padding:6px 4px;cursor:pointer;list-style:none}
+details.sec>summary::before{content:'▸ ';color:#7f9fc4}
+details.sec[open]>summary::before{content:'▾ ';color:#7f9fc4}
+details.sec>summary:hover{color:#1a4971}
+table{border-collapse:collapse;margin:8px 0;font-size:.92em;width:100%}
+th,td{border:1px solid #c9d2dd;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4f9}
+blockquote{border-left:4px solid #9db8d6;margin:8px 0;padding:4px 12px;color:#3d4754;background:#f7fafd}
+code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+a{color:#2b6cb0}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+p{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>知识治理与每日更新规范</h1>
+<div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
+<details class="chap" open><summary>目标</summary>
+<p>把“大厂 Agent 架构信息”维护成可追溯、可更新、可推翻、可比较的长期知识系统，而不是一次性链接清单。</p>
+</details>
+<details class="chap" open><summary>来源分级</summary>
+<details class="sec"><summary>A 级：事实正源</summary>
+<ul><li>厂商官方产品文档；</li><li>厂商官方研究论文/技术报告；</li><li>官方工程博客、发布说明、弃用公告；</li><li>官方 GitHub 仓库、Release 与协议规范；</li><li>标准化组织、政府安全机构和顶级学术论文。</li></ul>
+<p>A 级来源可以直接改变 <code>claims.json</code> 中的事实判断。</p>
+</details>
+<details class="sec"><summary>B 级：结构参考</summary>
+<ul><li>行业技术博客；</li><li>Awesome List；</li><li>源码拆解或案例研究；</li><li>社区基准榜单。</li></ul>
+<p>B 级来源只能用于发现问题、补充解释或提出待验证假设，不能单独推翻 A 级结论。</p>
+</details>
+<details class="sec"><summary>C 级：弱信号</summary>
+<ul><li>社媒、访谈、会议演讲问答；</li><li>二手报道；</li><li>未版本化的截图或摘要。</li></ul>
+<p>C 级必须标记为 <code>low confidence</code>，只进入时间线或监控候选，不直接进入正文。</p>
+</details>
+</details>
+<details class="chap" open><summary>时间线</summary>
+<p>每个事件至少记录：</p>
+<ul><li><code>date</code>：官方发布日期，不知道时用首次观察日期并在 <code>summary</code> 中说明；</li><li><code>vendor_id</code>；</li><li><code>type</code>：文档、论文、协议、发布、弃用、事故、基准等；</li><li><code>title</code> / <code>summary</code>；</li><li><code>sources</code>：可点击来源；</li><li><code>claims_added</code>；</li><li><code>status</code>：<code>published</code>、<code>baseline</code>、<code>scheduled</code>、<code>withdrawn</code>。</li></ul>
+</details>
+<details class="chap" open><summary>冲突与推翻</summary>
+<p>当新内容与旧结论冲突时：</p>
+<ol><li>不删除旧记录；</li><li>新建 <code>conflict</code> 条目；</li><li>写清旧结论、新结论、变化日期、观察日期和官方证据；</li><li>写清“新内容为什么推翻旧结论”，例如官方归档、下线、API 弃用、能力边界变化；</li><li>更新 <code>claims.json</code> 中受影响 claim 的 <code>status</code>、<code>supersedes</code>、<code>last_verified</code>；</li><li>重新生成时间线和冲突日志。</li></ol>
+</details>
+<details class="chap" open><summary>每日自动任务</summary>
+<p>每日任务只做四类动作：</p>
+<ol><li><strong>扫描</strong>：运行 <code>scripts/monitor_sources.py</code>；</li><li><strong>核验</strong>：只打开变化来源及其关联官方页面；</li><li><strong>更新</strong>：更新 sources、timeline、claims、conflicts 与受影响的 Markdown；</li><li><strong>重建</strong>：生成 HTML、DOCX、PDF 并提交 Git。</li></ol>
+<p>没有明确官方证据时，任务只能把条目放入待确认状态，不能凭空更新事实。</p>
+</details>
+<details class="chap" open><summary>来源健康</summary>
+<ul><li>抓取失败连续 3 天：在 <code>sources.json</code> 中标记 <code>monitor_health: broken</code>；</li><li>页面长期 404：查找迁移入口并记录冲突；</li><li>动态页面无法稳定比较：改用官方 <code>llms.txt</code>、Markdown、RSS、Release Atom 或 API；</li><li>官方内容存在版本号时，将版本写入来源备注或时间线摘要。</li></ul>
+</details>
+<script>
+function setAll(open){var ds=document.querySelectorAll('details');for(var i=0;i<ds.length;i++){ds[i].open=open;}}
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大厂 Agent 架构版图</title>
+<style>
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;max-width:1000px;margin:20px auto;padding:0 20px;color:#1c1c1c;line-height:1.65}
+h1{font-size:1.65em;border-bottom:3px solid #2b6cb0;padding-bottom:8px;margin-bottom:6px}
+.bar{position:sticky;top:0;background:#fff;z-index:5;padding:8px 0;border-bottom:1px solid #dfe6ee;margin-bottom:10px}
+.bar button{background:#2b6cb0;color:#fff;border:none;border-radius:6px;padding:6px 14px;margin-right:8px;cursor:pointer;font-size:.92em}
+.bar button:hover{background:#1a4971}
+details.chap{margin:10px 0;border:1px solid #d7dee8;border-radius:8px;overflow:hidden;background:#fff}
+details.chap>summary{background:#eef4fb;font-weight:700;font-size:1.1em;padding:10px 14px;cursor:pointer;list-style:none}
+details.chap>summary::before{content:'▸ ';color:#2b6cb0}
+details.chap[open]>summary::before{content:'▾ ';color:#2b6cb0}
+details.chap>summary:hover{background:#e2edf8}
+details.sec{margin:6px 12px 6px 16px;border-left:3px solid #c5d5e8;padding-left:10px}
+details.sec>summary{font-weight:600;color:#2b6cb0;padding:6px 4px;cursor:pointer;list-style:none}
+details.sec>summary::before{content:'▸ ';color:#7f9fc4}
+details.sec[open]>summary::before{content:'▾ ';color:#7f9fc4}
+details.sec>summary:hover{color:#1a4971}
+table{border-collapse:collapse;margin:8px 0;font-size:.92em;width:100%}
+th,td{border:1px solid #c9d2dd;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4f9}
+blockquote{border-left:4px solid #9db8d6;margin:8px 0;padding:4px 12px;color:#3d4754;background:#f7fafd}
+code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+a{color:#2b6cb0}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+p{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>大厂 Agent 架构版图</h1>
+<div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
+<blockquote>初始基线：2026-11-22。厂商能力和产品状态会变化，动态结果以 <a href="../reference/vendor-source-matrix.md" target="_blank">大厂来源矩阵</a> 和时间线为准。</blockquote>
+<details class="chap" open><summary>比较方法</summary>
+<p>本版图不按模型跑分排序，而按厂商「对 Agent 架构的可复用贡献」比较：</p>
+<ul><li>是否提出稳定的架构范式或协议；</li><li>是否提供可落地的 SDK、Runtime 或托管平台；</li><li>是否公开长任务、沙箱、记忆、上下文、权限、评估与观测细节；</li><li>是否持续更新官方文档、Release 和弃用公告；</li><li>是否存在可运行的参考实现或源码。</li></ul>
+</details>
+<details class="chap" open><summary>一、架构定义与前沿研究</summary>
+<details class="sec"><summary>OpenAI</summary>
+<p>关注重点：</p>
+<ul><li>Agents API、Agents SDK、Codex Harness；</li><li>控制面与执行环境分离；</li><li>Sessions、tools、handoffs、guardrails、tracing、evals；</li><li>MCP 与多 Agent 协作。</li></ul>
+<p>OpenAI 的文档对「托管 Harness」「Agent 循环」「执行环境」的边界描述较清晰，适合作为生产平台架构参考。</p>
+</details>
+<details class="sec"><summary>Anthropic</summary>
+<p>关注重点：</p>
+<ul><li>workflow 与 agent 的分界；</li><li>五种工作流模式；</li><li>MCP；</li><li>长任务 Harness；</li><li>Agent Evals、可信 Agent、权限与容器隔离。</li></ul>
+<p>Anthropic 的优势是工程原则与架构边界，尤其适合防止“一上来就做全自主 Agent”。</p>
+</details>
+<details class="sec"><summary>Google / DeepMind</summary>
+<p>关注重点：</p>
+<ul><li>Agent Development Kit（ADK）；</li><li>Gemini Enterprise Agent Platform / Agent Runtime；</li><li>A2A；</li><li>多语言、图工作流、评估与部署。</li></ul>
+<p>Google 的价值主要在开放协议、跨语言工具链和企业运行时。</p>
+</details>
+<details class="sec"><summary>Microsoft</summary>
+<p>关注重点：</p>
+<ul><li>Microsoft Agent Framework（MAF）；</li><li>Agent Harness / Pipeline；</li><li>multi-agent workflows；</li><li>Microsoft Foundry、Agent 365、企业身份与治理。</li></ul>
+<p>Microsoft 强调把 Harness 组合到既有 Agent Framework 和上下文提供者之上，而不是另造黑盒运行时。</p>
+</details>
+<details class="sec"><summary>Meta AI</summary>
+<p>关注重点：</p>
+<ul><li>Muse 个人 Agent；</li><li>Secure VM 与持久电脑；</li><li>跨应用、后台任务和人在关键步骤接管；</li><li>工具生成。</li></ul>
+<p>Meta 更接近“个人 Agent + 持久执行环境”的产品路线。</p>
+</details>
+<details class="sec"><summary>xAI</summary>
+<p>关注重点：</p>
+<ul><li>Grok API 工具调用；</li><li>Realtime Multi-Agent Research；</li><li>Grok Build 终端 Coding Agent；</li><li>Grok Bot 云电脑团队。</li></ul>
+<p>xAI 的产品线同时覆盖 API、多 Agent 研究、终端 Agent 和长期 Bot，适合观察“模型 + 工具 + 云端执行面”的组合。</p>
+</details>
+<details class="sec"><summary>Mistral AI</summary>
+<p>关注重点：</p>
+<ul><li>Managed Agents；</li><li>Agents API / SDK；</li><li>Studio、Workflow、Evaluation、Deploy；</li><li>MCP、Connector 与工具调用。</li></ul>
+<p>Mistral 把 Agent 产品与模型、工作流、评估、部署组织成较完整的应用平台，适合观察欧洲企业市场的 Agent 工程路线。</p>
+</details>
+<details class="sec"><summary>Cohere</summary>
+<p>关注重点：</p>
+<ul><li>Command 模型的工具计划与工具调用；</li><li>企业 RAG、检索和私有部署；</li><li>Agent 构建示例与 SDK。</li></ul>
+<p>Cohere 的架构信号更偏企业 RAG 与工具调用基础能力，而不是完整自主 Agent Runtime。</p>
+</details>
+<details class="sec"><summary>DeepSeek</summary>
+<p>关注重点：</p>
+<ul><li>DeepSeek API；</li><li>DeepSeek Harness 的插件化架构；</li><li>dsh-superagent 的 Trigger、Gate、Mandate、Ticket 与恢复机制。</li></ul>
+<p>DeepSeek 的案例对“长期常驻 Agent 如何被授权和收敛”特别有价值。Harness 细节维护在独立的 <a href="https://github.com/nitenn/harness-architecture" target="_blank">Harness 架构知识库</a>。</p>
+</details>
+</details>
+<details class="chap" open><summary>二、云与企业 Agent 平台</summary>
+<details class="sec"><summary>AWS</summary>
+<ul><li>Amazon Bedrock AgentCore；</li><li>托管 Harness；</li><li>Runtime、Gateway、Identity、Memory、Registry；</li><li>Strands Agents；</li><li>MCP / A2A 互操作。</li></ul>
+<p>AWS 的架构重点已经从“单一 Agent 产品”转向“Agent 基础设施套件”。</p>
+</details>
+<details class="sec"><summary>Microsoft</summary>
+<p>除 MAF 外，Microsoft 还在 Agent 身份、企业治理、Foundry 和多语言托管方面形成企业层信号。</p>
+</details>
+<details class="sec"><summary>NVIDIA</summary>
+<ul><li>NeMo Agent Toolkit；</li><li>NIM；</li><li>Agent Blueprints；</li><li>企业内、云、边缘的部署。</li></ul>
+<p>NVIDIA 的重点是模型服务、工具链和行业参考蓝图。</p>
+</details>
+<details class="sec"><summary>IBM</summary>
+<ul><li>watsonx Orchestrate；</li><li>企业 Agent、预置 Agent、AgentOps、发现与评估。</li></ul>
+<p>IBM 适合观察传统企业软件中的 Agent 生命周期治理。</p>
+</details>
+<details class="sec"><summary>Salesforce</summary>
+<ul><li>Agentforce；</li><li>Atlas Reasoning Engine；</li><li>Agentic Enterprise Architecture；</li><li>MCP/A2A、Data 360、Trust Layer。</li></ul>
+<p>Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界。</p>
+</details>
+</details>
+<details class="chap" open><summary>三、中国 Agent 平台与模型厂商</summary>
+<details class="sec"><summary>阿里云 / Qwen</summary>
+<ul><li>百炼 Agent 2.0；</li><li>Managed Agents；</li><li>Flow Agent；</li><li>MCP；</li><li>Agent API 与 IaC；</li><li>Qwen-Agent 开源生态。</li></ul>
+<p>阿里云覆盖零代码、托管运行时和开源 Agent 工具链，是当前国内资料最完整的平台之一。</p>
+</details>
+<details class="sec"><summary>字节跳动 / 火山引擎</summary>
+<ul><li>火山方舟 Managed Agents；</li><li>Skills、Tools、MCP；</li><li>多 Agent 协作；</li><li>上下文压缩；</li><li>长时任务与会话产物。</li></ul>
+<p>其托管 Agent 架构对长时、有状态、异步任务描述较具体。</p>
+</details>
+<details class="sec"><summary>腾讯云</summary>
+<ul><li>腾讯云 ADP；</li><li>标准、单工作流、Multi-Agent、Claw 模式；</li><li>知识库、工具、评测和私有化。</li></ul>
+<p>腾讯云更强调企业级应用全生命周期与业务落地。</p>
+</details>
+<details class="sec"><summary>百度</summary>
+<ul><li>千帆 AppBuilder / Agent 开发平台；</li><li>RAG、工作流、UI Builder；</li><li>零代码、低代码、高代码。</li></ul>
+<p>百度的主线是搜索与知识增强、应用构建效率和企业集成。</p>
+</details>
+<details class="sec"><summary>华为云</summary>
+<ul><li>AgentArts；</li><li>Managed Agents；</li><li>IAM 执行委托；</li><li>记忆插件；</li><li>OBS 运行时会话存储。</li></ul>
+<p>华为云的架构信号集中在托管运行时、权限、存储和企业生命周期。</p>
+</details>
+<details class="sec"><summary>智谱</summary>
+<ul><li>智能体开发平台；</li><li>GLM Agent 工具；</li><li>AutoClaw 桌面 Agent。</li></ul>
+<p>适合观察从平台 Agent 向桌面、跨工具、长期任务 Agent 扩展。</p>
+</details>
+<details class="sec"><summary>Moonshot / Kimi、MiniMax、讯飞</summary>
+<p>作为专项信号跟踪：</p>
+<ul><li>Kimi：长上下文、工具调用、Agentic 编程；</li><li>MiniMax：Agentic Coding、多模态、并行专业 Agent；</li><li>讯飞：工作流 Agent、发布渠道、MCP Server。</li></ul>
+</details>
+</details>
+<details class="chap" open><summary>四、除了官方产品文档还应记录什么</summary>
+<details class="sec"><summary>1. 官方研究论文与技术报告</summary>
+<p>论文先于产品文档暴露新架构，例如记忆、反思、搜索、长任务、Agent 评测和上下文压缩。</p>
+</details>
+<details class="sec"><summary>2. 官方工程博客与事故复盘</summary>
+<p>工程博客通常解释真实生产约束、性能数字、失败模式和架构演变；事故复盘能揭示产品文档看不到的风险。</p>
+</details>
+<details class="sec"><summary>3. Release、Changelog 与弃用公告</summary>
+<p>它们决定“旧知识何时失效”。任何关于 API、Agent Builder、Runtime 或协议的生命周期变化都应进入时间线。</p>
+</details>
+<details class="sec"><summary>4. 参考实现与 SDK</summary>
+<p>观察 Agent Loop、工具接口、状态模型、沙箱权限和持久化机制的真实实现，而不是只看产品宣传页。</p>
+</details>
+<details class="sec"><summary>5. 协议与标准</summary>
+<ul><li>MCP：工具与上下文接入；</li><li>A2A：Agent 间互操作；</li><li>AG-UI：Agent 与前端事件流；</li><li>ACP：编辑器与 Agent 会话协议。</li></ul>
+</details>
+<details class="sec"><summary>6. 基准与评测</summary>
+<p>关注任务、trial、grader、trace、outcome，以及 Harness 本身对结果的影响，而不是只抄排行榜。</p>
+</details>
+<details class="sec"><summary>7. 安全与治理</summary>
+<p>HITL、最小权限、沙箱、网络出口、提示注入、工具审批、审计、数据边界和 Agent 身份。</p>
+</details>
+<details class="sec"><summary>8. 成本与运营</summary>
+<p>步数、token、工具调用、缓存、并发、沙箱启动、失败重试和每次成功任务的成本。</p>
+</details>
+<details class="sec"><summary>9. 参考架构与生产案例</summary>
+<p>尤其是长运行 Coding Agent、企业知识库、客服、数据分析、SRE 和跨系统工作流。</p>
+</details>
+<details class="sec"><summary>10. 路线图与产品生命周期</summary>
+<p>旧入口下线、框架归档、API 合并、默认参数变化，往往比新增功能更能影响架构选择。</p>
+</details>
+</details>
+<details class="chap" open><summary>维护结论</summary>
+<p>一个“最前沿 Agent 知识库”不能只存摘要。它至少要同时维护：</p>
+<ol><li>来源；</li><li>时间；</li><li>证据等级；</li><li>当前主张；</li><li>冲突与推翻原因；</li><li>受影响的架构建议；</li><li>下一次核验条件。</li></ol>
+<p>本项目通过 <code>knowledge/</code> 的机器可读账本和每日自动扫描实现这七项。</p>
+</details>
+<script>
+function setAll(open){var ds=document.querySelectorAll('details');for(var i=0;i<ds.length;i++){ds[i].open=open;}}
+</script>
+</body>
+</html>

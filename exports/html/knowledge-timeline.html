@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent 架构知识时间线</title>
+<style>
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;max-width:1000px;margin:20px auto;padding:0 20px;color:#1c1c1c;line-height:1.65}
+h1{font-size:1.65em;border-bottom:3px solid #2b6cb0;padding-bottom:8px;margin-bottom:6px}
+.bar{position:sticky;top:0;background:#fff;z-index:5;padding:8px 0;border-bottom:1px solid #dfe6ee;margin-bottom:10px}
+.bar button{background:#2b6cb0;color:#fff;border:none;border-radius:6px;padding:6px 14px;margin-right:8px;cursor:pointer;font-size:.92em}
+.bar button:hover{background:#1a4971}
+details.chap{margin:10px 0;border:1px solid #d7dee8;border-radius:8px;overflow:hidden;background:#fff}
+details.chap>summary{background:#eef4fb;font-weight:700;font-size:1.1em;padding:10px 14px;cursor:pointer;list-style:none}
+details.chap>summary::before{content:'▸ ';color:#2b6cb0}
+details.chap[open]>summary::before{content:'▾ ';color:#2b6cb0}
+details.chap>summary:hover{background:#e2edf8}
+details.sec{margin:6px 12px 6px 16px;border-left:3px solid #c5d5e8;padding-left:10px}
+details.sec>summary{font-weight:600;color:#2b6cb0;padding:6px 4px;cursor:pointer;list-style:none}
+details.sec>summary::before{content:'▸ ';color:#7f9fc4}
+details.sec[open]>summary::before{content:'▾ ';color:#7f9fc4}
+details.sec>summary:hover{color:#1a4971}
+table{border-collapse:collapse;margin:8px 0;font-size:.92em;width:100%}
+th,td{border:1px solid #c9d2dd;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4f9}
+blockquote{border-left:4px solid #9db8d6;margin:8px 0;padding:4px 12px;color:#3d4754;background:#f7fafd}
+code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+a{color:#2b6cb0}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+p{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>Agent 架构知识时间线</h1>
+<div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
+<blockquote>自动生成。新事件按时间倒序排列；未来事件保留 <code>scheduled</code> 状态。</blockquote>
+<details class="chap" open><summary>2026-11-30 · OpenAI Agent Builder 计划关闭</summary>
+<ul><li>厂商/来源: <code>openai</code></li><li>类型: <code>scheduled-change</code></li><li>状态: <code>scheduled</code></li><li>摘要: 过渡期结束后旧 Builder 入口失效，长期实现转向 Agents API / Agents SDK。</li><li>证据: <a href="https://developers.openai.com/api/docs/guides/agent-builder" target="_blank">OpenAI Agent Builder and deprecation status</a> · <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI Building Agents</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-11-22 · Agent 厂商情报系统建立初始基线</summary>
+<ul><li>厂商/来源: <code>research</code></li><li>类型: <code>system-baseline</code></li><li>状态: <code>baseline</code></li><li>摘要: 建立 20 家厂商、官方组件信号、协议、论文与评测来源的持续监测基线。</li><li>证据: <a href="https://developers.openai.com/api/docs/guides/agents-api/architecture" target="_blank">OpenAI Agents API Architecture</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/concepts/harness" target="_blank">Microsoft Agent Harness</a> · <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic Building Effective Agents</a> · <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk" target="_blank">Google Agent Development Kit</a> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness.html" target="_blank">Amazon Bedrock AgentCore Harness</a> · <a href="https://help.aliyun.com/zh/model-studio/agent-overview" target="_blank">阿里云百炼 Agent 服务概览</a> · <a href="https://docs.volcengine.com/docs/ark/define-agent?lang=zh" target="_blank">火山方舟 Managed Agents</a> · <a href="https://cloud.tencent.com/document/product/1759/104193" target="_blank">腾讯云智能体开发平台 ADP 产品概述</a> · <a href="https://cloud.baidu.com/doc/APPBUILDER/index.html" target="_blank">百度千帆 AppBuilder</a> · <a href="https://support.huaweicloud.com/managedagents-agentarts/agentarts_13_0001.html" target="_blank">华为云 AgentArts Managed Agents</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-10-28 · Microsoft AutoGen 进入归档状态</summary>
+<ul><li>厂商/来源: <code>microsoft</code></li><li>类型: <code>lifecycle-change</code></li><li>状态: <code>published</code></li><li>摘要: 官方不建议新项目继续以 AutoGen 为主框架，迁移到 MAF 或 AG2。</li><li>证据: <a href="https://github.com/microsoft/autogen" target="_blank">Microsoft AutoGen Repository Status</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank">Microsoft Agent Framework Overview</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-09-11 · 澳大利亚网络安全中心发布 Agentic AI Harnesses 指南</summary>
+<ul><li>厂商/来源: <code>standards</code></li><li>类型: <code>security-guidance</code></li><li>状态: <code>published</code></li><li>摘要: 把 Harness 作为数据、工具、权限、记忆、计划与治理的软件层，并给出安全控制建议。</li><li>证据: <a href="https://www.cyber.gov.au/news/asd-releases-new-guidance-on-the-agentic-ai-harnesses" target="_blank">Agentic AI harnesses security guidance</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-04-15 · OpenAI 发布 Agents SDK 演进</summary>
+<ul><li>厂商/来源: <code>openai</code></li><li>类型: <code>official-blog</code></li><li>状态: <code>published</code></li><li>摘要: 引入模型原生 Harness、原生沙箱执行、文件和工具运行时。</li><li>证据: <a href="https://openai.com/index/the-next-evolution-of-the-agents-sdk/" target="_blank">The next evolution of the Agents SDK</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-03-10 · LangChain 发布 Agent Harness 解剖</summary>
+<ul><li>厂商/来源: <code>research</code></li><li>类型: <code>industry-research</code></li><li>状态: <code>published</code></li><li>摘要: 将 Harness 拆成文件系统、代码执行、沙箱、记忆和上下文管理等工程原语。</li><li>证据: <a href="https://www.langchain.com/blog/the-anatomy-of-an-agent-harness" target="_blank">The Anatomy of an Agent Harness</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-02-15 · 华为云 ModelArts Studio Agent 开发模块下线</summary>
+<ul><li>厂商/来源: <code>huawei</code></li><li>类型: <code>lifecycle-change</code></li><li>状态: <code>published</code></li><li>摘要: Agent 开发能力迁移到 AgentArts；旧实现入口失效。</li><li>证据: <a href="https://www.huaweicloud.com/notice/2025/20260114164756418.html" target="_blank">华为云 ModelArts Studio Agent 开发模块下线通知</a> · <a href="https://support.huaweicloud.com/managedagents-agentarts/agentarts_13_0001.html" target="_blank">华为云 AgentArts Managed Agents</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-01-15 · OpenAI 发布 Practical Guide to Building Agents</summary>
+<ul><li>厂商/来源: <code>openai</code></li><li>类型: <code>official-research</code></li><li>状态: <code>published</code></li><li>摘要: 强调渐进式复杂度、单/多 Agent 选择、工具设计、护栏和人工审查。</li><li>证据: <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI Building Agents</a></li></ul>
+</details>
+<details class="chap" open><summary>2026-01-09 · Anthropic 发布 Agent Evals 指南</summary>
+<ul><li>厂商/来源: <code>anthropic</code></li><li>类型: <code>official-research</code></li><li>状态: <code>published</code></li><li>摘要: 明确 task/trial/grader/transcript/outcome，以及 Evaluation Harness 的基础设施角色。</li><li>证据: <a href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents" target="_blank">Demystifying evals for AI agents</a></li></ul>
+</details>
+<details class="chap" open><summary>2024-12-19 · Anthropic 发布 Building Effective Agents</summary>
+<ul><li>厂商/来源: <code>anthropic</code></li><li>类型: <code>official-research</code></li><li>状态: <code>published</code></li><li>摘要: 提出 workflow 与 agent 的工程分界、五种工作流模式和 ACI 原则。</li><li>证据: <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic Building Effective Agents</a></li></ul>
+</details>
+<script>
+function setAll(open){var ds=document.querySelectorAll('details');for(var i=0;i<ds.length;i++){ds[i].open=open;}}
+</script>
+</body>
+</html>

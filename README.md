@@ -19,6 +19,14 @@
 ├─ research/
 │  ├─ official-readmes/     # 官方 README/规范存档（23 份）
 │  └─ notes/                # 调研笔记（预留）
+├─ knowledge/               # 可持续更新的厂商源、主张、时间线与冲突账本
+│  ├─ vendors.json          # 大厂分层与关注重点
+│  ├─ sources.json          # 官方文档、博客、Release、论文与标准源
+│  ├─ claims.json           # 当前知识主张与证据
+│  ├─ timeline.jsonl        # 事件时间线
+│  ├─ conflicts.json        # 新旧结论冲突和推翻原因
+│  ├─ state/                # 页面哈希、最近核验时间、快照状态
+│  └─ monitor/              # 每日监测报告与待处理变化
 ├─ assets/                  # 图片/图表
 ├─ scripts/                 # 构建脚本
 ├─ exports/                 # 生成物（html/pdf/docx）
@@ -29,9 +37,34 @@
 ## 文档再生成
 
 ```powershell
+python scripts/render_knowledge.py
+python scripts/validate_knowledge.py
+python scripts/check_links.py
 python scripts/build_collapsible.py   # -> exports/html/
 python scripts/md_to_docx.py          # -> exports/docx/
-# PDF：使用 office-export-pdf 技能的 LibreOffice Kit 转换到 exports/pdf/
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_pdf.ps1
+```
+
+## 大厂 Agent 架构情报系统
+
+- [大厂 Agent 架构版图](docs/explanation/agent-vendor-landscape.md)
+- [大厂来源矩阵](docs/reference/vendor-source-matrix.md)
+- [知识主张账本](docs/reference/claims-ledger.md)
+- [知识时间线](docs/reference/knowledge-timeline.md)
+- [冲突与推翻记录](docs/reference/conflict-log.md)
+- [知识治理与每日更新规范](docs/reference/knowledge-governance.md)
+
+每日扫描：
+
+> 已在 Codex 中创建每日 `08:30` 的“Agent 厂商官方源每日监测”任务；无结论变化时不会制造知识更新。
+
+```powershell
+python scripts/monitor_sources.py
+python scripts/render_knowledge.py
+python scripts/validate_knowledge.py
+python scripts/build_collapsible.py
+python scripts/md_to_docx.py
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_pdf.ps1
 ```
 
 ## 官方文档库更新（稀疏克隆模板）

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-22",
+  "claims": [
+    {
+      "id": "claim-harness-runtime-scaffold",
+      "topic": "概念边界",
+      "statement": "Agent Harness 是模型之外的运行时支架，负责驱动模型与工具循环、维护会话和上下文、施加审批与停止条件，并支持多步任务持续推进。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["microsoft-agent-harness", "openai-agents-architecture", "anthropic-trustworthy-agents"],
+      "supersedes": [],
+      "notes": "跨厂商共同要素；具体能力范围仍因产品而异。"
+    },
+    {
+      "id": "claim-model-plus-harness-synthesis",
+      "topic": "概念边界",
+      "statement": "“Agent = Model + Harness”适合作为工程分解，但它是行业归纳，不是所有厂商共同发布的正式标准定义。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["openai-agents-architecture", "microsoft-agent-harness", "anthropic-building-effective-agents"],
+      "supersedes": [],
+      "notes": "文档中必须区分官方定义与本文归纳。"
+    },
+    {
+      "id": "claim-workflow-before-agent",
+      "topic": "架构选择",
+      "statement": "当任务路径可以预定义时，应优先使用 workflow；只有步骤不可预测、需要运行中依据环境动态决策时，才引入自主 Agent。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2024-12-19",
+      "last_verified": "2026-11-22",
+      "sources": ["anthropic-building-effective-agents", "openai-building-agents"],
+      "supersedes": [],
+      "notes": "Anthropic 的核心工程原则；OpenAI 的实际指南也强调渐进式复杂度。"
+    },
+    {
+      "id": "claim-mcp-a2a-layers",
+      "topic": "协议分层",
+      "statement": "MCP 主要解决模型/Agent 与工具和上下文之间的接入，A2A 主要解决 Agent 与 Agent 之间的互操作；两者是互补层，不是替代关系。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["mcp-spec", "a2a-spec", "google-adk-platform"],
+      "supersedes": [],
+      "notes": "AG-UI 负责前端交互，ACP 负责编辑器客户端接入。"
+    },
+    {
+      "id": "claim-eval-harness-distinct",
+      "topic": "评测",
+      "statement": "Agent Harness 与 Evaluation Harness 是两个层次：前者运行生产 Agent，后者负责并发运行评测任务、记录轨迹、评分和聚合结果。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-01-09",
+      "last_verified": "2026-11-22",
+      "sources": ["anthropic-evals"],
+      "supersedes": [],
+      "notes": "用于避免把测试底座与 Agent 运行时混为一谈。"
+    },
+    {
+      "id": "claim-control-execution-separation",
+      "topic": "运行时架构",
+      "statement": "生产级 Agent 系统正在把控制面（会话、策略、编排、审计）与执行面（沙箱、文件、网络、工具）分离，以支持托管、自托管和混合部署。",
+      "status": "active",
+      "confidence": "medium",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["openai-agents-architecture", "aws-agentcore-overview", "microsoft-agent-harness"],
+      "supersedes": [],
+      "notes": "跨厂商架构归纳，具体控制/执行分界仍不同。"
+    },
+    {
+      "id": "claim-tool-context-first-class",
+      "topic": "Harness 设计",
+      "statement": "工具接口、上下文预算、状态持久化、权限和验证应作为一等设计对象，而不是提示词之外的事后补丁。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["anthropic-building-effective-agents", "microsoft-agent-harness", "anthropic-long-running-harness", "salesforce-enterprise-agentic-architecture"],
+      "supersedes": [],
+      "notes": "来自多厂商文档与工程实践的归纳。"
+    },
+    {
+      "id": "claim-autogen-archived",
+      "topic": "项目生命周期",
+      "statement": "Microsoft AutoGen 已归档，不再作为新生产项目的主框架；官方迁移路径是 Microsoft Agent Framework，社区替代包括 AG2。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-10-28",
+      "last_verified": "2026-11-22",
+      "sources": ["autogen-repository", "microsoft-agent-framework-overview"],
+      "supersedes": ["claim-autogen-active"],
+      "notes": "官方仓库状态优先于旧教程。"
+    },
+    {
+      "id": "claim-bedrock-classic-maintenance",
+      "topic": "项目生命周期",
+      "statement": "Amazon Bedrock Agents Classic 已进入维护模式，官方提供迁移到 AgentCore harness 的路径。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["aws-bedrock-agents-classic-maintenance", "aws-agentcore-harness"],
+      "supersedes": ["claim-bedrock-agents-classic-active"],
+      "notes": "新项目应评估 AgentCore 与 Strands。"
+    },
+    {
+      "id": "claim-huawei-agentarts-migration",
+      "topic": "项目生命周期",
+      "statement": "华为云 ModelArts Studio 的 Agent 开发模块已下线，Agent 开发能力迁移到 AgentArts/Versatile。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-02-15",
+      "last_verified": "2026-11-22",
+      "sources": ["huawei-modelarts-agent-offline", "huawei-agentarts-managed"],
+      "supersedes": ["claim-huawei-modelarts-agent-active"],
+      "notes": "旧文档不能继续作为当前实现入口。"
+    },
+    {
+      "id": "claim-openai-agent-builder-sunset",
+      "topic": "项目生命周期",
+      "statement": "OpenAI Agent Builder 计划于 2026-11-30 关闭；长期实现应迁移到 Agents API / Agents SDK。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-22",
+      "last_verified": "2026-11-22",
+      "sources": ["openai-agent-builder", "openai-building-agents"],
+      "supersedes": ["claim-agent-builder-default"],
+      "notes": "过渡期内旧用户仍可使用。"
+    }
+  ]
+}

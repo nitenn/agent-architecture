@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>知识冲突与推翻记录</title>
+<style>
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;max-width:1000px;margin:20px auto;padding:0 20px;color:#1c1c1c;line-height:1.65}
+h1{font-size:1.65em;border-bottom:3px solid #2b6cb0;padding-bottom:8px;margin-bottom:6px}
+.bar{position:sticky;top:0;background:#fff;z-index:5;padding:8px 0;border-bottom:1px solid #dfe6ee;margin-bottom:10px}
+.bar button{background:#2b6cb0;color:#fff;border:none;border-radius:6px;padding:6px 14px;margin-right:8px;cursor:pointer;font-size:.92em}
+.bar button:hover{background:#1a4971}
+details.chap{margin:10px 0;border:1px solid #d7dee8;border-radius:8px;overflow:hidden;background:#fff}
+details.chap>summary{background:#eef4fb;font-weight:700;font-size:1.1em;padding:10px 14px;cursor:pointer;list-style:none}
+details.chap>summary::before{content:'▸ ';color:#2b6cb0}
+details.chap[open]>summary::before{content:'▾ ';color:#2b6cb0}
+details.chap>summary:hover{background:#e2edf8}
+details.sec{margin:6px 12px 6px 16px;border-left:3px solid #c5d5e8;padding-left:10px}
+details.sec>summary{font-weight:600;color:#2b6cb0;padding:6px 4px;cursor:pointer;list-style:none}
+details.sec>summary::before{content:'▸ ';color:#7f9fc4}
+details.sec[open]>summary::before{content:'▾ ';color:#7f9fc4}
+details.sec>summary:hover{color:#1a4971}
+table{border-collapse:collapse;margin:8px 0;font-size:.92em;width:100%}
+th,td{border:1px solid #c9d2dd;padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4f9}
+blockquote{border-left:4px solid #9db8d6;margin:8px 0;padding:4px 12px;color:#3d4754;background:#f7fafd}
+code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+a{color:#2b6cb0}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+p{margin:6px 0}
+</style>
+</head>
+<body>
+<h1>知识冲突与推翻记录</h1>
+<div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
+<blockquote>自动生成。更新时间：2026-11-22。</blockquote>
+<p>当新官方来源与旧结论冲突时，不删除历史，而是记录旧结论、新结论、变化日期、证据和推翻原因。</p>
+<details class="chap" open><summary>Microsoft AutoGen 生命周期</summary>
+<ul><li>ID: <code>conflict-autogen-archive-2026</code></li><li>变化日期: 2026-10-28</li><li>观察日期: 2026-11-22</li><li>旧结论: AutoGen 是可继续用于新项目的对话式多智能体框架。</li><li>新结论: AutoGen 已归档，新项目应迁移 Microsoft Agent Framework 或 AG2。</li><li>推翻原因: 微软官方仓库状态和迁移说明取代旧教程、旧框架介绍；继续把 AutoGen 作为新项目默认选项会引入维护与安全风险。</li><li>证据: <a href="https://github.com/microsoft/autogen" target="_blank">Microsoft AutoGen Repository Status</a> · <a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank">Microsoft Agent Framework Overview</a></li><li>处理: <code>superseded</code></li></ul>
+</details>
+<details class="chap" open><summary>Amazon Bedrock Agents 产品代际</summary>
+<ul><li>ID: <code>conflict-aws-bedrock-agents-classic</code></li><li>变化日期: 2026-11-22</li><li>观察日期: 2026-11-22</li><li>旧结论: Bedrock Agents Classic 是 AWS Agent 构建的主要入口。</li><li>新结论: Agents Classic 已进入维护模式，迁移目标是 Amazon Bedrock AgentCore harness。</li><li>推翻原因: 官方维护模式页面明确说明迁移路径；新架构提供 runtime、identity、gateway、memory 和 observability 等独立运行层能力。</li><li>证据: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html" target="_blank">Amazon Bedrock Agents Classic Maintenance Mode</a> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness.html" target="_blank">Amazon Bedrock AgentCore Harness</a> · <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html" target="_blank">What is Amazon Bedrock AgentCore</a></li><li>处理: <code>superseded</code></li></ul>
+</details>
+<details class="chap" open><summary>Huawei ModelArts Studio Agent 模块</summary>
+<ul><li>ID: <code>conflict-huawei-modelarts-agent-offline</code></li><li>变化日期: 2026-02-15</li><li>观察日期: 2026-11-22</li><li>旧结论: ModelArts Studio 可作为华为云 Agent 开发入口。</li><li>新结论: ModelArts Studio Agent 开发模块已下线，当前入口是 AgentArts。</li><li>推翻原因: 华为云官方公告给出下线时间，并指向 AgentArts 全生命周期平台。</li><li>证据: <a href="https://www.huaweicloud.com/notice/2025/20260114164756418.html" target="_blank">华为云 ModelArts Studio Agent 开发模块下线通知</a> · <a href="https://support.huaweicloud.com/managedagents-agentarts/agentarts_13_0001.html" target="_blank">华为云 AgentArts Managed Agents</a></li><li>处理: <code>superseded</code></li></ul>
+</details>
+<details class="chap" open><summary>OpenAI Agent Builder 生命周期</summary>
+<ul><li>ID: <code>conflict-openai-agent-builder-sunset</code></li><li>变化日期: 2026-11-30</li><li>观察日期: 2026-11-22</li><li>旧结论: Agent Builder 可作为长期 Agent 工作流构建入口。</li><li>新结论: Agent Builder 计划于 2026-11-30 关闭，长期入口是 Agents API / Agents SDK。</li><li>推翻原因: OpenAI 官方页面给出计划关闭日期，并建议下载 Agents SDK 代码自部署；保留 Builder 作为当前默认会产生时间线上必然失效的知识。</li><li>证据: <a href="https://developers.openai.com/api/docs/guides/agent-builder" target="_blank">OpenAI Agent Builder and deprecation status</a> · <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI Building Agents</a></li><li>处理: <code>superseded</code></li></ul>
+</details>
+<script>
+function setAll(open){var ds=document.querySelectorAll('details');for(var i=0;i<ds.length;i++){ds[i].open=open;}}
+</script>
+</body>
+</html>

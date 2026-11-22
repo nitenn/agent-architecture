@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import html, re
+from pathlib import Path
 
 HEAD = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -168,9 +169,31 @@ def convert(md_path, out_path):
 jobs = [
     (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\explanation\agent-architecture.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\agent-architecture.html'),
     (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\how-to\task-fit-and-build.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\task-fit-and-build.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\explanation\agent-vendor-landscape.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\agent-vendor-landscape.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\reference\vendor-source-matrix.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\vendor-source-matrix.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\reference\claims-ledger.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\claims-ledger.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\reference\knowledge-timeline.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\knowledge-timeline.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\reference\conflict-log.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\conflict-log.html'),
+    (r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\docs\reference\knowledge-governance.md', r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\knowledge-governance.html'),
 ]
+index_items = []
 for src, dst in jobs:
     page = convert(src, dst)
+    title_match = re.search(r'<h1>(.*?)</h1>', page)
+    title = title_match.group(1) if title_match else Path(dst).stem
+    index_items.append((Path(dst).name, title))
     print('OUT:', dst)
     print('  chars:', len(page), '| chapters:', page.count('<details class="chap"'), '| sections:', page.count('<details class="sec"'), '| tables:', page.count('<table>'), '| opens:', page.count('<details'), '| closes:', page.count('</details>'))
+index_path = r'D:\AI工具\02-本质层\04-知识库\08-人工智能与智能体\主流Agent架构\exports\html\index.html'
+links = '\n'.join(f'<li><a href="{name}">{title}</a></li>' for name, title in index_items)
+index_page = f"""<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主流 Agent 架构知识库</title>
+<style>{HEAD.split('</style>', 1)[0].split('<style>', 1)[1]}</style></head>
+<body><h1>主流 Agent 架构知识库</h1>
+<p>大厂官方文档、研究、协议、评测、时间线与冲突账本。</p>
+<ul>{links}</ul></body></html>
+"""
+open(index_path, 'w', encoding='utf-8').write(index_page)
+print('OUT:', index_path, '| pages:', len(index_items))
 print('DONE')

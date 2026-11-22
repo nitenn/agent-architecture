@@ -1,0 +1,901 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-22T04:23:38.664320+00:00",
+  "sources": {
+    "a2a-spec": {
+      "hash": "75aea2918a43d92ee354d7103ea6dfb4ed508b4ba4f5d6599f6029a9e57be7ba",
+      "entry_ids": [],
+      "title": "Overview - A2A Protocol",
+      "last_checked": "2026-11-22T04:23:26.751002+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "acp-docs": {
+      "hash": "cd2f38ea4740d23e6eb4ad98f037bab6bdd8603731e8b7ab17ec2f6d3cb7ef58",
+      "entry_ids": [],
+      "title": "Introduction - Agent Client Protocol",
+      "last_checked": "2026-11-22T04:23:31.484728+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "ag-ui-docs": {
+      "hash": "8bfd3ef4887011fdf9db906c00c35e55db84dd730c87ca0bda62ca77d6460852",
+      "entry_ids": [],
+      "title": "AG-UI Overview - Agent User Interaction Protocol",
+      "last_checked": "2026-11-22T04:23:31.458791+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "agentbench": {
+      "hash": "c029cb07c23b9b2473b04f818136bbb2f36f82fa90c8a418f8eae5f99832ee39",
+      "entry_ids": [],
+      "title": "GitHub - THUDM/AgentBench: A Comprehensive Benchmark to Evaluate LLMs as Agents (ICLR'24) · GitHub",
+      "last_checked": "2026-11-22T04:23:32.611119+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "alibaba-agent-api": {
+      "hash": "f9e6b45ad351c33bd23af33e60a408823065a7f5040cb8ac75170ef8c7e54378",
+      "entry_ids": [],
+      "title": "智能体 API：接口列表-大模型服务平台百炼(Model Studio)-阿里云帮助中心",
+      "last_checked": "2026-11-22T04:23:29.294482+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "alibaba-agent-overview": {
+      "hash": "da9067f9d77cab4460655c815047cb0ea04b7b138b026621b4cbcc94dc96d993",
+      "entry_ids": [],
+      "title": "Agent 服务概览-大模型服务平台百炼(Model Studio)-阿里云帮助中心",
+      "last_checked": "2026-11-22T04:23:29.066278+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "alibaba-managed-agents": {
+      "hash": "3adb0ada46a20fe4b917e728e8c184574d765b0175ba08ee11cc213689c13fdc",
+      "entry_ids": [],
+      "title": "Managed Agents 产品简介-大模型服务平台百炼(Model Studio)-阿里云帮助中心",
+      "last_checked": "2026-11-22T04:23:29.192582+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "alibaba-qwen-agent-releases": {
+      "hash": "6935a74af0553312379507552270f5eccd32924578bb281c60fe6eb47c378891",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/694939378/v0.0.26",
+        "tag:github.com,2008:Repository/694939378/v0.0.25",
+        "tag:github.com,2008:Repository/694939378/v0.0.24",
+        "tag:github.com,2008:Repository/694939378/v0.0.23",
+        "tag:github.com,2008:Repository/694939378/v0.0.22",
+        "tag:github.com,2008:Repository/694939378/v0.0.21",
+        "tag:github.com,2008:Repository/694939378/v0.0.20",
+        "tag:github.com,2008:Repository/694939378/v0.0.18",
+        "tag:github.com,2008:Repository/694939378/v0.0.17",
+        "tag:github.com,2008:Repository/694939378/v0.0.16"
+      ],
+      "title": "Release notes from Qwen-Agent",
+      "last_checked": "2026-11-22T04:23:29.525406+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "anthropic-building-effective-agents": {
+      "hash": "29b3ad7df9c6395dba8974ccc88cd5361248d97cf9bdbf62f9dec4537666ebfb",
+      "entry_ids": [],
+      "title": "Building effective AI agents \\ Anthropic",
+      "last_checked": "2026-11-22T04:23:25.840329+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "anthropic-claude-code-releases": {
+      "hash": "ee8fc2b8461855b278d75dd2a0b628f67997f9f63cae782764c371fd5859d321",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/937253475/v2.1.330",
+        "tag:github.com,2008:Repository/937253475/v2.1.329",
+        "tag:github.com,2008:Repository/937253475/v2.1.328",
+        "tag:github.com,2008:Repository/937253475/v2.1.327",
+        "tag:github.com,2008:Repository/937253475/v2.1.326",
+        "tag:github.com,2008:Repository/937253475/v2.1.325",
+        "tag:github.com,2008:Repository/937253475/v2.1.323",
+        "tag:github.com,2008:Repository/937253475/v2.1.322",
+        "tag:github.com,2008:Repository/937253475/v2.1.321",
+        "tag:github.com,2008:Repository/937253475/v2.1.319"
+      ],
+      "title": "Release notes from claude-code",
+      "last_checked": "2026-11-22T04:23:25.866624+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "anthropic-evals": {
+      "hash": "cf584df33c599f0fa271b89b408997c5ecd47169885d5f2516d4a3d6f6e9a0ba",
+      "entry_ids": [],
+      "title": "Demystifying evals for AI agents \\ Anthropic",
+      "last_checked": "2026-11-22T04:23:25.841159+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "anthropic-long-running-harness": {
+      "hash": "466716388ef37654e06f77b1bc22c55f7a65344cf9a17b59f6beaded1b4957ae",
+      "entry_ids": [],
+      "title": "Effective harnesses for long-running agents \\ Anthropic",
+      "last_checked": "2026-11-22T04:23:25.841980+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "anthropic-trustworthy-agents": {
+      "hash": "6378e0509d00f1211bf55537119753169cd50250ed1ddee88829cd52fbf0f08b",
+      "entry_ids": [],
+      "title": "Trustworthy agents in practice \\ Anthropic",
+      "last_checked": "2026-11-22T04:23:25.841632+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "arxiv-agent-architecture": {
+      "hash": "528abba319c43403d153ff0354194b8b143adb2d5d282db28d567e2038efe0c1",
+      "entry_ids": [
+        "http://arxiv.org/abs/2611.25411v1",
+        "http://arxiv.org/abs/2611.24290v1",
+        "http://arxiv.org/abs/2611.19140v1",
+        "http://arxiv.org/abs/2611.19123v1",
+        "http://arxiv.org/abs/2611.19029v1",
+        "http://arxiv.org/abs/2611.17220v1",
+        "http://arxiv.org/abs/2611.16693v1",
+        "http://arxiv.org/abs/2611.14945v1",
+        "http://arxiv.org/abs/2611.14675v1",
+        "http://arxiv.org/abs/2611.14115v1",
+        "http://arxiv.org/abs/2611.23304v1",
+        "http://arxiv.org/abs/2611.12085v1",
+        "http://arxiv.org/abs/2611.11896v1",
+        "http://arxiv.org/abs/2611.10984v1",
+        "http://arxiv.org/abs/2611.12953v1",
+        "http://arxiv.org/abs/2611.09318v1",
+        "http://arxiv.org/abs/2611.08718v1",
+        "http://arxiv.org/abs/2611.05911v1",
+        "http://arxiv.org/abs/2611.05601v1",
+        "http://arxiv.org/abs/2611.05179v1",
+        "http://arxiv.org/abs/2611.03066v1",
+        "http://arxiv.org/abs/2611.01769v1",
+        "http://arxiv.org/abs/2610.39621v2",
+        "http://arxiv.org/abs/2610.38225v1",
+        "http://arxiv.org/abs/2610.34668v1",
+        "http://arxiv.org/abs/2610.34649v1",
+        "http://arxiv.org/abs/2610.33920v1",
+        "http://arxiv.org/abs/2610.33593v1",
+        "http://arxiv.org/abs/2610.33282v1",
+        "http://arxiv.org/abs/2610.32686v1"
+      ],
+      "title": "arXiv Query: search_query=all:\"agent architecture\"&id_list=&start=0&max_results=30",
+      "last_checked": "2026-11-22T04:23:31.876944+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "arxiv-agent-harness": {
+      "hash": "7e3222bf921a39b1ed3619d6226d372c62485b80216d012ff808d26c3ad71282",
+      "entry_ids": [
+        "http://arxiv.org/abs/2611.26595v1",
+        "http://arxiv.org/abs/2611.25891v1",
+        "http://arxiv.org/abs/2611.25380v1",
+        "http://arxiv.org/abs/2611.24924v1",
+        "http://arxiv.org/abs/2611.24651v1",
+        "http://arxiv.org/abs/2611.23473v1",
+        "http://arxiv.org/abs/2611.23346v1",
+        "http://arxiv.org/abs/2611.22299v1",
+        "http://arxiv.org/abs/2611.22171v1",
+        "http://arxiv.org/abs/2611.22136v1",
+        "http://arxiv.org/abs/2611.22017v1",
+        "http://arxiv.org/abs/2611.21407v1",
+        "http://arxiv.org/abs/2611.21299v1",
+        "http://arxiv.org/abs/2611.21176v2",
+        "http://arxiv.org/abs/2611.21688v1",
+        "http://arxiv.org/abs/2611.23323v1",
+        "http://arxiv.org/abs/2611.19960v1",
+        "http://arxiv.org/abs/2611.19952v1",
+        "http://arxiv.org/abs/2611.19359v1",
+        "http://arxiv.org/abs/2611.18359v1",
+        "http://arxiv.org/abs/2611.17966v1",
+        "http://arxiv.org/abs/2611.23314v1",
+        "http://arxiv.org/abs/2611.16867v1",
+        "http://arxiv.org/abs/2611.16591v2",
+        "http://arxiv.org/abs/2611.16493v2",
+        "http://arxiv.org/abs/2611.16221v1",
+        "http://arxiv.org/abs/2611.15754v1",
+        "http://arxiv.org/abs/2611.15596v1",
+        "http://arxiv.org/abs/2611.15223v1",
+        "http://arxiv.org/abs/2611.15006v1"
+      ],
+      "title": "arXiv Query: search_query=all:\"agent harness\"&id_list=&start=0&max_results=30",
+      "last_checked": "2026-11-22T04:23:31.978978+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "arxiv-multi-agent": {
+      "hash": "1f353fd6197cfe00ebeccf57afa76c27302ef29fdab78d0fd9f1aed22e95ff08",
+      "entry_ids": [
+        "http://arxiv.org/abs/2611.26553v1",
+        "http://arxiv.org/abs/2611.25898v1",
+        "http://arxiv.org/abs/2611.25809v1",
+        "http://arxiv.org/abs/2611.25531v1",
+        "http://arxiv.org/abs/2611.25071v1",
+        "http://arxiv.org/abs/2611.25056v1",
+        "http://arxiv.org/abs/2611.24406v1",
+        "http://arxiv.org/abs/2611.24221v1",
+        "http://arxiv.org/abs/2611.23909v1",
+        "http://arxiv.org/abs/2611.23890v1",
+        "http://arxiv.org/abs/2611.23844v1",
+        "http://arxiv.org/abs/2611.23613v1",
+        "http://arxiv.org/abs/2611.23570v1",
+        "http://arxiv.org/abs/2611.23507v1",
+        "http://arxiv.org/abs/2611.23403v1",
+        "http://arxiv.org/abs/2611.23142v1",
+        "http://arxiv.org/abs/2611.23119v1",
+        "http://arxiv.org/abs/2611.23362v1",
+        "http://arxiv.org/abs/2611.23346v1",
+        "http://arxiv.org/abs/2611.22342v1",
+        "http://arxiv.org/abs/2611.22248v1",
+        "http://arxiv.org/abs/2611.22245v2",
+        "http://arxiv.org/abs/2611.22016v1",
+        "http://arxiv.org/abs/2611.21804v1",
+        "http://arxiv.org/abs/2611.21259v1",
+        "http://arxiv.org/abs/2611.20983v1",
+        "http://arxiv.org/abs/2611.20753v1",
+        "http://arxiv.org/abs/2611.20671v1",
+        "http://arxiv.org/abs/2611.20430v1",
+        "http://arxiv.org/abs/2611.19982v1"
+      ],
+      "title": "arXiv Query: search_query=all:\"multi-agent\" AND all:\"LLM\"&id_list=&start=0&max_results=30",
+      "last_checked": "2026-11-22T04:23:32.082231+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "arxiv-tool-use-agents": {
+      "hash": "d3816a28203dfb372772483200e5d3c71e73b93d01baefcc86aa7b0b09c3beec",
+      "entry_ids": [
+        "http://arxiv.org/abs/2611.25925v1",
+        "http://arxiv.org/abs/2611.25855v1",
+        "http://arxiv.org/abs/2611.25840v1",
+        "http://arxiv.org/abs/2611.25661v1",
+        "http://arxiv.org/abs/2611.25656v1",
+        "http://arxiv.org/abs/2611.25470v1",
+        "http://arxiv.org/abs/2611.25071v1",
+        "http://arxiv.org/abs/2611.24184v1",
+        "http://arxiv.org/abs/2611.24025v1",
+        "http://arxiv.org/abs/2611.23872v1",
+        "http://arxiv.org/abs/2611.23810v1",
+        "http://arxiv.org/abs/2611.23501v1",
+        "http://arxiv.org/abs/2611.23225v1",
+        "http://arxiv.org/abs/2611.22777v1",
+        "http://arxiv.org/abs/2611.22584v1",
+        "http://arxiv.org/abs/2611.22583v1",
+        "http://arxiv.org/abs/2611.22169v1",
+        "http://arxiv.org/abs/2611.22075v1",
+        "http://arxiv.org/abs/2611.21791v1",
+        "http://arxiv.org/abs/2611.21298v1",
+        "http://arxiv.org/abs/2611.21072v2",
+        "http://arxiv.org/abs/2611.20771v1",
+        "http://arxiv.org/abs/2611.20736v1",
+        "http://arxiv.org/abs/2611.21690v1",
+        "http://arxiv.org/abs/2611.21688v1",
+        "http://arxiv.org/abs/2611.20569v1",
+        "http://arxiv.org/abs/2611.20230v1",
+        "http://arxiv.org/abs/2611.19871v1",
+        "http://arxiv.org/abs/2611.19275v1",
+        "http://arxiv.org/abs/2611.19202v1"
+      ],
+      "title": "arXiv Query: search_query=all:\"tool use\" AND all:\"agent\"&id_list=&start=0&max_results=30",
+      "last_checked": "2026-11-22T04:23:32.118968+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "autogen-repository": {
+      "hash": "61e5a84b3736ae2d54c683a9e96fb39084f4b5caa66a642806ca3da81d10803b",
+      "entry_ids": [],
+      "title": "GitHub - microsoft/autogen: A programming framework for agentic AI · GitHub",
+      "last_checked": "2026-11-22T04:23:30.452532+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "aws-agentcore-docs": {
+      "hash": "e6f73cc2a1f8c5804806663759868663ff1bf499a369a668bf05823aee575be8",
+      "entry_ids": [],
+      "title": "Amazon Bedrock AgentCore Documentation",
+      "last_checked": "2026-11-22T04:23:27.927614+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "aws-agentcore-harness": {
+      "hash": "37a1056ede887bb4e8eb2d8a1bc9d69f1501e7ffe1eaac7f75a0e6a662a6cf4d",
+      "entry_ids": [],
+      "title": "AgentCore harness - Amazon Bedrock AgentCoreAgentCore harness - Amazon Bedrock AgentCore",
+      "last_checked": "2026-11-22T04:23:28.386763+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "aws-agentcore-overview": {
+      "hash": "6f0c0bb1bd633b3f1abe964a8a5e69189987d3f4c3dbd5e2fa522dbce94706e0",
+      "entry_ids": [],
+      "title": "Overview - Amazon Bedrock AgentCoreOverview - Amazon Bedrock AgentCore",
+      "last_checked": "2026-11-22T04:23:28.463474+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "aws-bedrock-agents-classic-maintenance": {
+      "hash": "0cb51830dd4aeb3ac5b08ffeb8540b293b09ae27ddc99b002477cdfcbcb210df",
+      "entry_ids": [],
+      "title": "Amazon Bedrock Agents Classic maintenance mode - Amazon BedrockAmazon Bedrock Agents Classic maintenance mode - Amazon Bedrock",
+      "last_checked": "2026-11-22T04:23:30.463300+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "aws-strands-releases": {
+      "hash": "f691571e5bf4c785522828e4a96f40a950bd4e14b8d67a31a8c3cdfb297c5320",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/983715534/typescript/v1.26.0",
+        "tag:github.com,2008:Repository/983715534/harness-typescript/v0.5.0",
+        "tag:github.com,2008:Repository/983715534/harness-cli/v0.4.0",
+        "tag:github.com,2008:Repository/983715534/python/v1.65.0",
+        "tag:github.com,2008:Repository/983715534/typescript/v1.25.0",
+        "tag:github.com,2008:Repository/983715534/mcp/v0.4.0",
+        "tag:github.com,2008:Repository/983715534/harness-typescript/v0.4.0",
+        "tag:github.com,2008:Repository/983715534/harness-python/v0.4.0",
+        "tag:github.com,2008:Repository/983715534/harness-cli/v0.3.0",
+        "tag:github.com,2008:Repository/983715534/typescript/v1.24.0"
+      ],
+      "title": "Release notes from harness-sdk",
+      "last_checked": "2026-11-22T04:23:28.614698+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "baidu-agent-creation": {
+      "hash": "0a611354e00a3e60e30cd03f73d2bc7e30fd6248bcebe7c70c78c0fbe1e2a061",
+      "entry_ids": [],
+      "title": "创建方式选择 - 百度千帆·大模型服务及Agent开发平台",
+      "last_checked": "2026-11-22T04:23:30.139983+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "baidu-appbuilder": {
+      "hash": "e3c09cfed804a2963e5ee7c53c0b44cb0aad0bb39819f705f5fb5f380e61cd17",
+      "entry_ids": [],
+      "title": "百度智能云千帆AppBuilder-百度智能云",
+      "last_checked": "2026-11-22T04:23:30.111072+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "baidu-qianfan": {
+      "hash": "0e2bd36fd7f96d5bca93cb5bc4712e0c552559b12ab00c084e51da11b35909e4",
+      "entry_ids": [],
+      "title": "百度千帆·大模型服务及Agent开发平台 -百度智能云",
+      "last_checked": "2026-11-22T04:23:30.146227+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "bytedance-agent-toolkit": {
+      "hash": "18b60c7c746ecc10aa3d9ffd6e4163bbbe0ad25bf1db88139c0cfe2509227c22",
+      "entry_ids": [],
+      "title": "产品概述--火山引擎技能包 Agent Toolkit-火山引擎",
+      "last_checked": "2026-11-22T04:23:29.666118+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "bytedance-ark-define-agent": {
+      "hash": "104fdc2b03213e32cc32c7fe162f86a959863b767a6ab3aa33513f6923739021",
+      "entry_ids": [],
+      "title": "Agent - 火山方舟 - 火山引擎",
+      "last_checked": "2026-11-22T04:23:29.571437+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "bytedance-ark-overview": {
+      "hash": "c969642f7585a62f5e396edd2339f78981a69d08a672dcd73f3b451a897daf99",
+      "entry_ids": [],
+      "title": "方舟 Managed Agents 概述 - 火山方舟 - 火山引擎",
+      "last_checked": "2026-11-22T04:23:29.605014+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "cohere-building-agent": {
+      "hash": "d0f53f3ad0a3722fed79dd5c8863e10423547d6157f04777b073ccd1a967dcc8",
+      "entry_ids": [],
+      "title": "Building a Generative AI Agent with Cohere | Cohere",
+      "last_checked": "2026-11-22T04:23:27.676855+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "cohere-python-releases": {
+      "hash": "2e7e845611b32237965e7e01e83267b75baf9e5b5fb012e4988667bed5bb8d99",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/331452083/fern-generation-base--fernapi--fern-python-sdk",
+        "tag:github.com,2008:Repository/331452083/7.3.3",
+        "tag:github.com,2008:Repository/331452083/7.3.2",
+        "tag:github.com,2008:Repository/331452083/7.3.1",
+        "tag:github.com,2008:Repository/331452083/7.3.0",
+        "tag:github.com,2008:Repository/331452083/7.2.0",
+        "tag:github.com,2008:Repository/331452083/7.1.0",
+        "tag:github.com,2008:Repository/331452083/7.0.9",
+        "tag:github.com,2008:Repository/331452083/7.0.8",
+        "tag:github.com,2008:Repository/331452083/7.07"
+      ],
+      "title": "Release notes from cohere-python",
+      "last_checked": "2026-11-22T04:23:27.796816+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "cohere-tool-use": {
+      "hash": "8d6964bcc4d9e6f3e7a76301ae6cc2fa690552ec9b7814f131ecad8521a737cd",
+      "entry_ids": [],
+      "title": "Tool use & agents - quickstart | Cohere",
+      "last_checked": "2026-11-22T04:23:27.722042+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "deepseek-api-docs": {
+      "hash": "0462f89a34142911cb5066517f848e940151c6ea908454907ecdb7ff449cba9a",
+      "entry_ids": [],
+      "title": "首次调用 API | DeepSeek API Docs",
+      "last_checked": "2026-11-22T04:23:28.954597+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "deepseek-api-updates": {
+      "hash": "3450fe55a53953f84e7626a047dde1fa7d4649c40bfbb94e8b43fc87f5181a5f",
+      "entry_ids": [],
+      "title": "更新日志 | DeepSeek API Docs",
+      "last_checked": "2026-11-22T04:23:29.012113+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "deepseek-harness-releases": {
+      "hash": "ba90f8543558695bd40d05c6e4bae5b979c46596c696dfe603aff93f45dc43f0",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.3-alpha.1",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-rc.5",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-rc.4",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-rc.3",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-rc.2",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-rc.1",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-alpha.3",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.1-rc.5",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.2-alpha.2",
+        "tag:github.com,2008:Repository/1333065091/dsh-v0.2.1-rc.4"
+      ],
+      "title": "Release notes from deepseek-harness",
+      "last_checked": "2026-11-22T04:23:29.058917+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "google-adk-blog": {
+      "hash": "73ed92434d83bc250d4c4e857861c73eef9d2ce592a3363f8da56073e7d7573b",
+      "entry_ids": [],
+      "title": "Agent Development Kit: Making it easy to build multi-agent applications - Google Developers Blog",
+      "last_checked": "2026-11-22T04:23:25.920012+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "google-adk-platform": {
+      "hash": "d12a0548fbab5a0e8e0e3bb7b63110b99c2c2c6fd859d49d42d40482f8f501da",
+      "entry_ids": [],
+      "title": "ADK | Gemini Enterprise Agent Platform | Google Cloud Documentation",
+      "last_checked": "2026-11-22T04:23:25.911958+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "google-adk-releases": {
+      "hash": "472b29cc1a77e7f6fd2d6eabc5388e29768c7f1de015e0112b97d47c97482937",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/958830659/v2.15.0",
+        "tag:github.com,2008:Repository/958830659/v2.14.1",
+        "tag:github.com,2008:Repository/958830659/v2.14.0",
+        "tag:github.com,2008:Repository/958830659/v2.13.0",
+        "tag:github.com,2008:Repository/958830659/v2.12.0",
+        "tag:github.com,2008:Repository/958830659/v2.11.0",
+        "tag:github.com,2008:Repository/958830659/v2.10.0",
+        "tag:github.com,2008:Repository/958830659/v2.9.2",
+        "tag:github.com,2008:Repository/958830659/v2.9.1",
+        "tag:github.com,2008:Repository/958830659/v2.9.0"
+      ],
+      "title": "Release notes from adk-python",
+      "last_checked": "2026-11-22T04:23:26.743820+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "huawei-agentarts-lowcode": {
+      "hash": "a723e3e191dc95778d78b90ccaef9d8a1470775f8b4bcb60e055ef42055d4bb5",
+      "entry_ids": [],
+      "title": "选择并配置模型_创建并配置单智能体应用_开发单智能体应用_低代码开发智能体_智果（AgentArts）智能体平台-华为云",
+      "last_checked": "2026-11-22T04:23:30.199764+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "huawei-agentarts-managed": {
+      "hash": "54af3e19afe980edf0b202d2083168292043032f0346ba16b4ab9e5db8a6fc4a",
+      "entry_ids": [],
+      "title": "Managed Agents介绍_Managed Agents（Beta）_智果（AgentArts）智能体平台-华为云",
+      "last_checked": "2026-11-22T04:23:30.158484+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "huawei-agentarts-news": {
+      "hash": "24459ae2d44cc81b7ca435b11c1fe148599b034890bfe69e635ba6f9d04141c7",
+      "entry_ids": [],
+      "title": "最新动态_智果（AgentArts）智能体平台-华为云",
+      "last_checked": "2026-11-22T04:23:30.191946+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "huawei-modelarts-agent-offline": {
+      "hash": "ac6fa85951b7ec8e84585e8066f4bf4266b9c07343997a08843f76527c790580",
+      "entry_ids": [],
+      "title": "华为云ModelArts Studio Agent开发模块将于2026年02月15日00:00（北京时间）下线通知-华为云",
+      "last_checked": "2026-11-22T04:23:30.909640+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "ibm-watsonx-agents": {
+      "hash": "a106cc78839539ca5c57b464e20edfc71246fbc561df388f2f4e47dd8c94c491",
+      "entry_ids": [],
+      "title": "IBM watsonx Agents",
+      "last_checked": "2026-11-22T04:23:28.799775+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "iflytek-agent-faq": {
+      "hash": "d070a9c95535358c91bae7e4ce1ecf190fafd7d7f6c0cb2f51595fb856a344c9",
+      "entry_ids": [],
+      "title": "FAQ | 讯飞开放平台文档中心",
+      "last_checked": "2026-11-22T04:23:30.407871+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "iflytek-agent-guide": {
+      "hash": "9236815637bdf65b58fdd3244d6adea04ae15f835dc4957c89f82281d0787acd",
+      "entry_ids": [],
+      "title": "开发指南 | 讯飞开放平台文档中心",
+      "last_checked": "2026-11-22T04:23:30.403694+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "iflytek-agent-platform": {
+      "hash": "47fa7e13c22113838e12c0398bf56497ddcebf6f15c8be2b5cefe418b030369d",
+      "entry_ids": [],
+      "title": "平台介绍 | 讯飞开放平台文档中心",
+      "last_checked": "2026-11-22T04:23:30.378586+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "langchain-harness-anatomy": {
+      "hash": "6ab92de06cb9bae6c2df264b2cebaac846abc4efc5ab38fafd21b322c8da8810",
+      "entry_ids": [],
+      "title": "The Anatomy of an Agent Harness",
+      "last_checked": "2026-11-22T04:23:31.930773+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "mcp-spec": {
+      "hash": "16a21d0edc02ba8826107ad465c3777693372c3085c043148a3e41d16090f21c",
+      "entry_ids": [],
+      "title": "Specification - Model Context Protocol",
+      "last_checked": "2026-11-22T04:23:31.087646+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "microsoft-agent-framework-overview": {
+      "hash": "ebe19f4b06326370dce3b00041831ad88090295e3e8f9b12d19bd38826b49bda",
+      "entry_ids": [],
+      "title": "Microsoft Agent Framework Overview | Microsoft Learn",
+      "last_checked": "2026-11-22T04:23:26.769740+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "microsoft-agent-framework-releases": {
+      "hash": "8aefbdae0b76e98dc2e367abaf3262a22482ca9c220627d8a4c00cffcad36ae8",
+      "entry_ids": [],
+      "title": "Microsoft Agent Framework | The latest news from the Microsoft Agent Framework team for developers",
+      "last_checked": "2026-11-22T04:23:26.960079+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "microsoft-agent-framework-upgrade": {
+      "hash": "615534099c411fc50c8cb2e0394b88a8f8207214038b6a325a10659c89f536c1",
+      "entry_ids": [],
+      "title": "Upgrade guides for Agent Framework | Microsoft Learn",
+      "last_checked": "2026-11-22T04:23:27.099369+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "microsoft-agent-harness": {
+      "hash": "b3a3ca09b8ea1ac48c387ce03c19c40a93525e29ddf432f81b3eea8f14ac4d67",
+      "entry_ids": [],
+      "title": "Agent Harness | Microsoft Learn",
+      "last_checked": "2026-11-22T04:23:26.783944+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "microsoft-agent-pipeline": {
+      "hash": "68df8408f46044179abfc6c05a9ef0fca13337dc79f43dad8824ec463eddd971",
+      "entry_ids": [],
+      "title": "Agent Pipeline Architecture | Microsoft Learn",
+      "last_checked": "2026-11-22T04:23:26.930335+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "minimax-agent-model": {
+      "hash": "97ae580f089eeb064db004ca982317afcdaee4284755ab31ea5e10e4c1daa466",
+      "entry_ids": [],
+      "title": "MiniMax M3 - 前沿 Coding 能力，1M 上下文，原生多模态 | MiniMax",
+      "last_checked": "2026-11-22T04:23:30.332448+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "minimax-agent-news": {
+      "hash": "05b0a700a562a0fa2825ca91da07e7b2d60790e85ca19c37727bb40fe854d947",
+      "entry_ids": [],
+      "title": "MiniMax 新闻资讯 - 人工智能行业动态 | MiniMax",
+      "last_checked": "2026-11-22T04:23:30.370870+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "minimax-chat-docs": {
+      "hash": "3dc332c656f88f66a85d566bf00e616162d38fc55821fa9cc1155188106d5fbb",
+      "entry_ids": [],
+      "title": "MiniMax-与用户共创智能",
+      "last_checked": "2026-11-22T04:23:30.367990+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "mistral-agents-api": {
+      "hash": "cd8e318bdf7c7260098564e1ca0a77dc87933e0eb42eb37ec90756222dcf5f18",
+      "entry_ids": [],
+      "title": "Agents & Conversations | Mistral Docs",
+      "last_checked": "2026-11-22T04:23:27.600700+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "mistral-agents-overview": {
+      "hash": "11fa23390079189ffc84cf733c662bd2d54e3d12aeb2b7ae3752e0924d5db924",
+      "entry_ids": [],
+      "title": "Managed Agents | Mistral Docs",
+      "last_checked": "2026-11-22T04:23:27.595983+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "mistral-client-releases": {
+      "hash": "f429bccb5a09cdca194612092def6a53ab9767c2688cbb7d9e8978e0efa3da53",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/728611905/v3.7.0",
+        "tag:github.com,2008:Repository/728611905/v3.2.0",
+        "tag:github.com,2008:Repository/728611905/v3.1.0",
+        "tag:github.com,2008:Repository/728611905/v3.0.0",
+        "tag:github.com,2008:Repository/728611905/v2.10.1",
+        "tag:github.com,2008:Repository/728611905/v2.10.0",
+        "tag:github.com,2008:Repository/728611905/v2.9.4",
+        "tag:github.com,2008:Repository/728611905/v2.9.3",
+        "tag:github.com,2008:Repository/728611905/v2.9.2",
+        "tag:github.com,2008:Repository/728611905/v2.9.1"
+      ],
+      "title": "Release notes from client-python",
+      "last_checked": "2026-11-22T04:23:27.606676+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "moonshot-platform-docs": {
+      "hash": "1a7900969578af8cc629f0ddcf863499a224e5ebdb8507beeed75c9dc1109497",
+      "entry_ids": [],
+      "title": "快速开始 - Kimi API 开放平台",
+      "last_checked": "2026-11-22T04:23:30.331610+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "nist-ai-rmf": {
+      "hash": "dea5be7b85f73dca3820b654b2ad8c3ab87859bf5495eade12a638c300fe800e",
+      "entry_ids": [],
+      "title": "AI Risk Management Framework | NIST",
+      "last_checked": "2026-11-22T04:23:31.833099+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "nvidia-agent-toolkit-releases": {
+      "hash": "a74cb5384025161bae0f79b31d3b1de8987316c4dc4db2e8038b425c5cf36323",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/944039567/v1.9.0",
+        "tag:github.com,2008:Repository/944039567/v1.9.0-rc4",
+        "tag:github.com,2008:Repository/944039567/v1.9.0-rc3",
+        "tag:github.com,2008:Repository/944039567/v1.9.0-rc2",
+        "tag:github.com,2008:Repository/944039567/v1.10.0-dev",
+        "tag:github.com,2008:Repository/944039567/v1.9.0-rc1",
+        "tag:github.com,2008:Repository/944039567/v1.8.0",
+        "tag:github.com,2008:Repository/944039567/v1.8.0-rc8",
+        "tag:github.com,2008:Repository/944039567/v1.8.0-rc7",
+        "tag:github.com,2008:Repository/944039567/v1.8.0-rc6"
+      ],
+      "title": "Release notes from NeMo-Agent-Toolkit",
+      "last_checked": "2026-11-22T04:23:28.794526+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "nvidia-agentic-ai": {
+      "hash": "b41bbfe097a77eb6f62ab04eb3e2b0ec415b579c6bb7a8b6a5011cd3deb1417e",
+      "entry_ids": [],
+      "title": "Agentic AI Solutions | Transform Your Business With NVIDIA Agentic AI",
+      "last_checked": "2026-11-22T04:23:28.691433+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "nvidia-blueprints": {
+      "hash": "e90e416b45b7e5b13c272b54bfedf585e53b9ae8b45ff389e6361363baf0b3eb",
+      "entry_ids": [],
+      "title": "Blueprints | Try NVIDIA NIM APIs",
+      "last_checked": "2026-11-22T04:23:28.755306+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "nvidia-nim": {
+      "hash": "f5ae20f9fb53a7e9c91854f35277f571cf0d9b524aec04bceeccf71984006bd5",
+      "entry_ids": [],
+      "title": "NIM for Developers | NVIDIA Developer",
+      "last_checked": "2026-11-22T04:23:28.777504+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "openai-agent-builder": {
+      "hash": "d1e8fbaaf1324a6f91a714bc744dc6a2961297a36a8462653ac1ef3fd376f48f",
+      "entry_ids": [],
+      "title": "Agent Builder | OpenAI API",
+      "last_checked": "2026-11-22T04:23:30.427776+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "openai-agents-architecture": {
+      "hash": "c9d210e1d481942adbb7f1e7f67df928fe788fbddb18b1ba5cb47629fc6cbf31",
+      "entry_ids": [],
+      "title": "Architecture | OpenAI API",
+      "last_checked": "2026-11-22T04:23:25.838079+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "openai-agents-sdk-releases": {
+      "hash": "200a73aea007966291da82cfd0db954d24e7b26cbe71675b0cf54b928ef90cf6",
+      "entry_ids": [
+        "tag:github.com,2008:Repository/946380199/v1.0.0-alpha.1",
+        "tag:github.com,2008:Repository/946380199/v0.25.0",
+        "tag:github.com,2008:Repository/946380199/v0.24.0-alpha.8",
+        "tag:github.com,2008:Repository/946380199/v0.24.0-alpha.7",
+        "tag:github.com,2008:Repository/946380199/v0.24.0-alpha.6",
+        "tag:github.com,2008:Repository/946380199/v0.24.0",
+        "tag:github.com,2008:Repository/946380199/v0.23.1",
+        "tag:github.com,2008:Repository/946380199/v0.23.0",
+        "tag:github.com,2008:Repository/946380199/v0.22.3",
+        "tag:github.com,2008:Repository/946380199/v0.22.2"
+      ],
+      "title": "Release notes from openai-agents-python",
+      "last_checked": "2026-11-22T04:23:25.839514+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "openai-building-agents": {
+      "hash": "19ad278e34685e373ed9e0d6f01d53989ac42e08dc033af3d06b3a5140216edd",
+      "entry_ids": [],
+      "title": "Building agents",
+      "last_checked": "2026-11-22T04:23:25.838536+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "openai-harness-engineering": {
+      "hash": "86ff24807621f0f9f423da001e860680d39642b32b8fc8b0fcb8553e5becd3cc",
+      "entry_ids": [],
+      "title": "Harness engineering: leveraging Codex in an agent-first world | OpenAI",
+      "last_checked": "2026-11-22T04:23:25.839146+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "openai-next-agents-sdk": {
+      "hash": "3c4eda0dab21aa4cb6337cc6114584d92f739389446fb8aebbd61afaacd8ef0c",
+      "entry_ids": [],
+      "title": "The next evolution of the Agents SDK | OpenAI",
+      "last_checked": "2026-11-22T04:23:25.839957+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "osworld": {
+      "hash": "4a5faa277306c0f2415d62e56412fe45400e60698231c6b37a2409e54f4bcc5d",
+      "entry_ids": [],
+      "title": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
+      "last_checked": "2026-11-22T04:23:32.587113+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "owasp-agentic-threats": {
+      "hash": "e9939cea1027468ef1743af08ed4f4c918ebe024acfb82e3698b2d6865a3c89c",
+      "entry_ids": [],
+      "title": "Agentic AI - OWASP Lists Threats and Mitigations",
+      "last_checked": "2026-11-22T04:23:31.841980+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "salesforce-building-blocks": {
+      "hash": "557e321c30e56aa22e1a66ab98c5ca4666acb26d1b3a5204caafbd4ac89924d3",
+      "entry_ids": [],
+      "title": "Salesforce Help",
+      "last_checked": "2026-11-22T04:23:28.909700+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "swe-bench": {
+      "hash": "1bff3907720a8a68fd5d4923c38ece401ca6dd28cfb7dd10244f754212460998",
+      "entry_ids": [],
+      "title": "SWE-bench Leaderboards",
+      "last_checked": "2026-11-22T04:23:32.271076+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "tencent-adp-architecture": {
+      "hash": "28d683bcab086215f08e09eed025a76d73197d6189038b91e71c1e7af75a17be",
+      "entry_ids": [],
+      "title": "腾讯云 ADP 平台架构",
+      "last_checked": "2026-11-22T04:23:29.862778+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "tencent-adp-development": {
+      "hash": "f5511d724008ea4b76e60958b5ea2607d9a888da2c0562c8f02eee471178dbf1",
+      "entry_ids": [],
+      "title": "腾讯云 ADP 对话式应用开发与调优",
+      "last_checked": "2026-11-22T04:23:29.862977+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "tencent-adp-overview": {
+      "hash": "f120f281f6766aebda894faecdadef36dfd631e15f913cb2a4743bd587ff9b07",
+      "entry_ids": [],
+      "title": "腾讯云智能体开发平台 ADP 产品概述",
+      "last_checked": "2026-11-22T04:23:29.849768+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "xai-api-overview": {
+      "hash": "6340e826b6ba553d4c0b89536d698813ed3a7d932bcf94f661b52dbf290b70c0",
+      "entry_ids": [],
+      "title": "Grok API Documentation | SpaceXSI Docs",
+      "last_checked": "2026-11-22T04:23:27.381357+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "xai-grok-build": {
+      "hash": "b898a12d71e7774bd708cf1f1379557ee75775ef2fabe90b307a3767b4ebdf16",
+      "entry_ids": [],
+      "title": "Grok Build: SpaceXSI's Coding Agent | SpaceXSI Docs",
+      "last_checked": "2026-11-22T04:23:27.595618+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "xai-multi-agent": {
+      "hash": "d53156af2f24b66b984ecb19342c6aee77e3d4c33bd4f015f2f592d2f1624410",
+      "entry_ids": [],
+      "title": "Multi Agent | SpaceXSI Docs",
+      "last_checked": "2026-11-22T04:23:27.582030+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "xai-tools": {
+      "hash": "1e1cb1e28e1aaefc67b7f453458b25a824c2644fdf31e0726c8a290d6aae17a9",
+      "entry_ids": [],
+      "title": "Tools Overview | SpaceXSI Docs",
+      "last_checked": "2026-11-22T04:23:27.407314+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "zhipu-agent-platform": {
+      "hash": "a7683a203684e0205d25257876e87a2806d1291ea6043f1b16e22205d46f7d6d",
+      "entry_ids": [],
+      "title": "智能体开发平台（已下线） - 智谱AI开放文档",
+      "last_checked": "2026-11-22T04:23:30.228046+00:00",
+      "last_changed": "",
+      "last_error": ""
+    },
+    "zhipu-autoclaw": {
+      "hash": "563fa5cd49bb376071f3f79e61d8464178d16ea2932d234e08572b72aab3241f",
+      "entry_ids": [],
+      "title": "关于我们 - 智谱AutoClaw（澳龙）官网",
+      "last_checked": "2026-11-22T04:23:30.307086+00:00",
+      "last_changed": "",
+      "last_error": ""
+    }
+  }
+}
