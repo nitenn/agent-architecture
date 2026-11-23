@@ -33,7 +33,7 @@ p{margin:6px 0}
 <body>
 <h1>大厂 Agent 架构版图</h1>
 <div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
-<blockquote>初始基线：2026-11-22。厂商能力和产品状态会变化，动态结果以 <a href="../reference/vendor-source-matrix.md" target="_blank">大厂来源矩阵</a> 和时间线为准。</blockquote>
+<blockquote>初始基线：2026-11-22；最近核验：2026-11-23。厂商能力和产品状态会变化，动态结果以 <a href="../reference/vendor-source-matrix.md" target="_blank">大厂来源矩阵</a> 和时间线为准。</blockquote>
 <details class="chap" open><summary>比较方法</summary>
 <p>本版图不按模型跑分排序，而按厂商「对 Agent 架构的可复用贡献」比较：</p>
 <ul><li>是否提出稳定的架构范式或协议；</li><li>是否提供可落地的 SDK、Runtime 或托管平台；</li><li>是否公开长任务、沙箱、记忆、上下文、权限、评估与观测细节；</li><li>是否持续更新官方文档、Release 和弃用公告；</li><li>是否存在可运行的参考实现或源码。</li></ul>
@@ -98,8 +98,8 @@ p{margin:6px 0}
 <p>NVIDIA 的重点是模型服务、工具链和行业参考蓝图。</p>
 </details>
 <details class="sec"><summary>IBM</summary>
-<ul><li>watsonx Orchestrate；</li><li>企业 Agent、预置 Agent、AgentOps、发现与评估。</li></ul>
-<p>IBM 适合观察传统企业软件中的 Agent 生命周期治理。</p>
+<ul><li>watsonx Orchestrate；</li><li>ReAct Core 已成为推荐默认 Agent 风格，旧 Default/ReAct 被弃用；</li><li>AgentOps 把评测、提示词优化与部署组织为闭环；</li><li>企业 Agent、预置 Agent、A2A 连接管理、发现与评估。</li></ul>
+<p>IBM 适合观察传统企业软件中的 Agent 生命周期治理与“默认执行风格”迁移。</p>
 </details>
 <details class="sec"><summary>Salesforce</summary>
 <ul><li>Agentforce；</li><li>Atlas Reasoning Engine；</li><li>Agentic Enterprise Architecture；</li><li>MCP/A2A、Data 360、Trust Layer。</li></ul>
@@ -128,12 +128,12 @@ p{margin:6px 0}
 <p>华为云的架构信号集中在托管运行时、权限、存储和企业生命周期。</p>
 </details>
 <details class="sec"><summary>智谱</summary>
-<ul><li>智能体开发平台；</li><li>GLM Agent 工具；</li><li>AutoClaw 桌面 Agent。</li></ul>
-<p>适合观察从平台 Agent 向桌面、跨工具、长期任务 Agent 扩展。</p>
+<ul><li>原智能体开发平台已下线，不再是当前实现入口；</li><li>Z Managed Agents：Agent、Environment、Session、Events；</li><li>云沙箱、版本化 Agent、Skills、MCP、工具权限、Vault、记忆与 Multi Agent；</li><li>AutoClaw 桌面 Agent。</li></ul>
+<p>智谱现已同时覆盖云端托管 Agent Runtime 与桌面 Agent，适合观察“平台 Agent”和“个人电脑 Agent”两条执行面。</p>
 </details>
 <details class="sec"><summary>Moonshot / Kimi、MiniMax、讯飞</summary>
 <p>作为专项信号跟踪：</p>
-<ul><li>Kimi：长上下文、工具调用、Agentic 编程；</li><li>MiniMax：Agentic Coding、多模态、并行专业 Agent；</li><li>讯飞：工作流 Agent、发布渠道、MCP Server。</li></ul>
+<ul><li>Kimi：Hosted Agents 将 Harness 作为服务提供；平台负责 Agent loop、编排、会话与记忆，工具在云沙箱或企业自托管 Worker 执行；</li><li>Kimi 仍保留长上下文、工具调用与 Agentic 编程能力；</li><li>MiniMax：Agentic Coding、多模态、并行专业 Agent；</li><li>讯飞：工作流 Agent、发布渠道、MCP Server。</li></ul>
 </details>
 </details>
 <details class="chap" open><summary>四、除了官方产品文档还应记录什么</summary>
@@ -150,7 +150,7 @@ p{margin:6px 0}
 <p>观察 Agent Loop、工具接口、状态模型、沙箱权限和持久化机制的真实实现，而不是只看产品宣传页。</p>
 </details>
 <details class="sec"><summary>5. 协议与标准</summary>
-<ul><li>MCP：工具与上下文接入；</li><li>A2A：Agent 间互操作；</li><li>AG-UI：Agent 与前端事件流；</li><li>ACP：编辑器与 Agent 会话协议。</li></ul>
+<ul><li>MCP：工具与上下文接入；2026-07-28 规范已转为无状态请求核心；</li><li>A2A：Agent 间互操作；</li><li>AG-UI：Agent 与前端事件流，1.0 已稳定；</li><li>ACP：编辑器与 Agent 会话协议，v1 稳定并已有 v2 Preview。</li></ul>
 </details>
 <details class="sec"><summary>6. 基准与评测</summary>
 <p>关注任务、trial、grader、trace、outcome，以及 Harness 本身对结果的影响，而不是只抄排行榜。</p>

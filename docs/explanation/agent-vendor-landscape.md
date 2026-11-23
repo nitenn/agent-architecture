@@ -1,6 +1,6 @@
 # 大厂 Agent 架构版图
 
-> 初始基线：2026-11-22。厂商能力和产品状态会变化，动态结果以 [大厂来源矩阵](../reference/vendor-source-matrix.md) 和时间线为准。
+> 初始基线：2026-11-22；最近核验：2026-11-23。厂商能力和产品状态会变化，动态结果以 [大厂来源矩阵](../reference/vendor-source-matrix.md) 和时间线为准。
 
 ## 比较方法
 
@@ -140,9 +140,11 @@ NVIDIA 的重点是模型服务、工具链和行业参考蓝图。
 ### IBM
 
 - watsonx Orchestrate；
-- 企业 Agent、预置 Agent、AgentOps、发现与评估。
+- ReAct Core 已成为推荐默认 Agent 风格，旧 Default/ReAct 被弃用；
+- AgentOps 把评测、提示词优化与部署组织为闭环；
+- 企业 Agent、预置 Agent、A2A 连接管理、发现与评估。
 
-IBM 适合观察传统企业软件中的 Agent 生命周期治理。
+IBM 适合观察传统企业软件中的 Agent 生命周期治理与“默认执行风格”迁移。
 
 ### Salesforce
 
@@ -204,17 +206,19 @@ Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界�
 
 ### 智谱
 
-- 智能体开发平台；
-- GLM Agent 工具；
+- 原智能体开发平台已下线，不再是当前实现入口；
+- Z Managed Agents：Agent、Environment、Session、Events；
+- 云沙箱、版本化 Agent、Skills、MCP、工具权限、Vault、记忆与 Multi Agent；
 - AutoClaw 桌面 Agent。
 
-适合观察从平台 Agent 向桌面、跨工具、长期任务 Agent 扩展。
+智谱现已同时覆盖云端托管 Agent Runtime 与桌面 Agent，适合观察“平台 Agent”和“个人电脑 Agent”两条执行面。
 
 ### Moonshot / Kimi、MiniMax、讯飞
 
 作为专项信号跟踪：
 
-- Kimi：长上下文、工具调用、Agentic 编程；
+- Kimi：Hosted Agents 将 Harness 作为服务提供；平台负责 Agent loop、编排、会话与记忆，工具在云沙箱或企业自托管 Worker 执行；
+- Kimi 仍保留长上下文、工具调用与 Agentic 编程能力；
 - MiniMax：Agentic Coding、多模态、并行专业 Agent；
 - 讯飞：工作流 Agent、发布渠道、MCP Server。
 
@@ -238,10 +242,10 @@ Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界�
 
 ### 5. 协议与标准
 
-- MCP：工具与上下文接入；
+- MCP：工具与上下文接入；2026-07-28 规范已转为无状态请求核心；
 - A2A：Agent 间互操作；
-- AG-UI：Agent 与前端事件流；
-- ACP：编辑器与 Agent 会话协议。
+- AG-UI：Agent 与前端事件流，1.0 已稳定；
+- ACP：编辑器与 Agent 会话协议，v1 稳定并已有 v2 Preview。
 
 ### 6. 基准与评测
 

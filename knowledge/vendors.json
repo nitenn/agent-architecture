@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-22",
+  "updated_at": "2026-11-23",
   "tiers": [
     {
       "id": "architecture-setters",
@@ -173,12 +173,12 @@
       "country": "US",
       "tier": "enterprise-platforms",
       "watch_priority": "P1",
-      "agent_positioning": "IBM watsonx Orchestrate 与 AgentOps",
-      "architecture_signals": ["enterprise agents", "prebuilt agents", "orchestration", "agent discovery", "evaluation"],
+      "agent_positioning": "IBM watsonx Orchestrate、ReAct Core 默认 Agent 风格、AgentOps 与 A2A 连接管理",
+      "architecture_signals": ["enterprise agents", "ReAct Core", "AgentOps", "A2A connection manager", "agent discovery", "evaluation"],
       "docs_maturity": "high",
       "open_source_signal": "medium",
       "enterprise_signal": "high",
-      "source_ids": ["ibm-watsonx-agents", "ibm-watsonx-intro", "ibm-watsonx-build"]
+      "source_ids": ["ibm-watsonx-agents", "ibm-watsonx-intro", "ibm-watsonx-build", "ibm-watsonx-whats-new"]
     },
     {
       "id": "salesforce",
@@ -264,12 +264,12 @@
       "country": "CN",
       "tier": "china-platforms",
       "watch_priority": "P1",
-      "agent_positioning": "智谱智能体开发平台、GLM Agent 工具与 AutoClaw 桌面 Agent",
-      "architecture_signals": ["agent builder", "skills", "desktop automation", "cross-tool long-running work"],
+      "agent_positioning": "Z Managed Agents 云端运行时、Agent/Environment/Session 模型与 AutoClaw 桌面 Agent",
+      "architecture_signals": ["managed runtime", "cloud sandbox", "session/event model", "versioned agents", "MCP and skills", "multi-agent", "desktop automation"],
       "docs_maturity": "medium",
       "open_source_signal": "high",
       "enterprise_signal": "medium",
-      "source_ids": ["zhipu-agent-platform", "zhipu-autoclaw"]
+      "source_ids": ["zhipu-agent-platform", "zhipu-managed-agents", "zhipu-autoclaw"]
     },
     {
       "id": "moonshot",
@@ -277,12 +277,12 @@
       "country": "CN",
       "tier": "specialist-signals",
       "watch_priority": "P2",
-      "agent_positioning": "Kimi 开放平台、长上下文与 Agentic 编程工具链",
-      "architecture_signals": ["long context", "tool calling", "context cache", "agentic coding"],
+      "agent_positioning": "Kimi Hosted Agents、云/自托管沙箱、长上下文与 Agentic 编程工具链",
+      "architecture_signals": ["harness as a service", "session and event stream", "permissions", "memory", "MCP and multi-agent", "self-hosted environment"],
       "docs_maturity": "medium",
       "open_source_signal": "medium",
       "enterprise_signal": "medium",
-      "source_ids": ["moonshot-platform-docs"]
+      "source_ids": ["moonshot-platform-docs", "moonshot-hosted-agents"]
     },
     {
       "id": "minimax",

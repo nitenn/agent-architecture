@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-22",
+  "updated_at": "2026-11-23",
   "sources": [
     {
       "id": "openai-agents-architecture",
@@ -511,6 +511,18 @@
       "notes": "文档知识、工具和扩展路径。"
     },
     {
+      "id": "ibm-watsonx-whats-new",
+      "vendor_id": "ibm",
+      "title": "IBM watsonx Orchestrate What's New",
+      "url": "https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=notes-whats-new",
+      "kind": "html",
+      "category": "official-changelog",
+      "priority": "P0",
+      "agent_relevance": 5,
+      "monitor": true,
+      "notes": "AgentOps、ReAct Core 默认风格、A2A 连接管理与企业 Agent 生命周期。"
+    },
+    {
       "id": "salesforce-enterprise-agentic-architecture",
       "vendor_id": "salesforce",
       "title": "Enterprise Agentic Architecture",
@@ -792,14 +804,26 @@
     {
       "id": "zhipu-agent-platform",
       "vendor_id": "zhipu",
-      "title": "智谱智能体开发平台",
+      "title": "智谱智能体开发平台（已下线）",
       "url": "https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent",
       "kind": "html",
       "category": "official-docs",
       "priority": "P1",
       "agent_relevance": 4,
       "monitor": true,
-      "notes": "Agent 节点、工具、模板与平台能力。"
+      "notes": "官方页面标记已下线，并指向 Managed Agents；保留为生命周期证据。"
+    },
+    {
+      "id": "zhipu-managed-agents",
+      "vendor_id": "zhipu",
+      "title": "Z Managed Agents",
+      "url": "https://docs.bigmodel.cn/cn/managed-agents/overview",
+      "kind": "html",
+      "category": "official-docs",
+      "priority": "P0",
+      "agent_relevance": 5,
+      "monitor": true,
+      "notes": "Agent、Environment、Session、Events，云沙箱、工具权限、记忆与 Multi Agent。"
     },
     {
       "id": "zhipu-autoclaw",
@@ -823,7 +847,19 @@
       "priority": "P2",
       "agent_relevance": 3,
       "monitor": true,
-      "notes": "Kimi API、长上下文、函数调用和缓存。"
+      "notes": "Kimi API、长上下文、函数调用和缓存；托管智能体单独跟踪。"
+    },
+    {
+      "id": "moonshot-hosted-agents",
+      "vendor_id": "moonshot",
+      "title": "Kimi Hosted Agents",
+      "url": "https://platform.kimi.com/docs/hosted-agents/overview",
+      "kind": "html",
+      "category": "official-docs",
+      "priority": "P1",
+      "agent_relevance": 5,
+      "monitor": true,
+      "notes": "Harness as a Service、会话/事件、沙箱与自托管环境、权限、记忆、MCP 与多 Agent。"
     },
     {
       "id": "minimax-agent-model",
@@ -949,25 +985,25 @@
       "id": "mcp-spec",
       "vendor_id": "standards",
       "title": "Model Context Protocol Specification",
-      "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28",
       "kind": "html",
       "category": "protocol",
       "priority": "P0",
       "agent_relevance": 5,
       "monitor": true,
-      "notes": "工具、上下文、采样、Roots、Elicitation 与安全原则。"
+      "notes": "2026-07-28 规范：无状态请求核心、MRTR、Extensions、Tasks 与安全原则。"
     },
     {
       "id": "ag-ui-docs",
       "vendor_id": "standards",
-      "title": "AG-UI Protocol",
-      "url": "https://docs.ag-ui.com/",
+      "title": "AG-UI 1.0 Specification",
+      "url": "https://docs.ag-ui.com/spec/1.0",
       "kind": "html",
       "category": "protocol",
       "priority": "P1",
       "agent_relevance": 5,
       "monitor": true,
-      "notes": "Agent 与前端之间的事件流协议。"
+      "notes": "稳定 1.0 事件流、interrupt/resume、state、reasoning、subagents 与 HTTP/SSE/Protobuf。"
     },
     {
       "id": "acp-docs",
@@ -980,6 +1016,19 @@
       "agent_relevance": 4,
       "monitor": true,
       "notes": "编辑器与 Agent 的会话、认证和生命周期协议。"
+    },
+    {
+      "id": "acp-v2-preview",
+      "vendor_id": "standards",
+      "title": "ACP v2 Preview",
+      "url": "https://agentclientprotocol.com/announcements/acp-v2-preview",
+      "kind": "html",
+      "category": "protocol",
+      "priority": "P1",
+      "agent_relevance": 5,
+      "monitor": false,
+      "manual_review": true,
+      "notes": "后台工作、子 Agent 会话、replay_complete、幂等重试与 v1/v2 并存。"
     },
     {
       "id": "nist-ai-rmf",
@@ -1066,6 +1115,18 @@
       "agent_relevance": 5,
       "monitor": true,
       "notes": "Harness 与运行时研究，和独立 Harness 知识库可互引。"
+    },
+    {
+      "id": "arxiv-recovery-harnesses",
+      "vendor_id": "research",
+      "title": "Exercised, Rarely Recovered",
+      "url": "https://arxiv.org/abs/2611.27090v1",
+      "kind": "html",
+      "category": "papers",
+      "priority": "P1",
+      "agent_relevance": 5,
+      "monitor": false,
+      "notes": "对 12 个持久 Agent Runtime、26 个 Coding Harness 与 12 个研究 Runtime 的恢复机制公开证据审计。"
     },
     {
       "id": "arxiv-multi-agent",

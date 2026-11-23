@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-22",
+  "updated_at": "2026-11-23",
   "claims": [
     {
       "id": "claim-harness-runtime-scaffold",
@@ -9,10 +9,10 @@
       "status": "active",
       "confidence": "high",
       "first_observed": "2026-11-22",
-      "last_verified": "2026-11-22",
-      "sources": ["microsoft-agent-harness", "openai-agents-architecture", "anthropic-trustworthy-agents"],
+      "last_verified": "2026-11-23",
+      "sources": ["microsoft-agent-harness", "openai-agents-architecture", "anthropic-trustworthy-agents", "zhipu-managed-agents", "moonshot-hosted-agents"],
       "supersedes": [],
-      "notes": "跨厂商共同要素；具体能力范围仍因产品而异。"
+      "notes": "跨厂商共同要素；托管平台进一步把 Harness 本身作为服务提供，具体能力范围仍因产品而异。"
     },
     {
       "id": "claim-model-plus-harness-synthesis",
@@ -45,10 +45,10 @@
       "status": "active",
       "confidence": "high",
       "first_observed": "2026-11-22",
-      "last_verified": "2026-11-22",
+      "last_verified": "2026-11-23",
       "sources": ["mcp-spec", "a2a-spec", "google-adk-platform"],
       "supersedes": [],
-      "notes": "AG-UI 负责前端交互，ACP 负责编辑器客户端接入。"
+      "notes": "AG-UI 负责前端交互，ACP 负责编辑器客户端接入；MCP 2026-07-28 已把协议核心改为无状态请求模型。"
     },
     {
       "id": "claim-eval-harness-distinct",
@@ -69,10 +69,10 @@
       "status": "active",
       "confidence": "medium",
       "first_observed": "2026-11-22",
-      "last_verified": "2026-11-22",
-      "sources": ["openai-agents-architecture", "aws-agentcore-overview", "microsoft-agent-harness"],
+      "last_verified": "2026-11-23",
+      "sources": ["openai-agents-architecture", "aws-agentcore-overview", "microsoft-agent-harness", "zhipu-managed-agents", "moonshot-hosted-agents"],
       "supersedes": [],
-      "notes": "跨厂商架构归纳，具体控制/执行分界仍不同。"
+      "notes": "跨厂商架构归纳；智谱与 Kimi 的托管 Agent 进一步验证控制面/执行面分离，具体分界仍不同。"
     },
     {
       "id": "claim-tool-context-first-class",
@@ -81,10 +81,10 @@
       "status": "active",
       "confidence": "high",
       "first_observed": "2026-11-22",
-      "last_verified": "2026-11-22",
-      "sources": ["anthropic-building-effective-agents", "microsoft-agent-harness", "anthropic-long-running-harness", "salesforce-enterprise-agentic-architecture"],
+      "last_verified": "2026-11-23",
+      "sources": ["anthropic-building-effective-agents", "microsoft-agent-harness", "anthropic-long-running-harness", "salesforce-enterprise-agentic-architecture", "zhipu-managed-agents", "moonshot-hosted-agents"],
       "supersedes": [],
-      "notes": "来自多厂商文档与工程实践的归纳。"
+      "notes": "来自多厂商文档与工程实践的归纳；托管平台把沙箱、会话、记忆和权限策略显式产品化。"
     },
     {
       "id": "claim-autogen-archived",
@@ -92,11 +92,11 @@
       "statement": "Microsoft AutoGen 已归档，不再作为新生产项目的主框架；官方迁移路径是 Microsoft Agent Framework，社区替代包括 AG2。",
       "status": "active",
       "confidence": "high",
-      "first_observed": "2026-10-28",
-      "last_verified": "2026-11-22",
+      "first_observed": "2026-11-20",
+      "last_verified": "2026-11-23",
       "sources": ["autogen-repository", "microsoft-agent-framework-overview"],
       "supersedes": ["claim-autogen-active"],
-      "notes": "官方仓库状态优先于旧教程。"
+      "notes": "GitHub 官方仓库横幅显示归档日期为 2026-11-20；此前 2026-10-28 的记录已由冲突日志纠正。"
     },
     {
       "id": "claim-bedrock-classic-maintenance",
@@ -133,6 +133,78 @@
       "sources": ["openai-agent-builder", "openai-building-agents"],
       "supersedes": ["claim-agent-builder-default"],
       "notes": "过渡期内旧用户仍可使用。"
+    },
+    {
+      "id": "claim-mcp-stateless-2026",
+      "topic": "协议架构",
+      "statement": "自 2026-07-28 规范起，MCP 使用无状态、自包含请求核心：移除 initialize/initialized 与 Mcp-Session-Id；每个请求携带协议版本和客户端能力，跨调用状态由服务器显式签发 handle。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-07-28",
+      "last_verified": "2026-11-23",
+      "sources": ["mcp-spec"],
+      "supersedes": ["claim-mcp-stateful-2025"],
+      "notes": "server/discover 可选，Multi Round-Trip Requests 用 input_required 结果替代旧的服务端发起请求模式。"
+    },
+    {
+      "id": "claim-acp-v2-preview",
+      "topic": "协议架构",
+      "statement": "ACP v2 Preview 把会话扩展为可同时运行前台与后台工作的长期执行单元，将子 Agent 暴露为 child session，并定义 replay_complete 与幂等 prompt 重试；v2 与 v1 通过版本协商并存。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-20",
+      "last_verified": "2026-11-23",
+      "sources": ["acp-v2-preview", "acp-docs"],
+      "supersedes": [],
+      "notes": "v2 仍是 Preview，官方承诺尽量少做大破坏性变更但尚未冻结。"
+    },
+    {
+      "id": "claim-zhipu-managed-agents-migration",
+      "topic": "项目生命周期",
+      "statement": "智谱原智能体开发平台已下线；当前官方入口是 Z Managed Agents，以 Agent、Environment、Session、Events 四元组提供云端 Agent 循环、沙箱、权限、记忆与 Multi Agent。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-23",
+      "last_verified": "2026-11-23",
+      "sources": ["zhipu-managed-agents", "zhipu-agent-platform"],
+      "supersedes": ["claim-zhipu-agent-platform-active"],
+      "notes": "官方未在页面给出统一下线日期；首次观察日期采用 2026-11-23，避免猜测。"
+    },
+    {
+      "id": "claim-moonshot-hosted-agents",
+      "topic": "运行时架构",
+      "statement": "Kimi Hosted Agents 将 Agent Harness 作为托管服务提供，把模型、编排、会话与记忆留在平台控制面，并支持云沙箱或企业自托管环境执行工具。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-11-23",
+      "last_verified": "2026-11-23",
+      "sources": ["moonshot-hosted-agents"],
+      "supersedes": [],
+      "notes": "官方定位为 Harness as a Service；自托管环境只把沙箱工具放到企业主机，Agent loop 仍在云端。"
+    },
+    {
+      "id": "claim-ibm-react-core-default",
+      "topic": "运行时架构",
+      "statement": "IBM watsonx Orchestrate 在 2026-07 更新中将 ReAct Core 设为推荐默认 Agent 风格，旧 Default/ReAct 被弃用，并把 evaluation、optimization、deployment 组织为 AgentOps 循环。",
+      "status": "active",
+      "confidence": "high",
+      "first_observed": "2026-07-16",
+      "last_verified": "2026-11-23",
+      "sources": ["ibm-watsonx-whats-new"],
+      "supersedes": [],
+      "notes": "同一版本还提供统一 A2A 连接管理；区域自 2026-07-16 起分批部署。"
+    },
+    {
+      "id": "claim-recovery-not-guaranteed",
+      "topic": "持久化与恢复",
+      "statement": "公开报告审计显示，恢复机制普遍存在且会被使用，但完整恢复仍少：50 个 runtime/harness 的 128 次真实报告中仅 19 次完整恢复，54 次部分恢复、45 次失败。",
+      "status": "active",
+      "confidence": "medium",
+      "first_observed": "2026-11-20",
+      "last_verified": "2026-11-23",
+      "sources": ["arxiv-recovery-harnesses", "arxiv-agent-harness"],
+      "supersedes": [],
+      "notes": "证据来自公开使用报告的系统审计，不等同于受控故障注入实验；外部副作用补偿尤其缺少产品级证据。"
     }
   ]
 }

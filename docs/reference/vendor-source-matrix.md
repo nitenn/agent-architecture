@@ -1,6 +1,6 @@
 # 大厂 Agent 架构来源矩阵
 
-> 自动生成。更新时间：2026-11-22。
+> 自动生成。更新时间：2026-11-23。
 
 评级说明：`docs_maturity` 表示官方文档的覆盖程度；`open_source_signal` 表示官方开源实现/规范的活跃度；`enterprise_signal` 表示企业运行时、治理与部署信息密度。它们是信息覆盖度，不是产品质量评分。
 
@@ -27,7 +27,7 @@
 | 厂商 | 地区 | 优先级 | Agent 重点 | 文档 | 开源信号 | 企业信号 | 来源数 |
 | --- | --- | --- | --- | --- | --- | --- | ---: |
 | Amazon AWS | US | P0 | Amazon Bedrock AgentCore、Strands Agents、Agent Registry 与 Managed Agents | high | high | high | 5 |
-| IBM | US | P1 | IBM watsonx Orchestrate 与 AgentOps | high | medium | high | 3 |
+| IBM | US | P1 | IBM watsonx Orchestrate、ReAct Core 默认 Agent 风格、AgentOps 与 A2A 连接管理 | high | medium | high | 4 |
 | NVIDIA | US | P1 | NeMo Agent Toolkit、NIM、Blueprints 与企业 Agent 工具链 | medium | high | high | 4 |
 | Salesforce | US | P1 | Agentforce、Atlas Reasoning Engine 与企业 Agentic Architecture | high | medium | high | 4 |
 
@@ -42,7 +42,7 @@
 | Huawei Cloud | CN | P0 | 智果 AgentArts、Managed Agents、工作流与记忆插件 | high | medium | high | 4 |
 | Baidu | CN | P1 | 百度千帆 AppBuilder / Agent 开发平台、RAG、工作流与 Assistants API | high | medium | high | 3 |
 | Tencent Cloud | CN | P1 | 腾讯云智能体开发平台 ADP、Multi-Agent、工作流与 Claw 模式 | high | medium | high | 3 |
-| Zhipu AI / Z.AI | CN | P1 | 智谱智能体开发平台、GLM Agent 工具与 AutoClaw 桌面 Agent | medium | high | medium | 2 |
+| Zhipu AI / Z.AI | CN | P1 | Z Managed Agents 云端运行时、Agent/Environment/Session 模型与 AutoClaw 桌面 Agent | medium | high | medium | 3 |
 
 ## Tier 2 · 专项信号
 
@@ -51,7 +51,7 @@
 | 厂商 | 地区 | 优先级 | Agent 重点 | 文档 | 开源信号 | 企业信号 | 来源数 |
 | --- | --- | --- | --- | --- | --- | --- | ---: |
 | MiniMax | CN | P2 | MiniMax Agent、全栈开发、多模态 Agent 与 API | medium | medium | medium | 3 |
-| Moonshot AI / Kimi | CN | P2 | Kimi 开放平台、长上下文与 Agentic 编程工具链 | medium | medium | medium | 1 |
+| Moonshot AI / Kimi | CN | P2 | Kimi Hosted Agents、云/自托管沙箱、长上下文与 Agentic 编程工具链 | medium | medium | medium | 2 |
 | iFlytek | CN | P2 | 讯飞星辰 Agent 开发平台、工作流、MCP Server 发布 | medium | low | high | 3 |
 
 ## 官方来源索引
@@ -149,7 +149,8 @@
 
 ### Zhipu AI / Z.AI
 
-- **official-docs** · [智谱智能体开发平台](https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent) · `P1`
+- **official-docs** · [智谱智能体开发平台（已下线）](https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent) · `P1`
+- **official-docs** · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · `P0`
 - **official-product** · [智谱 AutoClaw 桌面 Agent](https://autoclaw.zhipuai.cn/about/) · `P2`
 
 ### Amazon AWS
@@ -164,6 +165,7 @@
 - **official-product** · [IBM watsonx Agents](https://www.ibm.com/products/watsonx-orchestrate/ai-agents) · `P1`
 - **official-docs** · [Introduction to AI agents in IBM watsonx Orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=agents-introduction) · `P1`
 - **official-docs** · [Building agents with IBM watsonx Orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=agents-getting-started-building) · `P1`
+- **official-changelog** · [IBM watsonx Orchestrate What's New](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=notes-whats-new) · `P0`
 
 ### NVIDIA
 
@@ -188,6 +190,7 @@
 ### Moonshot AI / Kimi
 
 - **official-docs** · [Moonshot / Kimi 开放平台文档](https://platform.moonshot.cn/docs) · `P2`
+- **official-docs** · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview) · `P1`
 
 ### iFlytek
 

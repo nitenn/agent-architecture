@@ -1,8 +1,41 @@
 # 知识冲突与推翻记录
 
-> 自动生成。更新时间：2026-11-22。
+> 自动生成。更新时间：2026-11-23。
 
 当新官方来源与旧结论冲突时，不删除历史，而是记录旧结论、新结论、变化日期、证据和推翻原因。
+
+## Microsoft AutoGen 归档日期
+
+- ID: `conflict-autogen-archive-date-correction`
+- 变化日期: 2026-11-20
+- 观察日期: 2026-11-23
+- 旧结论: AutoGen 的归档日期记录为 2026-10-28。
+- 新结论: GitHub 官方仓库横幅显示 AutoGen 于 2026-11-20 归档。
+- 推翻原因: 官方仓库页面直接显示归档日期，优先于此前未保留完整证据的日期记录；归档状态本身不变。
+- 证据: [Microsoft AutoGen Repository Status](https://github.com/microsoft/autogen)
+- 处理: `corrected`
+
+## MCP 传输与会话模型
+
+- ID: `conflict-mcp-stateless-2026`
+- 变化日期: 2026-07-28
+- 观察日期: 2026-11-23
+- 旧结论: MCP 基座是 JSON-RPC 2.0、有状态连接与 initialize/initialized 能力协商（2025-06-18 规范）。
+- 新结论: MCP 2026-07-28 规范改为无状态、自包含请求核心，移除 initialize/initialized 与 Mcp-Session-Id，并要求请求自行携带协议版本与能力。
+- 推翻原因: 官方 2026-07-28 规范与 changelog 明确移除协议级 session 和初始化握手；继续把 2025-06-18 的有状态连接描述为当前模型会误导实现。
+- 证据: [Model Context Protocol Specification](https://modelcontextprotocol.io/specification/2026-07-28)
+- 处理: `superseded`
+
+## 智谱 Agent 平台代际
+
+- ID: `conflict-zhipu-managed-agents`
+- 变化日期: 2026-11-23
+- 观察日期: 2026-11-23
+- 旧结论: 智谱智能体开发平台是当前可继续使用的 Agent 构建入口。
+- 新结论: 原智能体开发平台已下线；当前官方入口是 Z Managed Agents。
+- 推翻原因: 官方页面标题和正文均标记旧平台已下线，并明确引导迁移到 Managed Agents；未找到统一下线日期，change_date 暂采用首次观察日。
+- 证据: [智谱智能体开发平台（已下线）](https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview)
+- 处理: `superseded`
 
 ## Microsoft AutoGen 生命周期
 

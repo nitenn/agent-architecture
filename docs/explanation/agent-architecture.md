@@ -393,15 +393,16 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 ## 5. 协议层（官方规范深度讲解）
 
-### 5.1 MCP：模型上下文协议（官方规范 2025-06-18 · [modelcontextprotocol](https://modelcontextprotocol.io/specification/2025-06-18)）
+### 5.1 MCP：模型上下文协议（官方规范 2026-07-28 · [modelcontextprotocol](https://modelcontextprotocol.io/specification/2026-07-28)）
 
 **官方定义**：连接 LLM 应用与外部数据/工具的开放协议；灵感来自 Language Server Protocol——LSP 标准化了"开发工具如何接语言支持"，MCP 标准化了"AI 应用如何接上下文与工具"。
 
-**数据流三方**：Hosts（发起连接的 LLM 应用）→ 内嵌 Clients（连接器）→ 连接多个 Servers（提供上下文与能力的服务）。基座是 JSON-RPC 2.0、有状态连接、能力协商。
+**数据流三方**：Hosts（发起连接的 LLM 应用）→ 内嵌 Clients（连接器）→ 连接多个 Servers（提供上下文与能力的服务）。2026-07-28 起基座仍是 JSON-RPC 2.0，但改为**无状态、自包含请求**：移除 `initialize`/`initialized` 与 `Mcp-Session-Id`，每个请求携带协议版本和客户端能力；`server/discover` 可选，需要跨调用状态时由服务器显式签发 handle。
 
 **服务器三类特性**：Resources（上下文数据，供用户或模型使用）、Prompts（模板化消息与工作流）、Tools（模型可执行的函数）。
-**客户端三类特性**：Sampling（服务器发起的递归 LLM 交互——让工具端也能"问模型"）、Roots（服务器询问允许操作的文件系统边界）、Elicitation（服务器向用户索取额外信息）。
-**实用机制**：配置、进度跟踪、取消、错误上报、日志。
+**客户端三类特性**：Sampling（工具端请求模型补全）、Roots（声明允许操作的文件系统边界）、Elicitation（向用户索取结构化信息）；这些交互通过 Multi Round-Trip Requests 的 `input_required` 结果往返，而不是旧的服务端发起请求。
+**扩展机制**：Extensions 是正式扩展层，Tasks 承载长时间异步工作，MCP Apps 承载交互式 UI；常规结果必须带 `resultType`，列表支持 `ttlMs` 缓存。
+**实用机制**：进度跟踪、取消、错误上报、日志、分页与授权。
 
 **官方安全四原则**（规范原文）：① 用户同意与控制（明确同意并理解所有数据访问与操作）；② 数据隐私（暴露用户数据给服务器前必须取得同意）；③ 工具安全（工具描述应视为不可信，调用前必须取得用户同意）；④ 采样控制（用户批准是否采样、看得到实际提示、控制服务器可见范围）。规范同时明言：**协议本身无法强制这些安全原则，实现者 SHOULD 落实**。
 
@@ -425,7 +426,7 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 **官方定位**：官方专页「MCP, A2A, and AG-UI」说明三者互补——AG-UI 管「用户与 Agent 的交互层」，MCP 管工具/上下文接入，A2A 管 Agent 间协作。
 
-**版本与支持**：官方含 Migrating to 1.0 迁移指南（AG-UI 1.0），并明示提供可选商业生产支持。
+**版本与支持**：1.0 已成为稳定规范，覆盖 interrupt/resume、共享 state、reasoning、subagents、HTTP+SSE 与 HTTP+Protobuf 传输；1.1 仍在 Draft，并明示提供可选商业生产支持。
 
 **取舍**：只约束前端交互事件流，不规定 Agent 内部实现与工具协议；复用既有协议时走官方 Middleware。
 
@@ -433,9 +434,9 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 **官方定义**：Agent Client Protocol——标准化代码编辑器与 Agent 之间的通信（官方原文：a protocol that standardizes communication between code editors）。
 
-**机制**：官方 v1 协议按分节规范组织：初始化（Initialization）、认证（Authentication）、会话建立（Session Setup）、会话列表（Session List）、会话删除（Session Delete）、提示词（Prompt）等；官方提供 Architecture 总览、ACP Registry（查找并安装 ACP 兼容 Agent 的入口），以及 Agents / Clients 两侧实现清单。
+**机制**：v1 已形成稳定初始化、认证、会话、提示词、工具调用、计划、Elicitation 与子 Agent 会话规范；v2 于 2026-11-20 进入 Preview，重新定义 prompt 生命周期，使前台工作结束后后台 terminal/tool/subagent 仍可运行，并把 child session、`replay_complete`、幂等 prompt 重试和 per-method retry class 写入基线。
 
-**官方定位**：面向「编辑器类客户端 ↔ 本地或远程 Agent」的接入标准化，客户端与 Agent 解耦、可插拔。
+**官方定位**：面向「编辑器类客户端 ↔ 本地或远程 Agent」的接入标准化，客户端与 Agent 解耦、可插拔；v2 Preview 通过版本协商与 v1 并存，不要求一次切换。
 
 **取舍**：聚焦编辑器会话交互（会话管理、提示词、认证），不规定 Agent 内部认知架构；与 MCP/A2A/AG-UI 互补。
 
@@ -467,7 +468,7 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 | 人机协同 | LangGraph interrupts；ADK Tool Confirmation；Agents SDK HITL；CrewAI human input |
 | 安全护栏 | Agents SDK guardrails；MCP 规范安全原则；Smolagents 沙箱强制 |
 | 可观测与评估 | LangSmith；Agents SDK 内置 tracing；Pydantic Logfire（OTel）/ Evals；ADK eval；AutoGen Bench |
-| 协议互操作 | MCP（各框架普遍支持）；A2A（CrewAI、MAF、Strands 等官方支持）；AG-UI（前端交互事件流，官方 Middleware + 1.0 迁移指南）；ACP（编辑器客户端协议，官方 Registry + v1 分节规范） |
+| 协议互操作 | MCP（2026-07-28 无状态核心，各框架普遍支持）；A2A（CrewAI、MAF、Strands 等官方支持）；AG-UI（稳定 1.0 前端事件流）；ACP（编辑器客户端协议，v1 稳定 + v2 Preview） |
 
 ---
 
@@ -516,10 +517,10 @@ A2A 对接外部 Agent 网络 → [LangGraph 状态图：durable + interrupts + 
 - Pydantic AI：[pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai)
 - LlamaIndex：[run-llama/llama_index](https://github.com/run-llama/llama_index)
 - Grok Bot：[官方文档 docs.x.ai/grok-bot](https://docs.x.ai/grok-bot/overview) · [官方公告](https://x.ai/news/introducing-grok-bot)
-- MCP：[官方规范 2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18)
+- MCP：[官方规范 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28)
 - A2A：[a2aproject/A2A](https://github.com/a2aproject/A2A) · [a2a-protocol.org](https://a2a-protocol.org)
-- AG-UI：[官方文档 docs.ag-ui.com](https://docs.ag-ui.com) · [官方仓库 ag-ui-protocol/ag-ui](https://github.com/ag-ui-protocol/ag-ui)
-- ACP：[官方文档 agentclientprotocol.com](https://agentclientprotocol.com) · [官方仓库 agentclientprotocol/agent-client-protocol](https://github.com/agentclientprotocol/agent-client-protocol)
+- AG-UI：[官方 1.0 规范](https://docs.ag-ui.com/spec/1.0) · [官方仓库 ag-ui-protocol/ag-ui](https://github.com/ag-ui-protocol/ag-ui)
+- ACP：[官方文档 agentclientprotocol.com](https://agentclientprotocol.com) · [v2 Preview 公告](https://agentclientprotocol.com/announcements/acp-v2-preview) · [官方仓库 agentclientprotocol/agent-client-protocol](https://github.com/agentclientprotocol/agent-client-protocol)
 
 ---
 

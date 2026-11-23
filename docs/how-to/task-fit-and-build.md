@@ -273,9 +273,9 @@
 
 **适合**：任何需要**标准化接入外部工具/数据**的 LLM 应用（官方：IDE、聊天界面、自定义工作流）。
 
-**搭建细节**（官方规范 2025-06-18）：按 Hosts/Clients/Servers 三方实现；JSON-RPC 2.0 + 能力协商；Server 实现 Resources/Prompts/Tools 任一特性；Client 实现 Sampling/Roots/Elicitation；权威 schema 在官方仓库 schema/2025-06-18/schema.ts；实现指南见 modelcontextprotocol.io。
+**搭建细节**（官方规范 2026-07-28）：按 Hosts/Clients/Servers 三方实现；JSON-RPC 2.0 的无状态、自包含请求模型；每个请求携带协议版本与能力，按需调用 `server/discover`；Server 实现 Resources/Prompts/Tools 任一特性；Sampling/Roots/Elicitation 走 Multi Round-Trip Requests；长任务使用 Tasks extension，交互 UI 使用 MCP Apps；权威 schema 在官方仓库 `schema/2026-07-28/schema.ts`。
 
-**关键节点**：① 连接与能力协商；② 工具调用前的用户同意点（规范安全原则：调用前必须取得明确同意）；③ 采样请求的审批点（用户可见实际提示、控制服务器可见范围）；④ Roots 边界声明。
+**关键节点**：① 请求级版本与能力校验；② 工具调用前的用户同意点（规范安全原则：调用前必须取得明确同意）；③ MRTR 输入请求的审批与回填；④ Roots 边界声明；⑤ 若使用有状态长任务，由服务器显式签发 handle，不依赖隐式 session。
 
 ### 5.2 A2A
 
@@ -288,7 +288,7 @@
 
 **适合**：Agent 产品需要接前端界面（聊天 UI/工作台）时的标准化交互层；需要复用既有协议或进程内 Agent 时走官方 Middleware。
 
-**搭建细节**（官方 docs.ag-ui.com）：按官方 Server / Middleware / Clients 三条 quickstart；核心是事件流（concepts/events，消息/工具调用状态/快照）；版本迁移按官方 Migrating to 1.0。
+**搭建细节**（官方 docs.ag-ui.com/spec/1.0）：按官方 Server / Middleware / Clients 三条 quickstart；核心是事件流（消息、工具调用、state、reasoning、interrupt/resume、subagents）；生产实现需处理 HTTP+SSE 或 HTTP+Protobuf 绑定与版本协商。
 
 **关键节点**：① 事件流建立；② Middleware 桥接既有协议或进程内 Agent；③ 与 MCP/A2A 的分工边界（官方 agentic-protocols 专页）。
 
@@ -296,9 +296,9 @@
 
 **适合**：编辑器/IDE 类客户端接本地或远程 Agent；需要 Agent 可插拔（经官方 ACP Registry 查找安装）。
 
-**搭建细节**（官方 agentclientprotocol.com）：按 v1 分节规范实现初始化 / 认证 / 会话建立 / 会话列表 / 会话删除 / 提示词；Agent 与 Client 两侧实现清单见官方 Agents / Clients 页。
+**搭建细节**（官方 agentclientprotocol.com）：v1 按初始化 / 认证 / 会话建立 / 会话列表 / 会话删除 / 提示词实现；v2 Preview 增加前台与后台工作状态、child session 子 Agent、`replay_complete`、幂等 prompt key 与逐方法 retry class。新实现应同时保留 v1，并按连接协商版本。
 
-**关键节点**：① 初始化与认证握手；② 会话生命周期（创建/列表/删除）；③ 经 ACP Registry 分发与安装 Agent。
+**关键节点**：① 初始化、认证与版本协商；② 会话生命周期（创建/恢复/列表/关闭/删除）；③ 后台执行与子 Agent 会话状态；④ `replay_complete` 与幂等重试；⑤ 经 ACP Registry 分发与安装 Agent。
 
 ---
 

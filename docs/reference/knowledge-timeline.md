@@ -10,6 +10,22 @@
 - 摘要: 过渡期结束后旧 Builder 入口失效，长期实现转向 Agents API / Agents SDK。
 - 证据: [OpenAI Agent Builder and deprecation status](https://developers.openai.com/api/docs/guides/agent-builder) · [OpenAI Building Agents](https://developers.openai.com/tracks/building-agents)
 
+## 2026-11-23 · 智谱旧智能体开发平台下线，Z Managed Agents 成为当前入口
+
+- 厂商/来源: `zhipu`
+- 类型: `product-lifecycle`
+- 状态: `published`
+- 摘要: 官方文档标记旧平台已下线；首次观察 Z Managed Agents 以 Agent/Environment/Session/Events 提供云沙箱、工具权限、记忆和 Multi Agent。日期采用首次观察日，因未找到统一下线日。
+- 证据: [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [智谱智能体开发平台（已下线）](https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent)
+
+## 2026-11-23 · Kimi Hosted Agents 将 Agent Harness 作为托管服务提供
+
+- 厂商/来源: `moonshot`
+- 类型: `product-runtime`
+- 状态: `published`
+- 摘要: 首次观察 Kimi Hosted Agents 产品文档：平台负责 Agent loop、会话、记忆与编排，工具在云沙箱或企业自托管 Worker 执行。日期采用首次观察日。
+- 证据: [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview) · [Moonshot / Kimi 开放平台文档](https://platform.moonshot.cn/docs)
+
 ## 2026-11-22 · Agent 厂商情报系统建立初始基线
 
 - 厂商/来源: `research`
@@ -18,13 +34,29 @@
 - 摘要: 建立 20 家厂商、官方组件信号、协议、论文与评测来源的持续监测基线。
 - 证据: [OpenAI Agents API Architecture](https://developers.openai.com/api/docs/guides/agents-api/architecture) · [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [Anthropic Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) · [Google Agent Development Kit](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk) · [Amazon Bedrock AgentCore Harness](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness.html) · [阿里云百炼 Agent 服务概览](https://help.aliyun.com/zh/model-studio/agent-overview) · [火山方舟 Managed Agents](https://docs.volcengine.com/docs/ark/define-agent?lang=zh) · [腾讯云智能体开发平台 ADP 产品概述](https://cloud.tencent.com/document/product/1759/104193) · [百度千帆 AppBuilder](https://cloud.baidu.com/doc/APPBUILDER/index.html) · [华为云 AgentArts Managed Agents](https://support.huaweicloud.com/managedagents-agentarts/agentarts_13_0001.html)
 
-## 2026-10-28 · Microsoft AutoGen 进入归档状态
+## 2026-11-20 · 50 个 Agent Harness/Runtime 的恢复机制公开证据审计
+
+- 厂商/来源: `research`
+- 类型: `research-paper`
+- 状态: `published`
+- 摘要: 128 次真实使用报告仅 19 次完整恢复、54 次部分恢复、45 次失败；checkpoint/resume 与 rollback 均有高失败率，外部副作用补偿缺少产品级证据。
+- 证据: [Exercised, Rarely Recovered](https://arxiv.org/abs/2611.27090v1) · [arXiv - Agent Harness](https://export.arxiv.org/api/query?search_query=all:%22agent%20harness%22&sortBy=submittedDate&sortOrder=descending&max_results=30)
+
+## 2026-11-20 · Microsoft AutoGen 进入归档状态
 
 - 厂商/来源: `microsoft`
 - 类型: `lifecycle-change`
 - 状态: `published`
-- 摘要: 官方不建议新项目继续以 AutoGen 为主框架，迁移到 MAF 或 AG2。
+- 摘要: GitHub 官方仓库横幅显示 AutoGen 于 2026-11-20 归档；官方不建议新项目继续以其为主框架，迁移到 MAF 或 AG2。
 - 证据: [Microsoft AutoGen Repository Status](https://github.com/microsoft/autogen) · [Microsoft Agent Framework Overview](https://learn.microsoft.com/en-us/agent-framework/overview/)
+
+## 2026-11-20 · ACP v2 进入 Preview
+
+- 厂商/来源: `standards`
+- 类型: `protocol-preview`
+- 状态: `preview`
+- 摘要: 新增前台/后台工作状态、child session 子 Agent、replay_complete 与幂等 prompt 重试；v2 与 v1 通过版本协商并存。
+- 证据: [ACP v2 Preview](https://agentclientprotocol.com/announcements/acp-v2-preview) · [Agent Client Protocol](https://agentclientprotocol.com/)
 
 ## 2026-09-11 · 澳大利亚网络安全中心发布 Agentic AI Harnesses 指南
 
@@ -33,6 +65,22 @@
 - 状态: `published`
 - 摘要: 把 Harness 作为数据、工具、权限、记忆、计划与治理的软件层，并给出安全控制建议。
 - 证据: [Agentic AI harnesses security guidance](https://www.cyber.gov.au/news/asd-releases-new-guidance-on-the-agentic-ai-harnesses)
+
+## 2026-07-28 · MCP 2026-07-28 规范切换为无状态核心
+
+- 厂商/来源: `standards`
+- 类型: `protocol-release`
+- 状态: `published`
+- 摘要: 移除 initialize/initialized 与 Mcp-Session-Id，每个请求自包含版本与能力；引入 server/discover、Multi Round-Trip Requests、Extensions 与 Tasks。
+- 证据: [Model Context Protocol Specification](https://modelcontextprotocol.io/specification/2026-07-28)
+
+## 2026-07-16 · IBM watsonx Orchestrate 将 ReAct Core 设为默认 Agent 风格
+
+- 厂商/来源: `ibm`
+- 类型: `official-changelog`
+- 状态: `published`
+- 摘要: 2026-07 中期版本开始分批部署 ReAct Core 默认风格、AgentOps 评测优化部署循环与统一 A2A 连接管理；旧 Default/ReAct 被弃用。
+- 证据: [IBM watsonx Orchestrate What's New](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=notes-whats-new)
 
 ## 2026-04-15 · OpenAI 发布 Agents SDK 演进
 
