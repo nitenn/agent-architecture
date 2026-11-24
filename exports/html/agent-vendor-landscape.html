@@ -33,7 +33,7 @@ p{margin:6px 0}
 <body>
 <h1>大厂 Agent 架构版图</h1>
 <div class="bar"><button onclick="setAll(true)">全部展开</button><button onclick="setAll(false)">全部收起</button><span style="color:#667;font-size:.85em">　章节默认展开、小节默认收起，点击标题行即可折叠/展开</span></div>
-<blockquote>初始基线：2026-11-22；最近核验：2026-11-23。厂商能力和产品状态会变化，动态结果以 <a href="../reference/vendor-source-matrix.md" target="_blank">大厂来源矩阵</a> 和时间线为准。</blockquote>
+<blockquote>初始基线：2026-11-22；最近核验：2026-11-24。厂商能力和产品状态会变化，动态结果以 <a href="../reference/vendor-source-matrix.md" target="_blank">大厂来源矩阵</a> 和时间线为准。</blockquote>
 <details class="chap" open><summary>比较方法</summary>
 <p>本版图不按模型跑分排序，而按厂商「对 Agent 架构的可复用贡献」比较：</p>
 <ul><li>是否提出稳定的架构范式或协议；</li><li>是否提供可落地的 SDK、Runtime 或托管平台；</li><li>是否公开长任务、沙箱、记忆、上下文、权限、评估与观测细节；</li><li>是否持续更新官方文档、Release 和弃用公告；</li><li>是否存在可运行的参考实现或源码。</li></ul>
@@ -41,8 +41,8 @@ p{margin:6px 0}
 <details class="chap" open><summary>一、架构定义与前沿研究</summary>
 <details class="sec"><summary>OpenAI</summary>
 <p>关注重点：</p>
-<ul><li>Agents API、Agents SDK、Codex Harness；</li><li>控制面与执行环境分离；</li><li>Sessions、tools、handoffs、guardrails、tracing、evals；</li><li>MCP 与多 Agent 协作。</li></ul>
-<p>OpenAI 的文档对「托管 Harness」「Agent 循环」「执行环境」的边界描述较清晰，适合作为生产平台架构参考。</p>
+<ul><li>Agents API、Agents SDK、Codex Harness；</li><li>控制面与执行环境分离；</li><li>Sessions、tools、handoffs、guardrails、tracing、evals；</li><li>Agents SDK v1.0.0-alpha.2 的 ResumableSession、跨 Worker 待审批恢复、工具执行钩子与文本脱敏；</li><li>MCP 与多 Agent 协作。</li></ul>
+<p>OpenAI 的文档对「托管 Harness」「Agent 循环」「执行环境」的边界描述较清晰，适合作为生产平台架构参考。alpha.2 把会话、待审批状态和工具钩子写入运行时契约，但仍要求应用在恢复后核对部分编辑与外部副作用。</p>
 </details>
 <details class="sec"><summary>Anthropic</summary>
 <p>关注重点：</p>
@@ -98,12 +98,12 @@ p{margin:6px 0}
 <p>NVIDIA 的重点是模型服务、工具链和行业参考蓝图。</p>
 </details>
 <details class="sec"><summary>IBM</summary>
-<ul><li>watsonx Orchestrate；</li><li>ReAct Core 已成为推荐默认 Agent 风格，旧 Default/ReAct 被弃用；</li><li>AgentOps 把评测、提示词优化与部署组织为闭环；</li><li>企业 Agent、预置 Agent、A2A 连接管理、发现与评估。</li></ul>
-<p>IBM 适合观察传统企业软件中的 Agent 生命周期治理与“默认执行风格”迁移。</p>
+<ul><li>watsonx Orchestrate；</li><li>ReAct Core 已成为推荐默认 Agent 风格，旧 Default/ReAct 被弃用；</li><li>AgentOps 把评测、提示词优化与部署组织为闭环；</li><li>Agent Identity 已 GA：独立 Agent 身份注册到 IBM Verify 或 Microsoft Entra，按用户与 Agent 限定的 OAuth token exchange、逐 Agent 审计日志与 kill switch；</li><li>企业 Agent、预置 Agent、A2A 连接管理、发现与评估。</li></ul>
+<p>IBM 适合观察传统企业软件中的 Agent 生命周期治理与“默认执行风格”迁移；Agent Identity 进一步把身份、委托、审计和紧急停用拆成可治理的控制面能力。</p>
 </details>
 <details class="sec"><summary>Salesforce</summary>
-<ul><li>Agentforce；</li><li>Atlas Reasoning Engine；</li><li>Agentic Enterprise Architecture；</li><li>MCP/A2A、Data 360、Trust Layer。</li></ul>
-<p>Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界。</p>
+<ul><li>Agentforce；</li><li>Atlas Reasoning Engine；</li><li>Agentic Enterprise 11 层 IT 架构；</li><li>blended orchestration：集中式企业编排与本地 Agent 通过 MCP/A2A 自主协作并存；</li><li>MCP/A2A、Data 360、Trust Layer。</li></ul>
+<p>Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界，并把 Agent Runtime、语义层、AI/ML 层与企业编排层显式分层。</p>
 </details>
 </details>
 <details class="chap" open><summary>三、中国 Agent 平台与模型厂商</summary>

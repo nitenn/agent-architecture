@@ -27,9 +27,9 @@
 | 厂商 | 地区 | 优先级 | Agent 重点 | 文档 | 开源信号 | 企业信号 | 来源数 |
 | --- | --- | --- | --- | --- | --- | --- | ---: |
 | Amazon AWS | US | P0 | Amazon Bedrock AgentCore、Strands Agents、Agent Registry 与 Managed Agents | high | high | high | 5 |
-| IBM | US | P1 | IBM watsonx Orchestrate、ReAct Core 默认 Agent 风格、AgentOps 与 A2A 连接管理 | high | medium | high | 4 |
+| IBM | US | P1 | IBM watsonx Orchestrate、ReAct Core 默认 Agent 风格、AgentOps 与 A2A 连接管理 | high | medium | high | 5 |
 | NVIDIA | US | P1 | NeMo Agent Toolkit、NIM、Blueprints 与企业 Agent 工具链 | medium | high | high | 4 |
-| Salesforce | US | P1 | Agentforce、Atlas Reasoning Engine 与企业 Agentic Architecture | high | medium | high | 4 |
+| Salesforce | US | P1 | Agentforce、Atlas Reasoning Engine 与企业 Agentic Architecture | high | medium | high | 5 |
 
 ## Tier 1 · 中国 Agent 平台与模型厂商
 
@@ -166,6 +166,7 @@
 - **official-docs** · [Introduction to AI agents in IBM watsonx Orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=agents-introduction) · `P1`
 - **official-docs** · [Building agents with IBM watsonx Orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=agents-getting-started-building) · `P1`
 - **official-changelog** · [IBM watsonx Orchestrate What's New](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=notes-whats-new) · `P0`
+- **official-announcement** · [Agent Identity in IBM watsonx Orchestrate is now generally available](https://www.ibm.com/new/announcements/agent-identity-in-ibm-watsonx-orchestrate-is-now-generally-available) · `P0`
 
 ### NVIDIA
 
@@ -177,6 +178,7 @@
 ### Salesforce
 
 - **official-docs** · [Enterprise Agentic Architecture](https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture) · `P1`
+- **official-docs** · [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture) · `P1`
 - **official-docs** · [Agentic Patterns on Salesforce](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-patterns) · `P1`
 - **official-docs** · [Agent Development Lifecycle](https://architect.salesforce.com/docs/architect/fundamentals/guide/agent-development-lifecycle) · `P2`
 - **official-docs** · [The Building Blocks of Agentforce Agents](https://help.salesforce.com/s/articleView?id=ai.copilot_building_blocks.htm&language=en_US&type=5) · `P1`

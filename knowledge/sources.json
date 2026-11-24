@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-23",
+  "updated_at": "2026-11-24",
   "sources": [
     {
       "id": "openai-agents-architecture",
@@ -523,6 +523,19 @@
       "notes": "AgentOps、ReAct Core 默认风格、A2A 连接管理与企业 Agent 生命周期。"
     },
     {
+      "id": "ibm-agent-identity-ga",
+      "vendor_id": "ibm",
+      "title": "Agent Identity in IBM watsonx Orchestrate is now generally available",
+      "url": "https://www.ibm.com/new/announcements/agent-identity-in-ibm-watsonx-orchestrate-is-now-generally-available",
+      "kind": "html",
+      "category": "official-announcement",
+      "priority": "P0",
+      "agent_relevance": 5,
+      "monitor": false,
+      "manual_review": true,
+      "notes": "独立 Agent 身份、IBM Verify/Microsoft Entra、OAuth token exchange、逐 Agent 审计日志与 kill switch。"
+    },
+    {
       "id": "salesforce-enterprise-agentic-architecture",
       "vendor_id": "salesforce",
       "title": "Enterprise Agentic Architecture",
@@ -534,6 +547,19 @@
       "monitor": false,
       "manual_review": true,
       "notes": "Agentic Layer、Runtime、Reasoning Engine 与协议。"
+    },
+    {
+      "id": "salesforce-agentic-enterprise-it-architecture",
+      "vendor_id": "salesforce",
+      "title": "The Agentic Enterprise - The IT Architecture for the AI-Powered Future",
+      "url": "https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture",
+      "kind": "html",
+      "category": "official-docs",
+      "priority": "P1",
+      "agent_relevance": 5,
+      "monitor": false,
+      "manual_review": true,
+      "notes": "11 层企业架构；Agentic Layer、语义层、AI/ML 层与企业编排层。"
     },
     {
       "id": "salesforce-agentic-patterns",

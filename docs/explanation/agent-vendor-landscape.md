@@ -1,6 +1,6 @@
 # 大厂 Agent 架构版图
 
-> 初始基线：2026-11-22；最近核验：2026-11-23。厂商能力和产品状态会变化，动态结果以 [大厂来源矩阵](../reference/vendor-source-matrix.md) 和时间线为准。
+> 初始基线：2026-11-22；最近核验：2026-11-24。厂商能力和产品状态会变化，动态结果以 [大厂来源矩阵](../reference/vendor-source-matrix.md) 和时间线为准。
 
 ## 比较方法
 
@@ -21,9 +21,10 @@
 - Agents API、Agents SDK、Codex Harness；
 - 控制面与执行环境分离；
 - Sessions、tools、handoffs、guardrails、tracing、evals；
+- Agents SDK v1.0.0-alpha.2 的 ResumableSession、跨 Worker 待审批恢复、工具执行钩子与文本脱敏；
 - MCP 与多 Agent 协作。
 
-OpenAI 的文档对「托管 Harness」「Agent 循环」「执行环境」的边界描述较清晰，适合作为生产平台架构参考。
+OpenAI 的文档对「托管 Harness」「Agent 循环」「执行环境」的边界描述较清晰，适合作为生产平台架构参考。alpha.2 把会话、待审批状态和工具钩子写入运行时契约，但仍要求应用在恢复后核对部分编辑与外部副作用。
 
 ### Anthropic
 
@@ -142,18 +143,20 @@ NVIDIA 的重点是模型服务、工具链和行业参考蓝图。
 - watsonx Orchestrate；
 - ReAct Core 已成为推荐默认 Agent 风格，旧 Default/ReAct 被弃用；
 - AgentOps 把评测、提示词优化与部署组织为闭环；
+- Agent Identity 已 GA：独立 Agent 身份注册到 IBM Verify 或 Microsoft Entra，按用户与 Agent 限定的 OAuth token exchange、逐 Agent 审计日志与 kill switch；
 - 企业 Agent、预置 Agent、A2A 连接管理、发现与评估。
 
-IBM 适合观察传统企业软件中的 Agent 生命周期治理与“默认执行风格”迁移。
+IBM 适合观察传统企业软件中的 Agent 生命周期治理与“默认执行风格”迁移；Agent Identity 进一步把身份、委托、审计和紧急停用拆成可治理的控制面能力。
 
 ### Salesforce
 
 - Agentforce；
 - Atlas Reasoning Engine；
-- Agentic Enterprise Architecture；
+- Agentic Enterprise 11 层 IT 架构；
+- blended orchestration：集中式企业编排与本地 Agent 通过 MCP/A2A 自主协作并存；
 - MCP/A2A、Data 360、Trust Layer。
 
-Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界。
+Salesforce 的强项是把 Agent 嵌入 CRM、业务流程和企业数据边界，并把 Agent Runtime、语义层、AI/ML 层与企业编排层显式分层。
 
 ## 三、中国 Agent 平台与模型厂商
 

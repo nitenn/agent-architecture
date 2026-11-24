@@ -1,6 +1,6 @@
 # 知识主张账本
 
-> 自动生成。更新时间：2026-11-23。
+> 自动生成。更新时间：2026-11-24。
 
 本账本是当前可维护的说法集合。`status=active` 表示当前采用；`superseded` 只在历史追溯时保留。
 
@@ -12,9 +12,21 @@
 - 状态: `active`
 - 置信度: `high`
 - 首次观察: 2026-11-22
-- 最近核验: 2026-11-23
-- 来源: [Anthropic Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) · [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [Effective harnesses for long-running agents](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents) · [Enterprise Agentic Architecture](https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview)
-- 说明: 来自多厂商文档与工程实践的归纳；托管平台把沙箱、会话、记忆和权限策略显式产品化。
+- 最近核验: 2026-11-24
+- 来源: [Anthropic Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) · [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [Effective harnesses for long-running agents](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents) · [OpenAI Agents SDK Releases](https://github.com/openai/openai-agents-python/releases.atom) · [Agent Identity in IBM watsonx Orchestrate is now generally available](https://www.ibm.com/new/announcements/agent-identity-in-ibm-watsonx-orchestrate-is-now-generally-available) · [Enterprise Agentic Architecture](https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture) · [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview)
+- 说明: 来自多厂商文档与工程实践的归纳；托管平台把沙箱、会话、记忆和权限策略显式产品化，OpenAI alpha.2 则把工具钩子、待审批状态与可恢复会话放进运行时契约。
+
+## 企业架构
+
+### 企业级 Agent 架构正在把 Agent Runtime、语义层、AI/ML 层和企业编排层显式分层；编排采用集中治理与本地 MCP/A2A 编排相结合的混合模型。
+
+- ID: `claim-agentic-enterprise-layers`
+- 状态: `active`
+- 置信度: `medium`
+- 首次观察: 2026-11-24
+- 最近核验: 2026-11-24
+- 来源: [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture) · [Enterprise Agentic Architecture](https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture)
+- 说明: Salesforce 官方架构文档未显示明确发布日期，first_observed 采用首次观察日；这是厂商参考架构，不是跨厂商标准。
 
 ## 协议分层
 
@@ -24,9 +36,9 @@
 - 状态: `active`
 - 置信度: `high`
 - 首次观察: 2026-11-22
-- 最近核验: 2026-11-23
-- 来源: [Model Context Protocol Specification](https://modelcontextprotocol.io/specification/2026-07-28) · [Agent2Agent Protocol Specification](https://a2a-protocol.org/latest/specification/) · [Google Agent Development Kit](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk)
-- 说明: AG-UI 负责前端交互，ACP 负责编辑器客户端接入；MCP 2026-07-28 已把协议核心改为无状态请求模型。
+- 最近核验: 2026-11-24
+- 来源: [Model Context Protocol Specification](https://modelcontextprotocol.io/specification/2026-07-28) · [Agent2Agent Protocol Specification](https://a2a-protocol.org/latest/specification/) · [Google Agent Development Kit](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk) · [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture)
+- 说明: AG-UI 负责前端交互，ACP 负责编辑器客户端接入；MCP 2026-07-28 已把协议核心改为无状态请求模型。Salesforce 的 blended orchestration 也把 MCP/A2A 放在集中治理下互补使用。
 
 ## 协议架构
 
@@ -36,7 +48,7 @@
 - 状态: `active`
 - 置信度: `high`
 - 首次观察: 2026-11-20
-- 最近核验: 2026-11-23
+- 最近核验: 2026-11-24
 - 来源: [ACP v2 Preview](https://agentclientprotocol.com/announcements/acp-v2-preview) · [Agent Client Protocol](https://agentclientprotocol.com/)
 - 说明: v2 仍是 Preview，官方承诺尽量少做大破坏性变更但尚未冻结。
 
@@ -46,10 +58,22 @@
 - 状态: `active`
 - 置信度: `high`
 - 首次观察: 2026-07-28
-- 最近核验: 2026-11-23
+- 最近核验: 2026-11-24
 - 来源: [Model Context Protocol Specification](https://modelcontextprotocol.io/specification/2026-07-28)
 - Supersedes: `claim-mcp-stateful-2025`
 - 说明: server/discover 可选，Multi Round-Trip Requests 用 input_required 结果替代旧的服务端发起请求模式。
+
+## 安全与身份
+
+### 企业 Agent 平台正在把 Agent 作为可独立治理的工作负载身份：身份注册到既有 IdP，运行时以同时绑定发起用户和 Agent 的短期 OAuth token 访问系统，并记录可追溯到两者的审计事件；紧急停用需要终止活动会话并评估关联 Agent。
+
+- ID: `claim-agent-identity-token-exchange`
+- 状态: `active`
+- 置信度: `high`
+- 首次观察: 2026-11-03
+- 最近核验: 2026-11-24
+- 来源: [Agent Identity in IBM watsonx Orchestrate is now generally available](https://www.ibm.com/new/announcements/agent-identity-in-ibm-watsonx-orchestrate-is-now-generally-available)
+- 说明: 这是 IBM watsonx Orchestrate 已公开发布的 GA 实现，不是所有厂商共同标准；token scope、审计与 kill switch 的具体行为以 IBM 官方公告为准。
 
 ## 持久化与恢复
 
@@ -59,9 +83,19 @@
 - 状态: `active`
 - 置信度: `medium`
 - 首次观察: 2026-11-20
-- 最近核验: 2026-11-23
-- 来源: [Exercised, Rarely Recovered](https://arxiv.org/abs/2611.27090v1) · [arXiv - Agent Harness](https://export.arxiv.org/api/query?search_query=all:%22agent%20harness%22&sortBy=submittedDate&sortOrder=descending&max_results=30)
-- 说明: 证据来自公开使用报告的系统审计，不等同于受控故障注入实验；外部副作用补偿尤其缺少产品级证据。
+- 最近核验: 2026-11-24
+- 来源: [Exercised, Rarely Recovered](https://arxiv.org/abs/2611.27090v1) · [arXiv - Agent Harness](https://export.arxiv.org/api/query?search_query=all:%22agent%20harness%22&sortBy=submittedDate&sortOrder=descending&max_results=30) · [OpenAI Agents SDK Releases](https://github.com/openai/openai-agents-python/releases.atom)
+- 说明: 证据来自公开使用报告的系统审计，不等同于受控故障注入实验；外部副作用补偿尤其缺少产品级证据。OpenAI alpha.2 已提供受约束的会话/审批恢复，但明确要求应用核对部分编辑和外部副作用，且不能重启已终止命令。
+
+### Agent Runtime 的可恢复会话需要把对话历史、运行状态和待审批动作一起持久化；替换 Worker 后可恢复执行，但外部副作用必须由应用核对，且工作区、权限、工具声明与 hooks 必须匹配。
+
+- ID: `claim-resumable-agent-session`
+- 状态: `active`
+- 置信度: `high`
+- 首次观察: 2026-11-23
+- 最近核验: 2026-11-24
+- 来源: [OpenAI Agents SDK Releases](https://github.com/openai/openai-agents-python/releases.atom)
+- 说明: OpenAI Agents SDK v1.0.0-alpha.2 为 GitHub-only preview；原生 Codex 恢复仅支持一个待处理 exec_command/apply_patch 审批，不能重启已终止命令，也不保证外部副作用 exactly-once。
 
 ## 架构选择
 
@@ -83,9 +117,9 @@
 - 状态: `active`
 - 置信度: `high`
 - 首次观察: 2026-11-22
-- 最近核验: 2026-11-23
-- 来源: [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [OpenAI Agents API Architecture](https://developers.openai.com/api/docs/guides/agents-api/architecture) · [Trustworthy agents in practice](https://www.anthropic.com/research/trustworthy-agents) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview)
-- 说明: 跨厂商共同要素；托管平台进一步把 Harness 本身作为服务提供，具体能力范围仍因产品而异。
+- 最近核验: 2026-11-24
+- 来源: [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [OpenAI Agents API Architecture](https://developers.openai.com/api/docs/guides/agents-api/architecture) · [OpenAI Agents SDK Releases](https://github.com/openai/openai-agents-python/releases.atom) · [Trustworthy agents in practice](https://www.anthropic.com/research/trustworthy-agents) · [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview)
+- 说明: 跨厂商共同要素；托管平台进一步把 Harness 本身作为服务提供，具体能力范围仍因产品而异。OpenAI alpha.2 与 Salesforce 11 层架构进一步把恢复、身份、策略和编排显式化。
 
 ### “Agent = Model + Harness”适合作为工程分解，但它是行业归纳，不是所有厂商共同发布的正式标准定义。
 
@@ -117,9 +151,9 @@
 - 状态: `active`
 - 置信度: `medium`
 - 首次观察: 2026-11-22
-- 最近核验: 2026-11-23
-- 来源: [OpenAI Agents API Architecture](https://developers.openai.com/api/docs/guides/agents-api/architecture) · [What is Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html) · [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview)
-- 说明: 跨厂商架构归纳；智谱与 Kimi 的托管 Agent 进一步验证控制面/执行面分离，具体分界仍不同。
+- 最近核验: 2026-11-24
+- 来源: [OpenAI Agents API Architecture](https://developers.openai.com/api/docs/guides/agents-api/architecture) · [OpenAI Agents SDK Releases](https://github.com/openai/openai-agents-python/releases.atom) · [What is Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html) · [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) · [Agent Identity in IBM watsonx Orchestrate is now generally available](https://www.ibm.com/new/announcements/agent-identity-in-ibm-watsonx-orchestrate-is-now-generally-available) · [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture) · [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [Kimi Hosted Agents](https://platform.kimi.com/docs/hosted-agents/overview)
+- 说明: 跨厂商架构归纳；智谱、Kimi、IBM Agent Identity 与 Salesforce 企业编排层进一步验证控制面/执行面及身份面分离，具体分界仍不同。
 
 ### IBM watsonx Orchestrate 在 2026-07 更新中将 ReAct Core 设为推荐默认 Agent 风格，旧 Default/ReAct 被弃用，并把 evaluation、optimization、deployment 组织为 AgentOps 循环。
 
@@ -182,7 +216,7 @@
 - 状态: `active`
 - 置信度: `high`
 - 首次观察: 2026-11-22
-- 最近核验: 2026-11-22
+- 最近核验: 2026-11-24
 - 来源: [OpenAI Agent Builder and deprecation status](https://developers.openai.com/api/docs/guides/agent-builder) · [OpenAI Building Agents](https://developers.openai.com/tracks/building-agents)
 - Supersedes: `claim-agent-builder-default`
 - 说明: 过渡期内旧用户仍可使用。

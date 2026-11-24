@@ -178,7 +178,7 @@
       "docs_maturity": "high",
       "open_source_signal": "medium",
       "enterprise_signal": "high",
-      "source_ids": ["ibm-watsonx-agents", "ibm-watsonx-intro", "ibm-watsonx-build", "ibm-watsonx-whats-new"]
+      "source_ids": ["ibm-watsonx-agents", "ibm-watsonx-intro", "ibm-watsonx-build", "ibm-watsonx-whats-new", "ibm-agent-identity-ga"]
     },
     {
       "id": "salesforce",
@@ -191,7 +191,7 @@
       "docs_maturity": "high",
       "open_source_signal": "medium",
       "enterprise_signal": "high",
-      "source_ids": ["salesforce-enterprise-agentic-architecture", "salesforce-agentic-patterns", "salesforce-agent-lifecycle", "salesforce-building-blocks"]
+      "source_ids": ["salesforce-enterprise-agentic-architecture", "salesforce-agentic-enterprise-it-architecture", "salesforce-agentic-patterns", "salesforce-agent-lifecycle", "salesforce-building-blocks"]
     },
     {
       "id": "alibaba",

@@ -10,6 +10,14 @@
 - 摘要: 过渡期结束后旧 Builder 入口失效，长期实现转向 Agents API / Agents SDK。
 - 证据: [OpenAI Agent Builder and deprecation status](https://developers.openai.com/api/docs/guides/agent-builder) · [OpenAI Building Agents](https://developers.openai.com/tracks/building-agents)
 
+## 2026-11-24 · Salesforce 首次观察 Agentic Enterprise 11 层 IT 架构
+
+- 厂商/来源: `salesforce`
+- 类型: `architecture-framework`
+- 状态: `observed`
+- 摘要: 首次观察官方架构文档：在传统 IT 层之外增加 Agentic、Semantic、AI/ML 与企业编排层；Agentic Layer 负责运行时、推理、记忆、工具与 Agent 注册，企业编排层采用集中治理与本地 MCP/A2A 编排相结合的 blended orchestration。页面未显示明确发布日期，日期采用首次观察日。
+- 证据: [The Agentic Enterprise - The IT Architecture for the AI-Powered Future](https://architect.salesforce.com/docs/architect/fundamentals/guide/agentic-enterprise-it-architecture) · [Enterprise Agentic Architecture](https://architect.salesforce.com/docs/architect/fundamentals/guide/enterprise-agentic-architecture)
+
 ## 2026-11-23 · 智谱旧智能体开发平台下线，Z Managed Agents 成为当前入口
 
 - 厂商/来源: `zhipu`
@@ -17,6 +25,14 @@
 - 状态: `published`
 - 摘要: 官方文档标记旧平台已下线；首次观察 Z Managed Agents 以 Agent/Environment/Session/Events 提供云沙箱、工具权限、记忆和 Multi Agent。日期采用首次观察日，因未找到统一下线日。
 - 证据: [Z Managed Agents](https://docs.bigmodel.cn/cn/managed-agents/overview) · [智谱智能体开发平台（已下线）](https://docs.bigmodel.cn/cn/guide/platform/intelligent-agent)
+
+## 2026-11-23 · OpenAI Agents SDK v1.0.0-alpha.2 引入可恢复会话与工具执行钩子
+
+- 厂商/来源: `openai`
+- 类型: `runtime-preview`
+- 状态: `preview`
+- 摘要: ResumableSession 将对话历史与待审批动作一起持久化，允许替换 Worker 恢复；工具执行新增输入/输出钩子、声明过滤和 required PreToolUse 阻断，并提供文本脱敏与细粒度 tracing。恢复仍受同一工作区、权限、工具与 hooks 条件约束，外部副作用必须由应用核对，且新持久化格式要求先升级读取方。
+- 证据: [OpenAI Agents SDK Releases](https://github.com/openai/openai-agents-python/releases.atom)
 
 ## 2026-11-23 · Kimi Hosted Agents 将 Agent Harness 作为托管服务提供
 
@@ -57,6 +73,14 @@
 - 状态: `preview`
 - 摘要: 新增前台/后台工作状态、child session 子 Agent、replay_complete 与幂等 prompt 重试；v2 与 v1 通过版本协商并存。
 - 证据: [ACP v2 Preview](https://agentclientprotocol.com/announcements/acp-v2-preview) · [Agent Client Protocol](https://agentclientprotocol.com/)
+
+## 2026-11-03 · IBM watsonx Orchestrate Agent Identity 正式 GA
+
+- 厂商/来源: `ibm`
+- 类型: `security-governance-release`
+- 状态: `published`
+- 摘要: 每个 Agent 可注册独立身份到 IBM Verify 或 Microsoft Entra；运行时以限定到用户与 Agent 的 OAuth token exchange 访问企业系统。GA 新增逐 Agent 审计日志与 kill switch，后者的单步操作会下线 Agent 并结束活动会话，同时提示可能受影响的协作 Agent。
+- 证据: [Agent Identity in IBM watsonx Orchestrate is now generally available](https://www.ibm.com/new/announcements/agent-identity-in-ibm-watsonx-orchestrate-is-now-generally-available)
 
 ## 2026-09-11 · 澳大利亚网络安全中心发布 Agentic AI Harnesses 指南
 

@@ -464,9 +464,10 @@ LLM + 检索 + 工具 + 记忆；模型主动生成检索查询、选择工具�
 
 | 能力 | 官方提供方 |
 | --- | --- |
-| 持久化执行/断点恢复 | LangGraph durable execution；Pydantic AI 八引擎 durable；CrewAI checkpointing；OpenAI Agents SDK sessions |
-| 人机协同 | LangGraph interrupts；ADK Tool Confirmation；Agents SDK HITL；CrewAI human input |
+| 持久化执行/断点恢复 | LangGraph durable execution；Pydantic AI 八引擎 durable；CrewAI checkpointing；OpenAI Agents SDK ResumableSession（对话状态 + 待审批，alpha.2） |
+| 人机协同 | LangGraph interrupts；ADK Tool Confirmation；Agents SDK HITL / 跨 Worker 待审批恢复；CrewAI human input |
 | 安全护栏 | Agents SDK guardrails；MCP 规范安全原则；Smolagents 沙箱强制 |
+| 身份与授权 | IBM Agent Identity（独立 Agent 身份、用户+Agent 限定 token、审计与 kill switch）；MCP 用户同意原则 |
 | 可观测与评估 | LangSmith；Agents SDK 内置 tracing；Pydantic Logfire（OTel）/ Evals；ADK eval；AutoGen Bench |
 | 协议互操作 | MCP（2026-07-28 无状态核心，各框架普遍支持）；A2A（CrewAI、MAF、Strands 等官方支持）；AG-UI（稳定 1.0 前端事件流）；ACP（编辑器客户端协议，v1 稳定 + v2 Preview） |
 
